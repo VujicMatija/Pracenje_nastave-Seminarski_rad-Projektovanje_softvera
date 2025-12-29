@@ -1,6 +1,7 @@
 ﻿using Domeni;
 
 using Forme.User_controlers;
+using Forme.Utils;
 
 namespace Forme
 {
@@ -54,6 +55,13 @@ namespace Forme
             panel.Controls.Clear();
             UCpretraziGrupuUcenika ucPretraziGrupuUcenika = new UCpretraziGrupuUcenika();
             panel.Controls.Add(ucPretraziGrupuUcenika);
+        }
+
+        private void promeniGrupuUčenikaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            panel.Controls.Clear();
+            UCKreirajGrupuUčenika ucPromeniGrupuUcenika = new UCKreirajGrupuUčenika(WorkMode.UPDATE);
+            panel.Controls.Add(ucPromeniGrupuUcenika);
         }
     }
 }

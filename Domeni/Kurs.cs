@@ -15,6 +15,10 @@ namespace Domeni
         public int TrajanjeKursa{ get; set; }
         public string OznakaKursa { get; set; }
 
+        public override bool Equals(object? obj)
+        {
+            return obj is Kurs k && k.NazivKursa == NazivKursa;
+        }
         public override string ToString()
         {
             return NazivKursa;

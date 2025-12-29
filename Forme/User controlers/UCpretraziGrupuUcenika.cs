@@ -1,5 +1,6 @@
 ﻿using BrokerBazePodataka;
 using Domeni;
+using Forme.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,7 +32,7 @@ namespace Forme.User_controlers
 
         private void btnPretrazi_Click(object sender, EventArgs e)
         {
-            if(cbKursevi.SelectedItem == null)
+            if (cbKursevi.SelectedItem == null)
             {
                 dgvGrupeUcenika.DataSource = broker.vratiListuSveGrupeUcenika();
                 dgvGrupeUcenika.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -43,6 +44,27 @@ namespace Forme.User_controlers
                 dgvGrupeUcenika.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dgvGrupeUcenika.Columns[0].Visible = false;
 
+            }
+        }
+
+        private void dgvGrupeUcenika_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnPrikaziGrupu_Click(object sender, EventArgs e)
+        {
+            if(dgvGrupeUcenika.SelectedRows != null)
+            {
+               
+                UCKreirajGrupuUčenika ucPromeniGrupuUcenika = new UCKreirajGrupuUčenika(WorkMode.READ, (GrupaUcenika)dgvGrupeUcenika.CurrentRow.DataBoundItem);
+                PrikaziGrupuUcenikaForma frmPrikaz = new PrikaziGrupuUcenikaForma(ucPromeniGrupuUcenika);
+                frmPrikaz.ShowDialog();
+               
+            }
+            else
+            {
+                MessageBox.Show("Morate odabrati grupu učenika", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

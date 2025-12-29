@@ -834,6 +834,50 @@ namespace BrokerBazePodataka
                 connection.Close();
             }
         }
+    
+        public void PromeniGrupuUcenika(GrupaUcenika grupa)
+        {
+            try
+            {
+                connection.Open();
+                string query = "Update GrupaUcenika set oznakagrupe = @Oznaka, termin = @Termin, brojUcenika = @Broj, idKurs = @Kurs where idGrupa = @ID";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Oznaka", grupa.OznakaGrupe);
+                command.Parameters.AddWithValue("@Termin", grupa.Termin);
+                command.Parameters.AddWithValue("@Broj", grupa.BrojUcenika);
+                command.Parameters.AddWithValue("@Kurs", grupa.Kurs.IdKursa);
+                command.Parameters.AddWithValue("@ID", grupa.IdGrupe);
+                command.ExecuteNonQuery();
+
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally{
+                connection.Close();
+            }
+        }
+
+        public void ObrisiGrupuUcenika(GrupaUcenika grupa)
+        {
+            try
+            {
+                connection.Open();
+                string query = "Delete from GrupaUcenika where idGrupa = @Id";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Id", grupa.IdGrupe);
+                command.ExecuteNonQuery();
+            }catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+    
     }
 
     

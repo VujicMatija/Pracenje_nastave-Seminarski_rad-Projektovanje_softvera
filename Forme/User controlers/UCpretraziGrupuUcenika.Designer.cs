@@ -32,6 +32,7 @@
             dgvGrupeUcenika = new DataGridView();
             label1 = new Label();
             btnPretrazi = new Button();
+            btnPrikaziGrupu = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvGrupeUcenika).BeginInit();
             SuspendLayout();
             // 
@@ -39,49 +40,66 @@
             // 
             cbKursevi.FlatStyle = FlatStyle.Popup;
             cbKursevi.FormattingEnabled = true;
-            cbKursevi.Location = new Point(117, 66);
+            cbKursevi.Location = new Point(72, 41);
+            cbKursevi.Margin = new Padding(2, 2, 2, 2);
             cbKursevi.Name = "cbKursevi";
-            cbKursevi.Size = new Size(530, 40);
+            cbKursevi.Size = new Size(328, 28);
             cbKursevi.TabIndex = 0;
             // 
             // dgvGrupeUcenika
             // 
             dgvGrupeUcenika.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvGrupeUcenika.Location = new Point(40, 174);
+            dgvGrupeUcenika.Location = new Point(25, 109);
+            dgvGrupeUcenika.Margin = new Padding(2, 2, 2, 2);
             dgvGrupeUcenika.Name = "dgvGrupeUcenika";
             dgvGrupeUcenika.RowHeadersWidth = 82;
-            dgvGrupeUcenika.Size = new Size(823, 256);
+            dgvGrupeUcenika.Size = new Size(506, 160);
             dgvGrupeUcenika.TabIndex = 1;
+            dgvGrupeUcenika.CellContentClick += dgvGrupeUcenika_CellContentClick;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(40, 69);
+            label1.Location = new Point(25, 43);
+            label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(60, 32);
+            label1.Size = new Size(37, 20);
             label1.TabIndex = 2;
             label1.Text = "Kurs";
             // 
             // btnPretrazi
             // 
-            btnPretrazi.Location = new Point(681, 41);
+            btnPretrazi.Location = new Point(419, 26);
+            btnPretrazi.Margin = new Padding(2, 2, 2, 2);
             btnPretrazi.Name = "btnPretrazi";
-            btnPretrazi.Size = new Size(173, 89);
+            btnPretrazi.Size = new Size(106, 56);
             btnPretrazi.TabIndex = 3;
             btnPretrazi.Text = "Pretraži";
             btnPretrazi.UseVisualStyleBackColor = true;
             btnPretrazi.Click += btnPretrazi_Click;
             // 
+            // btnPrikaziGrupu
+            // 
+            btnPrikaziGrupu.Location = new Point(345, 274);
+            btnPrikaziGrupu.Name = "btnPrikaziGrupu";
+            btnPrikaziGrupu.Size = new Size(186, 29);
+            btnPrikaziGrupu.TabIndex = 4;
+            btnPrikaziGrupu.Text = "Prikazi odabranu grupu";
+            btnPrikaziGrupu.UseVisualStyleBackColor = true;
+            btnPrikaziGrupu.Click += btnPrikaziGrupu_Click;
+            // 
             // UCpretraziGrupuUcenika
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(btnPrikaziGrupu);
             Controls.Add(btnPretrazi);
             Controls.Add(label1);
             Controls.Add(dgvGrupeUcenika);
             Controls.Add(cbKursevi);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "UCpretraziGrupuUcenika";
-            Size = new Size(897, 517);
+            Size = new Size(552, 323);
             Load += UCpretraziGrupuUcenika_Load;
             ((System.ComponentModel.ISupportInitialize)dgvGrupeUcenika).EndInit();
             ResumeLayout(false);
@@ -94,5 +112,6 @@
         private DataGridView dgvGrupeUcenika;
         private Label label1;
         private Button btnPretrazi;
+        private Button btnPrikaziGrupu;
     }
 }

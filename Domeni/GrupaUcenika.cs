@@ -18,5 +18,12 @@ namespace Domeni
         {
             return $"{OznakaGrupe}";
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is GrupaUcenika grupa
+                && grupa.IdGrupe == IdGrupe
+                && grupa.OznakaGrupe == OznakaGrupe;
+        }
     }
 }

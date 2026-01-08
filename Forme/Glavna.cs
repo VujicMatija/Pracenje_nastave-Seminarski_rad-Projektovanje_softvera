@@ -63,5 +63,77 @@ namespace Forme
             UCKreirajGrupuUčenika ucPromeniGrupuUcenika = new UCKreirajGrupuUčenika(WorkMode.UPDATE);
             panel.Controls.Add(ucPromeniGrupuUcenika);
         }
+
+        private void kreirajUčiteljaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            panel.Controls.Clear();
+            UCradSaUciteljem ucUcitelj = new UCradSaUciteljem();
+            panel.Controls.Add(ucUcitelj);
+
+        }
+
+        private void pretražiUčiteljaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            panel.Controls.Clear();
+            UCpretraziUcitelja uCpretraziUcitelja = new UCpretraziUcitelja();
+            panel.Controls.Add(uCpretraziUcitelja);
+        }
+
+        private void kreirajUčenikaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            panel.Controls.Clear();
+            UCradSaUcenikom uCradSaUcenikom = new UCradSaUcenikom();
+            panel.Controls.Add(uCradSaUcenikom);
+        }
+
+        private void pretražiUčenikaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            panel.Controls.Clear();
+            UCpretraziUcenika uCpretraziUcenika = new UCpretraziUcenika();
+            panel.Controls.Add(uCpretraziUcenika);
+        }
+
+        private void radSaSertifikatimaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UcRadSaSertifikatima ucSertifikati = new UcRadSaSertifikatima();
+            panel.Controls.Clear();
+            panel.Controls.Add(ucSertifikati);
+        }
+
+        private void kurseviToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radSaKursevimaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            panel.Controls.Clear();
+            UCradSaKursom ucRadSaKursevima = new UCradSaKursom();
+            panel.Controls.Add(ucRadSaKursevima);
+        }
+
+        private void pretraziToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            panel.Controls.Clear();
+            UCpretragaStavkiEvidencijeNastave uCpretragaStavkiEvidencijeNastave = new UCpretragaStavkiEvidencijeNastave();
+            panel.Controls.Add(uCpretragaStavkiEvidencijeNastave);
+        }
+
+        private void stavkeEvidencijeNastaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void menuStrip2_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void licenceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            panel.Controls.Clear();
+            UCpretraziLicencu uCpretraziLicencu = new UCpretraziLicencu();
+            panel.Controls.Add(uCpretraziLicencu);
+        }
     }
 }

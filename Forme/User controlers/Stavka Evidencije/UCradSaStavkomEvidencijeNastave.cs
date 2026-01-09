@@ -63,26 +63,35 @@ namespace Forme.User_controlers
 
         private void btnDodaj_Click(object sender, EventArgs e)
         {
-            StavkaEvidencijeNastave stavka = new StavkaEvidencijeNastave()
-            {
-                Evidencija = new EvidencijaNastave() { IdEvidencijeNastave = globalnaEvidencija.IdEvidencijeNastave },
-                Ucenik = (Ucenik)cbUcenik.SelectedItem,
-                RedniBrojCasa = (int)cbRedniBrojCasa.SelectedItem,
-                Prisustvo = chPrisustvo.Checked,
-                UradjenDomaci = chDomaci.Checked,
-                Komentar = txtKomentar.Text,
-                DatumOdrzavanja = dateDatum.Value,
-
-            };
             try
             {
-                broker.kreirajStavkuEvidencijeNastave(stavka);
-                MessageBox.Show("Stavka je dodata");
+                StavkaEvidencijeNastave stavka = new StavkaEvidencijeNastave()
+                {
+                    Evidencija = new EvidencijaNastave() { IdEvidencijeNastave = globalnaEvidencija.IdEvidencijeNastave },
+                    Ucenik = (Ucenik)cbUcenik.SelectedItem,
+                    RedniBrojCasa = (int)cbRedniBrojCasa.SelectedItem,
+                    Prisustvo = chPrisustvo.Checked,
+                    UradjenDomaci = chDomaci.Checked,
+                    Komentar = txtKomentar.Text,
+                    DatumOdrzavanja = dateDatum.Value,
+
+                };
+                stavka.validiraj();
+                try
+                {
+                    broker.kreirajStavkuEvidencijeNastave(stavka);
+                    MessageBox.Show("Stavka je dodata");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            
         }
 
         private void btnOmoguciIzmenu_Click(object sender, EventArgs e)
@@ -95,32 +104,41 @@ namespace Forme.User_controlers
 
         private void btnPromeni_Click(object sender, EventArgs e)
         {
-            StavkaEvidencijeNastave stavka = new StavkaEvidencijeNastave()
+            try
             {
-                idStavkeEvidencije = globalnaStavka.idStavkeEvidencije,
-                Prisustvo = chPrisustvo.Checked,
-                UradjenDomaci = chDomaci.Checked,
-                DatumOdrzavanja = dateDatum.Value,
-                Komentar = txtKomentar.Text,
-                RedniBrojCasa  = (int)cbRedniBrojCasa.SelectedItem
-            };
-            DialogResult res = MessageBox.Show("Da li ste sigurni da zelite da zapamtite promenu?", "Potvrda", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if(res == DialogResult.Yes)
-            {
-                try
+                StavkaEvidencijeNastave stavka = new StavkaEvidencijeNastave()
                 {
-                    broker.promeniStavkuEvidencijeNastave(stavka);
-                    MessageBox.Show("Promene su sacuvane");
+                    idStavkeEvidencije = globalnaStavka.idStavkeEvidencije,
+                    Prisustvo = chPrisustvo.Checked,
+                    UradjenDomaci = chDomaci.Checked,
+                    DatumOdrzavanja = dateDatum.Value,
+                    Komentar = txtKomentar.Text,
+                    RedniBrojCasa = (int)cbRedniBrojCasa.SelectedItem
+                };
+                stavka.validiraj();
+                DialogResult res = MessageBox.Show("Da li ste sigurni da zelite da zapamtite promenu?", "Potvrda", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (res == DialogResult.Yes)
+                {
+                    try
+                    {
+                        broker.promeniStavkuEvidencijeNastave(stavka);
+                        MessageBox.Show("Promene su sacuvane");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
-                catch(Exception ex)
+                else
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("OK");
                 }
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("OK");
+                MessageBox.Show(ex.Message);
             }
+            
         }
     }
 }

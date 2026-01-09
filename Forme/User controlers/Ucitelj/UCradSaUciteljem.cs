@@ -31,19 +31,7 @@ namespace Forme.User_controlers
 
         private void btnKreiraj_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrEmpty(txtIme.Text) || string.IsNullOrEmpty(txtPrezime.Text) || string.IsNullOrEmpty(txtEmail.Text) ||
-                string.IsNullOrEmpty(txtTelefon.Text) || string.IsNullOrEmpty(txtKorisnickoIme.Text) || string.IsNullOrEmpty(txtLozinka.Text))
-            {
-                MessageBox.Show("Sva polja moraju biti uneta!", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }else if(txtIme.Text == txtKorisnickoIme.Text)
-            {
-                MessageBox.Show("Korisničko ime i ime učitelja moraju da se razlikuju!", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (txtLozinka.Text == txtKorisnickoIme.Text)
-            {
-                MessageBox.Show("Korisničko ime i lozinka moraju da se razlikuju!", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
+            try
             {
                 Ucitelj u = new Ucitelj
                 {
@@ -55,18 +43,59 @@ namespace Forme.User_controlers
                     Lozinka = txtLozinka.Text,
                     DatumPocetkaRada = datePocetakRada.Value
                 };
-                
+                u.validiraj();
                 try
                 {
                     broker.kreirajUcitelja(u);
                     MessageBox.Show("Učitelj je kreiran!");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("Greška prilikom rada sa bazom!", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
+            //if(string.IsNullOrEmpty(txtIme.Text) || string.IsNullOrEmpty(txtPrezime.Text) || string.IsNullOrEmpty(txtEmail.Text) ||
+            //    string.IsNullOrEmpty(txtTelefon.Text) || string.IsNullOrEmpty(txtKorisnickoIme.Text) || string.IsNullOrEmpty(txtLozinka.Text))
+            //{
+            //    MessageBox.Show("Sva polja moraju biti uneta!", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}else if(txtIme.Text == txtKorisnickoIme.Text)
+            //{
+            //    MessageBox.Show("Korisničko ime i ime učitelja moraju da se razlikuju!", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+            //else if (txtLozinka.Text == txtKorisnickoIme.Text)
+            //{
+            //    MessageBox.Show("Korisničko ime i lozinka moraju da se razlikuju!", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+            //else
+            //{
+            //    Ucitelj u = new Ucitelj
+            //    {
+            //        ImeUcitelja = txtIme.Text,
+            //        PrezimeUcitelja = txtPrezime.Text,
+            //        Email = txtEmail.Text,
+            //        Telefon = txtTelefon.Text,
+            //        KorisnickoIme = txtKorisnickoIme.Text,
+            //        Lozinka = txtLozinka.Text,
+            //        DatumPocetkaRada = datePocetakRada.Value
+            //    };
+
+            //    try
+            //    {
+            //        broker.kreirajUcitelja(u);
+            //        MessageBox.Show("Učitelj je kreiran!");
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show("Greška prilikom rada sa bazom!", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+
+            
         }
     }
 }

@@ -41,7 +41,7 @@ namespace Forme.User_controlers
             }
             dgvRaspolozivi.Columns[1].Visible = true;
             dgvRaspolozivi.Columns[2].Visible = true;
-            dgvRaspolozivi.Columns[4].Visible = true;
+           // dgvRaspolozivi.Columns[4].Visible = true;
             dgvRaspolozivi.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
@@ -90,7 +90,7 @@ namespace Forme.User_controlers
                 }
                 dgvRaspolozivi.Columns[1].Visible = true;
                 dgvRaspolozivi.Columns[2].Visible = true;
-                dgvRaspolozivi.Columns[4].Visible = true;
+               // dgvRaspolozivi.Columns[4].Visible = true;
                 dgvRaspolozivi.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
         }

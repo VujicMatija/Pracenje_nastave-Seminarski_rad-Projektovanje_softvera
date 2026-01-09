@@ -57,32 +57,44 @@ namespace Forme.User_controlers
 
         private void btnIzmeni_Click(object sender, EventArgs e)
         {
-            Ucitelj novi = new Ucitelj()
-            {
-                Id = ucitelj.Id,
-                ImeUcitelja = txtIme.Text,
-                PrezimeUcitelja = txtPrezime.Text,
-                Email = txtEmail.Text,
-                DatumPocetkaRada = dateDatumPocetka.Value,
-                Telefon = txtTelefon.Text
-            };
             try
             {
-                DialogResult res = MessageBox.Show("Da li ste sigurni da želite da promenite učitelja?", "Potvrda", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (res == DialogResult.Yes)
+                Ucitelj novi = new Ucitelj()
                 {
-                    broker.promeniUcitelja(novi);
-                    MessageBox.Show("Promene su sacuvane!");
+                    Id = ucitelj.Id,
+                    ImeUcitelja = txtIme.Text,
+                    PrezimeUcitelja = txtPrezime.Text,
+                    Email = txtEmail.Text,
+                    DatumPocetkaRada = dateDatumPocetka.Value,
+                    Telefon = txtTelefon.Text,
+                    Lozinka = ucitelj.Lozinka,
+                    KorisnickoIme = ucitelj.KorisnickoIme
+                    
+                };
+                novi.validiraj();
+                try
+                {
+                    DialogResult res = MessageBox.Show("Da li ste sigurni da želite da promenite učitelja?", "Potvrda", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (res == DialogResult.Yes)
+                    {
+                        broker.promeniUcitelja(novi);
+                        MessageBox.Show("Promene su sacuvane!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("OK");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("OK");
+                    MessageBox.Show(ex.Message);
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+           
         }
 
         private void btnDodajLicencu_Click(object sender, EventArgs e)

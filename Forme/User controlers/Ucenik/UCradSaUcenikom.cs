@@ -17,7 +17,7 @@ namespace Forme.User_controlers
     {
 
         Ucenik globalniUcenik = new Ucenik();
-
+        Broker broker = new Broker();
         public UCradSaUcenikom()
         {
             InitializeComponent();
@@ -73,16 +73,21 @@ namespace Forme.User_controlers
 
         }
 
-        Broker broker = new Broker();
+        private void ocistiPolja()
+        {
+            txtImeUcenika.Text = "";
+            txtPrezimeUcenika.Text = "";
+            txtImeRoditelja.Text = "";
+            txtPrezimeRoditelja.Text = "";
+            txtTelefonRoditelja.Text = "";
+            txtTelefonUcenika.Text = "";
+            txtEmailUcenika.Text = "";
+            
+        }
 
         private void btnKreiraj_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtImeUcenika.Text) || string.IsNullOrEmpty(txtPrezimeUcenika.Text) || string.IsNullOrEmpty(txtImeRoditelja.Text) || string.IsNullOrEmpty(txtPrezimeRoditelja.Text)
-                 || string.IsNullOrEmpty(txtTelefonRoditelja.Text) || string.IsNullOrEmpty(txtTelefonUcenika.Text) || string.IsNullOrEmpty(txtEmailUcenika.Text))
-            {
-                MessageBox.Show("Sva polja moraju biti popunjena!");
-            }
-            else
+            try
             {
                 Ucenik ucenik = new Ucenik()
                 {
@@ -96,16 +101,25 @@ namespace Forme.User_controlers
                     TelefonUcenika = txtTelefonUcenika.Text,
                     EmailUcenika = txtEmailUcenika.Text
                 };
+                ucenik.validiraj();
                 try
                 {
                     broker.kreirajUcenika(ucenik);
                     MessageBox.Show("Ucenik je uspesno kreiran");
+                    ocistiPolja();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Greska prilikom rada sa bazom", "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+           
         }
 
         private void btnOmoguciIzmene_Click(object sender, EventArgs e)
@@ -133,23 +147,31 @@ namespace Forme.User_controlers
                 DatumRodjenjaUcenika = dateDatumRodjenja.Value
             };
 
-            DialogResult res = MessageBox.Show("Da li ste sigurni da želite da izmenite učenika?", "Potvrda", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (res == DialogResult.Yes)
+            try
             {
-                try
+                DialogResult res = MessageBox.Show("Da li ste sigurni da želite da izmenite učenika?", "Potvrda", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (res == DialogResult.Yes)
                 {
-                    broker.PromeniUcenika(ucenik);
-                    MessageBox.Show("Promene su sačuvane!");
+                    try
+                    {
+                        broker.PromeniUcenika(ucenik);
+                        MessageBox.Show("Promene su sačuvane!");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("OK");
                 }
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("OK");
+                MessageBox.Show(ex.Message);
             }
+            
         }
 
         private void btnObrisi_Click(object sender, EventArgs e)

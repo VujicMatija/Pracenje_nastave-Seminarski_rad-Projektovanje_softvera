@@ -1,5 +1,6 @@
 ﻿using BrokerBazePodataka;
 using Domeni;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,8 +24,12 @@ namespace Forme.User_controlers
             BindingList<Ucitelj> sviUcitelji = broker.vratiListuSviUcitelji();
             cbUcitelj.DataSource = sviUcitelji;
             cbUcitelj.SelectedItem = null;
-            BindingList<GrupaUcenika> sveGrupeUcenika = broker.vratiListuSveGrupeUcenika();
-            cbGrupa.DataSource = sveGrupeUcenika;
+            BindingList<GrupaUcenika> dostupneGrupeUcenika = broker.vratiListuSlobodneGrupe();
+            cbGrupa.DataSource = dostupneGrupeUcenika;
+            if (dostupneGrupeUcenika.IsNullOrEmpty())
+            {
+                MessageBox.Show("Nema slobodnih grupa!");
+            }
             cbGrupa.SelectedItem = null;
         }
 
@@ -55,6 +60,12 @@ namespace Forme.User_controlers
                 {
                     broker.KreirajEvidencijuNastave(unos);
                     MessageBox.Show("Uspesan unos");
+                    BindingList<GrupaUcenika> dostupneGrupeUcenika = broker.vratiListuSlobodneGrupe();
+                    cbGrupa.DataSource = dostupneGrupeUcenika;
+                    if (dostupneGrupeUcenika.IsNullOrEmpty())
+                    {
+                        MessageBox.Show("Nema slobodnih grupa!");
+                    }
                 }
                 catch(Exception ex)
                 {

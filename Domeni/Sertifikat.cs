@@ -43,5 +43,13 @@ namespace Domeni
 
             return result;
         }
+
+        public void validiraj()
+        {
+            if (string.IsNullOrWhiteSpace(NazivSertifikata))
+            {
+                throw new Exception("Morate uneti naziv sertifikata");
+            }
+        }
     }
 }

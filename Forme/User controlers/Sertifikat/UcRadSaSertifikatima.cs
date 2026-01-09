@@ -54,17 +54,13 @@ namespace Forme.User_controlers
 
             try
             {
-                if (string.IsNullOrEmpty(txtNazivSertifikata.Text))
-                {
-                    MessageBox.Show("Morate uneti naziv sertifikata!", "Greska", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    Sertifikat s = new Sertifikat() { NazivSertifikata = txtNazivSertifikata.Text };
-                    broker.ubaciSertifikat(s);
-                    MessageBox.Show("Sertifikat ubacen!");
-                    dgvPodaci.DataSource = broker.vratiListuSviSertifikati();
-                }
+                
+                Sertifikat s = new Sertifikat() { NazivSertifikata = txtNazivSertifikata.Text };
+                s.validiraj();
+                broker.ubaciSertifikat(s);
+                MessageBox.Show("Sertifikat ubacen!");
+                dgvPodaci.DataSource = broker.vratiListuSviSertifikati();
+                
 
 
             }
@@ -98,24 +94,33 @@ namespace Forme.User_controlers
 
         private void btnIzmeni_Click(object sender, EventArgs e)
         {
-            Sertifikat s = new Sertifikat() { IdSertifikata = globalniSertifikat.IdSertifikata, NazivSertifikata = txtNazivSertifikata.Text };
-            DialogResult res = MessageBox.Show("Da li zelite da sacuvate promene?", "Potvrda", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (res == DialogResult.Yes)
+            try
             {
-                try
+                Sertifikat s = new Sertifikat() { IdSertifikata = globalniSertifikat.IdSertifikata, NazivSertifikata = txtNazivSertifikata.Text };
+                s.validiraj();
+                DialogResult res = MessageBox.Show("Da li zelite da sacuvate promene?", "Potvrda", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (res == DialogResult.Yes)
                 {
-                    broker.promeniSertifikat(s);
-                    MessageBox.Show("Promena sacuvana!");
+                    try
+                    {
+                        broker.promeniSertifikat(s);
+                        MessageBox.Show("Promena sacuvana!");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("OK!");
                 }
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("OK!");
+                MessageBox.Show(ex.Message);
             }
+            
         }
 
         private void btnObrisi_Click(object sender, EventArgs e)

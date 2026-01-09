@@ -174,6 +174,7 @@
             btnHint.TabIndex = 11;
             btnHint.Text = "?";
             btnHint.UseVisualStyleBackColor = true;
+            btnHint.Click += btnHint_Click;
             // 
             // btnOmoguciIzmene
             // 

@@ -21,6 +21,14 @@ namespace Forme.User_controlers
         {
             InitializeComponent();
             dgvUcenici.DataSource = broker.vratiListuSviUcenici();
+            foreach (DataGridViewColumn col in dgvUcenici.Columns)
+            {
+                col.Visible = false;
+            }
+            dgvUcenici.Columns[1].Visible = true;
+            dgvUcenici.Columns[2].Visible = true;
+            dgvUcenici.Columns[4].Visible = true;
+            dgvUcenici.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void btnPretraga_Click(object sender, EventArgs e)

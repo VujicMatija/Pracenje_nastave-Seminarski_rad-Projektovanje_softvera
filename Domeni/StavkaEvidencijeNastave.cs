@@ -79,5 +79,13 @@ namespace Domeni
 
             return result;
         }
+
+        public void validiraj()
+        {
+            if(Komentar.Length <= 10)
+            {
+                throw new Exception("Komentar mora imati najmanje 10 karaktera!");
+            }
+        }
     }
 }

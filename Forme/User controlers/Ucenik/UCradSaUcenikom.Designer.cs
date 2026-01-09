@@ -91,7 +91,7 @@
             // 
             cbPol.FormattingEnabled = true;
             cbPol.Location = new Point(155, 109);
-            cbPol.Margin = new Padding(2, 2, 2, 2);
+            cbPol.Margin = new Padding(2);
             cbPol.Name = "cbPol";
             cbPol.Size = new Size(179, 28);
             cbPol.TabIndex = 3;
@@ -300,7 +300,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(pictureBox1);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "UCradSaUcenikom";
             Size = new Size(810, 400);
             ((System.ComponentModel.ISupportInitialize)dgvEvidencijeNastave).EndInit();

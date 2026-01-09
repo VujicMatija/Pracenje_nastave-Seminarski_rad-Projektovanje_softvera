@@ -22,7 +22,9 @@ namespace Forme.User_controlers
             InitializeComponent();
             txtUcitelj.Enabled = false;
             txtUcitelj.Text = ucitelj.ToString();
-            cbSertifikati.DataSource = broker.vratiListuSviSertifikati();
+            BindingList<Sertifikat> sviSertifikati = broker.vratiListuSviSertifikati();
+            BindingList<Sertifikat> uciteljeviSertifikati = broker.vratiListuSertifikata(ucitelj);
+            cbSertifikati.DataSource = sviSertifikati.Except(uciteljeviSertifikati).ToList();
             globUcitelj = ucitelj;
         }
 

@@ -18,9 +18,13 @@ namespace Forme.User_controlers
         List<string> sati = new List<string>() { "10:00h", "12:00h", "14:00h", "16:00h", "18:00h", "20:00h" };
         Broker broker = new Broker();
         GrupaUcenika globalnaGrupa = new GrupaUcenika();
+        List<string> zauzetiTermini = new List<string>();
+        
+
         public UCKreirajGrupuUčenika(WorkMode mode = WorkMode.CREATE, GrupaUcenika grupa = null)
         {
             InitializeComponent();
+            zauzetiTermini = broker.vratiZauzeteTermine();
             cbKursevi.DataSource = broker.vratiListuSviKursevi();
             cbDani.DataSource = Enum.GetNames(typeof(Dani));
             cbSati.DataSource = sati;
@@ -148,20 +152,26 @@ namespace Forme.User_controlers
                 Termin = cbDani.SelectedItem + " " + cbSati.SelectedItem,
                 OznakaGrupe = txtOznaka.Text
             };
+            if (zauzetiTermini.Contains(grupa.Termin))
+            {
+                MessageBox.Show("Ovaj termin je vec zauzet, nije moguce kreirati grupu ucenika u tom terminu!");
+                return;
+            }
 
             try
             {
                 DialogResult res = MessageBox.Show("Da li želite da kreirate grupu učenika?", "Potvrda", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if(res == DialogResult.Yes)
+                if (res == DialogResult.Yes)
                 {
                     broker.KreirajGrupuUcenika(grupa);
+                    zauzetiTermini = broker.vratiZauzeteTermine();
                     MessageBox.Show("Grupa učenika je uspešno kreirana!");
                 }
                 else
                 {
                     MessageBox.Show("OK");
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -169,11 +179,7 @@ namespace Forme.User_controlers
             }
         }
 
-        private void omoguciPolja(bool x)
-        {
-
-
-        }
+  
 
         private void btnIzmeni_Click(object sender, EventArgs e)
         {
@@ -248,6 +254,23 @@ namespace Forme.User_controlers
             UCdodajUcenikGrupa ucDodajUcenikGrupa = new UCdodajUcenikGrupa(globalnaGrupa);
             PomocnaForma frm = new PomocnaForma(ucDodajUcenikGrupa);
             frm.ShowDialog();
+        }
+
+        public string ispisZauzetihTermina()
+        {
+            string ispis = "\n";
+            foreach(string s in zauzetiTermini)
+            {
+                ispis = ispis + s + "\n";
+                //ispis.Concat(s + "\n");
+            }
+            return ispis;
+        }
+
+        private void btnHint_Click(object sender, EventArgs e)
+        {
+            zauzetiTermini = broker.vratiZauzeteTermine();
+            MessageBox.Show($"Zauzeti termini su {ispisZauzetihTermina()}");
         }
     }
 }

@@ -74,12 +74,10 @@ namespace Forme.User_controlers
 
         private void btnKreiraj_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtNaziv.Text) || string.IsNullOrEmpty(txtOznaka.Text) || numTrajanje.Value <= 0)
+
+            try
             {
-                MessageBox.Show("Sva polja moraju biti popunjena i trajanje najmanje 1 termin");
-            }
-            else
-            {
+
                 Kurs k = new Kurs()
                 {
                     NazivKursa = txtNaziv.Text,
@@ -88,7 +86,7 @@ namespace Forme.User_controlers
                     TrajanjeKursa = (int)numTrajanje.Value,
                     OznakaKursa = txtOznaka.Text
                 };
-
+                k.validiraj();
                 try
                 {
                     broker.kreirajKurs(k);
@@ -100,6 +98,11 @@ namespace Forme.User_controlers
                     MessageBox.Show(ex.Message);
                 }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+           
         }
 
         private void UCradSaKursom_Load(object sender, EventArgs e)
@@ -150,30 +153,28 @@ namespace Forme.User_controlers
 
         private void btnIzmeni_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtNaziv.Text) || string.IsNullOrEmpty(txtOznaka.Text) || numTrajanje.Value <= 0)
-            {
-                MessageBox.Show("Sva polja moraju biti popunjena i trajanje najmanje 1 termin");
-            }
-            else
-            {
+            try { 
+            
+                 Kurs k = new Kurs()
+                 {
+                     IdKursa = globalniKurs.IdKursa,
+                     NazivKursa = txtNaziv.Text,
+                     TezinaKursa = (TezinaKursa)cbTezina.SelectedItem,
+                     UzrastKursa = (Uzrast)cbUzrast.SelectedItem,
+                     TrajanjeKursa = (int)numTrajanje.Value,
+                     OznakaKursa = txtOznaka.Text
+                 };
+                k.validiraj();
                 DialogResult res = MessageBox.Show("Da li ste sigurni da zelite da promenite kurs?", "Potvrda", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if(res == DialogResult.Yes)
+                if (res == DialogResult.Yes)
                 {
-                    Kurs k = new Kurs()
-                    {
-                        IdKursa = globalniKurs.IdKursa,
-                        NazivKursa = txtNaziv.Text,
-                        TezinaKursa = (TezinaKursa)cbTezina.SelectedItem,
-                        UzrastKursa = (Uzrast)cbUzrast.SelectedItem,
-                        TrajanjeKursa = (int)numTrajanje.Value,
-                        OznakaKursa = txtOznaka.Text
-                    };
+                   
 
                     try
                     {
                         broker.promeniKurs(k);
                         MessageBox.Show("Kurs je promenjen!");
-                        
+
                     }
                     catch (Exception ex)
                     {
@@ -184,8 +185,13 @@ namespace Forme.User_controlers
                 {
                     MessageBox.Show("OK");
                 }
-                
+
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+           
         }
     }
 }

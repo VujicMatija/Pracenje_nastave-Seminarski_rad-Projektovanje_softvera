@@ -45,8 +45,8 @@
             // dgvTrenutni
             // 
             dgvTrenutni.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTrenutni.Location = new Point(312, 110);
-            dgvTrenutni.Margin = new Padding(2, 2, 2, 2);
+            dgvTrenutni.Location = new Point(312, 60);
+            dgvTrenutni.Margin = new Padding(2);
             dgvTrenutni.Name = "dgvTrenutni";
             dgvTrenutni.RowHeadersWidth = 82;
             dgvTrenutni.Size = new Size(279, 277);
@@ -54,8 +54,8 @@
             // 
             // txtImePrezime
             // 
-            txtImePrezime.Location = new Point(19, 110);
-            txtImePrezime.Margin = new Padding(2, 2, 2, 2);
+            txtImePrezime.Location = new Point(19, 60);
+            txtImePrezime.Margin = new Padding(2);
             txtImePrezime.Name = "txtImePrezime";
             txtImePrezime.Size = new Size(169, 27);
             txtImePrezime.TabIndex = 1;
@@ -63,7 +63,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(19, 76);
+            label1.Location = new Point(19, 26);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
             label1.Size = new Size(186, 20);
@@ -72,8 +72,8 @@
             // 
             // btnPretrazi
             // 
-            btnPretrazi.Location = new Point(201, 108);
-            btnPretrazi.Margin = new Padding(2, 2, 2, 2);
+            btnPretrazi.Location = new Point(201, 58);
+            btnPretrazi.Margin = new Padding(2);
             btnPretrazi.Name = "btnPretrazi";
             btnPretrazi.Size = new Size(92, 29);
             btnPretrazi.TabIndex = 3;
@@ -84,8 +84,8 @@
             // dgvRaspolozivi
             // 
             dgvRaspolozivi.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvRaspolozivi.Location = new Point(19, 153);
-            dgvRaspolozivi.Margin = new Padding(2, 2, 2, 2);
+            dgvRaspolozivi.Location = new Point(19, 103);
+            dgvRaspolozivi.Margin = new Padding(2);
             dgvRaspolozivi.Name = "dgvRaspolozivi";
             dgvRaspolozivi.RowHeadersWidth = 82;
             dgvRaspolozivi.Size = new Size(274, 234);
@@ -93,8 +93,8 @@
             // 
             // button1
             // 
-            button1.Location = new Point(19, 402);
-            button1.Margin = new Padding(2, 2, 2, 2);
+            button1.Location = new Point(19, 352);
+            button1.Margin = new Padding(2);
             button1.Name = "button1";
             button1.Size = new Size(185, 29);
             button1.TabIndex = 5;
@@ -105,7 +105,7 @@
             // lblGrupa
             // 
             lblGrupa.AutoSize = true;
-            lblGrupa.Location = new Point(312, 76);
+            lblGrupa.Location = new Point(312, 26);
             lblGrupa.Margin = new Padding(2, 0, 2, 0);
             lblGrupa.Name = "lblGrupa";
             lblGrupa.Size = new Size(104, 20);
@@ -115,7 +115,7 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(596, 175);
+            pictureBox1.Location = new Point(596, 125);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(240, 174);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -134,9 +134,9 @@
             Controls.Add(label1);
             Controls.Add(txtImePrezime);
             Controls.Add(dgvTrenutni);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "UCdodajUcenikGrupa";
-            Size = new Size(810, 485);
+            Size = new Size(810, 400);
             Load += UCdodajUcenikGrupa_Load;
             ((System.ComponentModel.ISupportInitialize)dgvTrenutni).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvRaspolozivi).EndInit();

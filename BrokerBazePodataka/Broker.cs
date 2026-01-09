@@ -224,28 +224,8 @@ namespace BrokerBazePodataka
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@Ucitelj", u.Id);
                 SqlDataReader reader = command.ExecuteReader();
-                while(reader.Read())
-                {
-                    GrupaUcenika gu = new GrupaUcenika
-                    {
-                        IdGrupe = (int)reader[0],
-                        OznakaGrupe = (string)reader[1],
-                        BrojUcenika = (int)reader[2],
-                        Termin = (string)reader[3],
-                        Kurs = new Kurs
-                        {
-                            IdKursa = (int)reader[5],
-                            NazivKursa = (string)reader[6],
-                            TezinaKursa = Enum.Parse<TezinaKursa>((string)reader[7]),
-                            UzrastKursa = Enum.Parse<Uzrast>((string)reader[8]),
-                            TrajanjeKursa = (int)reader[9],
-                            OznakaKursa = (string)reader[10]
-                        }
-                    };
-
-                    result.Add(gu);
-                }
-
+                GrupaUcenika gu = new GrupaUcenika();
+                result = gu.popuniListu(reader);
                 return result;
 
             }
@@ -691,29 +671,8 @@ namespace BrokerBazePodataka
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@KursId", k.IdKursa);
                 SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    GrupaUcenika gu = new GrupaUcenika
-                    {
-
-                        IdGrupe = (int)reader[0],
-                        OznakaGrupe = (string)reader[1],
-                        BrojUcenika = (int)reader[2],
-                        Termin = (string)reader[3],
-                        Kurs = new Kurs
-                        {
-                            IdKursa = (int)reader[5],
-                            NazivKursa = (string)reader[6],
-                            TezinaKursa = Enum.Parse<TezinaKursa>((string)reader[7]),
-                            UzrastKursa = Enum.Parse<Uzrast>((string)reader[8]),
-                            TrajanjeKursa = (int)reader[9],
-                            OznakaKursa = (string)reader[10]
-                        }
-
-                    };
-
-                    result.Add(gu);
-                }
+                GrupaUcenika gu = new GrupaUcenika();
+                result = gu.popuniListu(reader);
 
                 return result;
             }catch(Exception ex)
@@ -1208,7 +1167,7 @@ namespace BrokerBazePodataka
                     "from StavkaEvidencijeNastave sen join Ucenik u on(sen.idUcenik = u.idUcenik) " +
                     "join EvidencijaNastave ev on (ev.idEvidencijaNastave = sen.idEvidencijeNastave) " +
                     "join GrupaUcenika gu on (ev.idGrupa = gu.idGrupa) " +
-                    "join Ucitelj uc on(ev.idUcitelja = uc.idUcitelj)";
+                    "join Ucitelj uc on(ev.idUcitelja = uc.idUcitelj) Order by sen.redniBrojCasa";
                 SqlCommand command = new SqlCommand(query, connection);
                 SqlDataReader reader = command.ExecuteReader();
                 StavkaEvidencijeNastave stavka = new StavkaEvidencijeNastave();
@@ -1266,7 +1225,7 @@ namespace BrokerBazePodataka
                 string query = "select sen.*, u.* ,ev.*, gu.*, uc.*  from StavkaEvidencijeNastave sen" +
                     " join Ucenik u on(sen.idUcenik = u.idUcenik) " +
                     "join EvidencijaNastave ev on (ev.idEvidencijaNastave = sen.idEvidencijeNastave) join " +
-                    "GrupaUcenika gu on (ev.idGrupa = gu.idGrupa) join Ucitelj uc on(ev.idUcitelja = uc.idUcitelj) where u.idUcenik = @IdUcenik";
+                    "GrupaUcenika gu on (ev.idGrupa = gu.idGrupa) join Ucitelj uc on(ev.idUcitelja = uc.idUcitelj) where u.idUcenik = @IdUcenik Order by sen.redniBrojCasa";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@IdUcenik", ucenik.IdUcenika);
                 SqlDataReader reader = command.ExecuteReader();
@@ -1433,6 +1392,54 @@ namespace BrokerBazePodataka
                 command.Parameters.AddWithValue("@GrupaId", grupa.IdGrupe);
                 command.ExecuteNonQuery();
 
+            }catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public List<string> vratiZauzeteTermine()
+        {
+            List<string> res = new List<string>();
+            try
+            {
+                connection.Open();
+                string query = "select  gu.termin from EvidencijaNastave en join GrupaUcenika gu on (en.idGrupa = gu.idGrupa) where en.statusAktivnosti = 1";
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    res.Add((string)reader[0]);
+                }
+
+                return res;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public BindingList<GrupaUcenika> vratiListuSlobodneGrupe()
+        {
+            BindingList<GrupaUcenika> res = new BindingList<GrupaUcenika>();
+            try
+            {
+                connection.Open();
+                string query = "select * from GrupaUcenika gu left join EvidencijaNastave en on (gu.idGrupa = en.idGrupa) join Kurs k on (gu.idKurs = k.idKurs) where en.idEvidencijaNastave is null";
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                GrupaUcenika gu = new GrupaUcenika();
+                res = gu.popuniListu(reader);
+                return res;
             }catch(Exception ex)
             {
                 throw ex;

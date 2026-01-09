@@ -61,9 +61,11 @@
             // 
             datePocetakRada.Format = DateTimePickerFormat.Short;
             datePocetakRada.Location = new Point(195, 164);
+            datePocetakRada.MaxDate = new DateTime(2026, 1, 9, 0, 0, 0, 0);
             datePocetakRada.Name = "datePocetakRada";
             datePocetakRada.Size = new Size(245, 27);
             datePocetakRada.TabIndex = 2;
+            datePocetakRada.Value = new DateTime(2026, 1, 9, 0, 0, 0, 0);
             // 
             // label1
             // 

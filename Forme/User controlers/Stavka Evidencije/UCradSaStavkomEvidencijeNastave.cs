@@ -17,6 +17,8 @@ namespace Forme.User_controlers
         Broker broker = new Broker();
         EvidencijaNastave globalnaEvidencija = new EvidencijaNastave();
         StavkaEvidencijeNastave globalnaStavka = new StavkaEvidencijeNastave();
+
+        
         public UCradSaStavkomEvidencijeNastave(EvidencijaNastave evidencija)
         {
             InitializeComponent();
@@ -81,6 +83,7 @@ namespace Forme.User_controlers
                 {
                     broker.kreirajStavkuEvidencijeNastave(stavka);
                     MessageBox.Show("Stavka je dodata");
+                    
                 }
                 catch (Exception ex)
                 {

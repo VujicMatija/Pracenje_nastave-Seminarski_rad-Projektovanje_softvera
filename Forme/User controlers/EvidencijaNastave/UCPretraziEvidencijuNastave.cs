@@ -43,6 +43,7 @@ namespace Forme.User_controlers
         {
             dgvEvidencije.DataSource = null;
             dgvEvidencije.DataSource = broker.vratiListuEvidencijaNastave((GrupaUcenika)cbGrupa.SelectedItem, (Ucitelj)cbUcitelj.SelectedItem, (Ucenik)cbUcenik.SelectedItem, null);
+           // dgvEvidencije.DataSource = broker.vratiListuEvidencijaNastave((Ucitelj)cbUcitelj.SelectedItem);
             dgvEvidencije.Columns[0].Visible = false;
             dgvEvidencije.Columns[1].Visible = false;
             dgvEvidencije.Columns[2].Visible = false;

@@ -11,6 +11,8 @@ namespace BrokerBazePodataka
 
         SqlConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=evidencija_nastave;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
 
+        //UCITELJ
+
         public Ucitelj? PrijaviUcitelja(Ucitelj u)
         {
             Ucitelj logovani = null;
@@ -40,7 +42,8 @@ namespace BrokerBazePodataka
                 }
 
                 return logovani;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return null;
                 throw new Exception("Greška prilokom rada sa bazom podataka!");
@@ -50,7 +53,6 @@ namespace BrokerBazePodataka
                 connection.Close();
             }
         }
-
 
         public Ucitelj pretraziUcitelja(Ucitelj u)
         {
@@ -138,7 +140,7 @@ namespace BrokerBazePodataka
                 res = ucitelj.popuniListu(reader);
                 return res;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -151,95 +153,9 @@ namespace BrokerBazePodataka
 
         public List<Ucitelj> vratiListuUcitelja(Ucitelj u, Sertifikat s)
         {
-            List<Ucitelj> res =  vratiListuSviUcitelji().Intersect(vratiListuUcitelja(s).Intersect(vratiListuUcitelja(u))).ToList();
+            List<Ucitelj> res = vratiListuSviUcitelji().Intersect(vratiListuUcitelja(s).Intersect(vratiListuUcitelja(u))).ToList();
             return res;
         }
-         
-
-        public BindingList<Sertifikat> vratiListuSertifikata(Ucitelj u)
-        {
-            BindingList<Sertifikat> result = new BindingList<Sertifikat>();
-
-            try
-            {
-                connection.Open();
-
-                string query = "Select s.* from licenca l join sertifikat s on(l.idSertifikat = s.idSertifikat) where l.idUcitelj = @UciteljID";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@UciteljID", u.Id);
-                SqlDataReader reader = command.ExecuteReader();
-                Sertifikat s = new Sertifikat();
-                result = s.popuniListu(reader);
-                return result;
-
-
-                return result;
-            }
-            catch
-            {
-                return null;
-                throw new Exception("Greska prilikom rada sa bazom");
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-        public BindingList<Sertifikat> vratiListuSviSertifikati()
-        {
-            BindingList<Sertifikat> result = new BindingList<Sertifikat>();
-
-            try
-            {
-                connection.Open();
-
-                string query = "Select * from sertifikat";
-                SqlCommand command = new SqlCommand(query, connection);
-
-                SqlDataReader reader = command.ExecuteReader();
-                Sertifikat s = new Sertifikat();
-                result = s.popuniListu(reader);
-                return result;
-            }
-            catch
-            {
-                return null;
-                throw new Exception("Greska prilikom rada sa bazom");
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-
-        public BindingList<GrupaUcenika> vratiGrupeUcenika(Ucitelj u)
-        {
-            BindingList<GrupaUcenika> result = new BindingList<GrupaUcenika>();
-            try
-            {
-                connection.Open();
-                string query = "Select gu.*, k.* from EvidencijaNastave ev join GrupaUcenika gu on (ev.idGrupa = gu.idGrupa) join Kurs k on(gu.idKurs = k.idKurs) where idUcitelja = @Ucitelj";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Ucitelj", u.Id);
-                SqlDataReader reader = command.ExecuteReader();
-                GrupaUcenika gu = new GrupaUcenika();
-                result = gu.popuniListu(reader);
-                return result;
-
-            }
-            catch(Exception ex)
-            {
-                return null;
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
 
         public BindingList<Ucitelj> vratiListuSviUcitelji()
         {
@@ -254,10 +170,11 @@ namespace BrokerBazePodataka
                 SqlDataReader reader = command.ExecuteReader();
                 Ucitelj u = new Ucitelj();
                 result = u.popuniListu(reader);
-                
+
                 return result;
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception("Greska prilikom rada sa bazom");
             }
@@ -266,468 +183,7 @@ namespace BrokerBazePodataka
                 connection.Close();
             }
         }
-        
-        public BindingList<GrupaUcenika> vratiListuSveGrupeUcenika()
-        {
-            BindingList<GrupaUcenika> result = new BindingList<GrupaUcenika>();
 
-            try
-            {
-                connection.Open();
-
-                string query = "Select * from GrupaUcenika gu join Kurs k on (gu.idKurs = k.idKurs);";
-                SqlCommand command = new SqlCommand(query, connection);
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    GrupaUcenika gu = new GrupaUcenika
-                    {
-                        IdGrupe = (int)reader[0],
-                        OznakaGrupe = (string)reader[1],
-                        BrojUcenika = (int)reader[2],
-                        Termin = (string)reader[3],
-                        Kurs = new Kurs
-                        {
-                            IdKursa = (int)reader[5],
-                            NazivKursa = (string)reader[6],
-                            TezinaKursa = Enum.Parse<TezinaKursa>((string)reader[7]),
-                            UzrastKursa = Enum.Parse<Uzrast>((string)reader[8]),
-                            TrajanjeKursa = (int)reader[9],
-                            OznakaKursa = (string)reader[10]
-                        }
-                    };
-
-                    result.Add(gu);
-                }
-                
-                return result;
-            }
-            catch
-            {
-                throw new Exception("Greska prilikom rada sa bazom");
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-    
-        public void KreirajEvidencijuNastave(EvidencijaNastave evidencija) 
-        {
-            try
-            {
-                connection.Open();
-                string query = "Insert into EvidencijaNastave values(@StatusAkitvnosti, @Datum, @Ucitelj, @Grupa)";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@StatusAkitvnosti", evidencija.StatusAktivnosti);
-                command.Parameters.AddWithValue("@Datum", evidencija.DatumPocetkaRada);
-                command.Parameters.AddWithValue("@Ucitelj", evidencija.Ucitelj.Id);
-                command.Parameters.AddWithValue("@Grupa", evidencija.Grupa.IdGrupe);
-                command.ExecuteNonQuery();
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }    
-   
-        public BindingList<EvidencijaNastave> vratiListuEvidencijaNastave(GrupaUcenika grupaUcenika)
-        {
-            BindingList<EvidencijaNastave> result = new BindingList<EvidencijaNastave>();
-
-            if (grupaUcenika == null)
-            {
-                return vratiListuSveEvidencijaNastave();
-            }
-
-            try
-            {
-                connection.Open();
-                
-                string query = "Select * from EvidencijaNastave ev join GrupaUcenika  gu on (ev.idGrupa =  gu.idGrupa) join Ucitelj u on (u.idUcitelj = ev.idEvidencijaNastave) where gu.idGrupa = @Grupa";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Grupa", grupaUcenika.IdGrupe);
-                SqlDataReader reader = command.ExecuteReader();
-                EvidencijaNastave ev = new EvidencijaNastave();
-                result = ev.popuniListu(reader);
-
-                return result;
-
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-        public BindingList<EvidencijaNastave> vratiListuEvidencijaNastave(Kurs kurs)
-        {
-            BindingList<EvidencijaNastave> result = new BindingList<EvidencijaNastave>();
-
-            if (kurs == null)
-            {
-                return vratiListuSveEvidencijaNastave();
-            }
-
-            try
-            {
-                connection.Open();
-
-                string query = "Select * from EvidencijaNastave ev join GrupaUcenika  gu on (ev.idGrupa =  gu.idGrupa) join Ucitelj u on (u.idUcitelj = ev.idEvidencijaNastave) join Kurs k on (gu.idKurs = k.idKurs) where k.idKurs = @IdKurs";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@IdKurs", kurs.IdKursa);
-                SqlDataReader reader = command.ExecuteReader();
-                EvidencijaNastave ev = new EvidencijaNastave();
-                result = ev.popuniListu(reader);
-                return result;
-
-            }
-            catch (Exception ex)
-            {
-                
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-        public BindingList<EvidencijaNastave> vratiListuSveEvidencijaNastave()
-        {
-            BindingList<EvidencijaNastave> result = new BindingList<EvidencijaNastave>();
-
-            try
-            {
-                connection.Open();
-
-                string query = "select * from EvidencijaNastave ev join Ucitelj u on(ev.idUcitelja = u.idUcitelj) join GrupaUcenika gu on (gu.idGrupa = ev.idGrupa)";
-                SqlCommand command = new SqlCommand(query, connection);
-
-                SqlDataReader reader = command.ExecuteReader();
-                EvidencijaNastave ev = new EvidencijaNastave();
-                result = ev.popuniListu(reader);
-
-                return result;
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-        public BindingList<EvidencijaNastave> vratiListuEvidencijaNastave(Ucitelj ucitelj)
-        {
-            BindingList<EvidencijaNastave> result = new BindingList<EvidencijaNastave>();
-            if(ucitelj == null)
-            {
-                return vratiListuSveEvidencijaNastave();
-            }
-            try
-            {
-                connection.Open();
-
-                string query = "Select * from EvidencijaNastave ev join GrupaUcenika  gu on (ev.idGrupa =  gu.idGrupa) join Ucitelj u on (u.idUcitelj = ev.idEvidencijaNastave) where idUcitelja = @Ucitelj";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Ucitelj", ucitelj.Id);
-                SqlDataReader reader = command.ExecuteReader();
-                EvidencijaNastave ev = new EvidencijaNastave();
-                result = ev.popuniListu(reader);
-
-                return result;
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-        public BindingList<EvidencijaNastave> vratiListuEvidencijaNastave(EvidencijaNastave evd)
-        {
-            BindingList<EvidencijaNastave> result = new BindingList<EvidencijaNastave>();
-            if (evd == null)
-            {
-                return vratiListuSveEvidencijaNastave();
-            }
-            try
-            {
-                connection.Open();
-
-                string query = "Select * from EvidencijaNastave ev join GrupaUcenika  gu on (ev.idGrupa =  gu.idGrupa) join Ucitelj u on (u.idUcitelj = ev.idEvidencijaNastave) where ev.idEvidencijaNastave = @Evidencija";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Evidencija", evd.IdEvidencijeNastave);
-                SqlDataReader reader = command.ExecuteReader();
-                EvidencijaNastave ev = new EvidencijaNastave();
-                result = ev.popuniListu(reader);
-
-                return result;
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-        public BindingList<EvidencijaNastave> vratiListuEvidencijaNastave(Ucenik ucenik)
-        {
-            BindingList<EvidencijaNastave> result = new BindingList<EvidencijaNastave>();
-            if (ucenik == null)
-            {
-                return vratiListuSveEvidencijaNastave();
-            }
-            try
-            {
-                connection.Open();
-
-                string query = "Select distinct ev.*, gu.*, u.*,  uc.*  from EvidencijaNastave ev join GrupaUcenika  gu on (ev.idGrupa =  gu.idGrupa) join Ucitelj u on (u.idUcitelj = ev.idEvidencijaNastave) " +
-                    "join StavkaEvidencijeNastave sev on (sev.idEvidencijeNastave = ev.idEvidencijaNastave) join Ucenik uc on (uc.idUcenik = sev.idUcenik) where uc.idUcenik = @Ucenik";
-
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Ucenik", ucenik.IdUcenika);
-                SqlDataReader reader = command.ExecuteReader();
-                EvidencijaNastave ev = new EvidencijaNastave();
-                result = ev.popuniListu(reader);
-
-                return result;
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-        public List<EvidencijaNastave> vratiListuEvidencijaNastave(GrupaUcenika gu, Ucitelj u, Ucenik ucenik, EvidencijaNastave ev)
-        {
-            List<EvidencijaNastave> res = vratiListuEvidencijaNastave(gu).Intersect(vratiListuEvidencijaNastave(u)).Intersect(vratiListuEvidencijaNastave(ucenik)).ToList();
-            return res;
-        }
-
-        public List<EvidencijaNastave> vratiListuEvidencijaNastave(GrupaUcenika gu, Ucitelj u, Ucenik ucenik, EvidencijaNastave ev, Kurs k)
-        {
-            List<EvidencijaNastave> res = vratiListuEvidencijaNastave(gu).Intersect(vratiListuEvidencijaNastave(u)).Intersect(vratiListuEvidencijaNastave(ucenik).Intersect(vratiListuEvidencijaNastave(k))).ToList();
-            return res;
-        }
-
-        public BindingList<Ucenik> vratiListuSviUcenici()
-        {
-            BindingList<Ucenik> result = new BindingList<Ucenik>();
-            Ucenik u = new Ucenik();
-            try
-            {
-                connection.Open();
-
-                string query = "Select * from ucenik";
-                SqlCommand command = new SqlCommand(query, connection);
-                SqlDataReader reader = command.ExecuteReader();
-                result = u.popuniListu(reader);
-
-                return result;
-            }catch(Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-        public BindingList<Ucenik> vratiListuUcenika(GrupaUcenika gu)
-        {
-            BindingList<Ucenik> result = new BindingList<Ucenik>();
-            Ucenik u = new Ucenik();
-
-            try
-            {
-                connection.Open();
-
-                string query = "select u.* from Ucenik u join UcenikGrupa ug on (u.idUcenik = ug.idUcenik) join GrupaUcenika gu on (gu.idGrupa = ug.idGrupaUcenika) where gu.idGrupa = @IdGrupe";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@IdGrupe", gu.IdGrupe);
-                SqlDataReader reader = command.ExecuteReader();
-                result = u.popuniListu(reader);
-                return result;
-            }catch(Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-    
-        public void PromeniEvidencijuNastave(EvidencijaNastave evidencija)
-        {
-            try
-            {
-                connection.Open();
-                string query = "Update EvidencijaNastave set datumPocetkaRada = @Datum, statusAktivnosti = @StatusAktivnosti, idUcitelja = @idUcitelja where idEvidencijaNastave = @IdEvidencije";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Datum", evidencija.DatumPocetkaRada);
-                command.Parameters.AddWithValue("StatusAktivnosti", evidencija.StatusAktivnosti);
-                command.Parameters.AddWithValue("@IdUcitelja", evidencija.Ucitelj.Id);
-                command.Parameters.AddWithValue("@IdEvidencije", evidencija.IdEvidencijeNastave);
-                command.ExecuteNonQuery();
-
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-   
-        public BindingList<Kurs> vratiListuSviKursevi()
-        {
-            BindingList<Kurs> result = new BindingList<Kurs>();
-            
-            try
-            {
-                connection.Open();
-
-                string query = "Select * from Kurs";
-                SqlCommand command = new SqlCommand(query, connection);
-                SqlDataReader reader = command.ExecuteReader();
-                Kurs k = new Kurs();
-                result = k.popuniListu(reader);
-                return result;
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-        
-        public void KreirajGrupuUcenika(GrupaUcenika grupa)
-        {
-            try
-            {
-                connection.Open();
-                string query = "insert into GrupaUcenika values(@Oznaka, @Broj, @Termin, @Kurs)";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Oznaka", grupa.OznakaGrupe);
-                command.Parameters.AddWithValue("@Broj", grupa.BrojUcenika);
-                command.Parameters.AddWithValue("@Termin", grupa.Termin);
-                command.Parameters.AddWithValue("@Kurs", grupa.Kurs.IdKursa);
-                command.ExecuteNonQuery();
-
-
-            }catch(Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-        
-
-        public BindingList<GrupaUcenika> vratiListuGrupaUcenika(Kurs k)
-        {
-            BindingList<GrupaUcenika> result = new BindingList<GrupaUcenika>();
-            try
-            {
-                connection.Open();
-
-                string query = "Select * from GrupaUcenika gu join Kurs k on (k.idKurs = gu.idKurs) where k.idKurs = @KursId";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@KursId", k.IdKursa);
-                SqlDataReader reader = command.ExecuteReader();
-                GrupaUcenika gu = new GrupaUcenika();
-                result = gu.popuniListu(reader);
-
-                return result;
-            }catch(Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-    
-        public void PromeniGrupuUcenika(GrupaUcenika grupa)
-        {
-            try
-            {
-                connection.Open();
-                string query = "Update GrupaUcenika set oznakagrupe = @Oznaka, termin = @Termin, brojUcenika = @Broj, idKurs = @Kurs where idGrupa = @ID";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Oznaka", grupa.OznakaGrupe);
-                command.Parameters.AddWithValue("@Termin", grupa.Termin);
-                command.Parameters.AddWithValue("@Broj", grupa.BrojUcenika);
-                command.Parameters.AddWithValue("@Kurs", grupa.Kurs.IdKursa);
-                command.Parameters.AddWithValue("@ID", grupa.IdGrupe);
-                command.ExecuteNonQuery();
-
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-            finally{
-                connection.Close();
-            }
-        }
-
-        public void ObrisiGrupuUcenika(GrupaUcenika grupa)
-        {
-            try
-            {
-                connection.Open();
-                string query = "Delete from GrupaUcenika where idGrupa = @Id";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Id", grupa.IdGrupe);
-                command.ExecuteNonQuery();
-            }catch(Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-    
         public void kreirajUcitelja(Ucitelj u)
         {
             try
@@ -754,7 +210,7 @@ namespace BrokerBazePodataka
                 connection.Close();
             }
         }
-        
+
         public void promeniUcitelja(Ucitelj ucitelj)
         {
             try
@@ -771,7 +227,7 @@ namespace BrokerBazePodataka
                 command.ExecuteNonQuery();
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -780,29 +236,6 @@ namespace BrokerBazePodataka
                 connection.Close();
             }
         }
-    
-        public void kreirajLicencu(Licenca licenca)
-        {
-            try
-            {
-                connection.Open();
-                string query = "Insert into Licenca values(@IdUcitelj, @IdSertifikat, @Datum)";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@IdUcitelj", licenca.ucitelj.Id);
-                command.Parameters.AddWithValue("@IdSertifikat", licenca.sertifikat.IdSertifikata);
-                command.Parameters.AddWithValue("@Datum", licenca.DatumDobijanja);
-                command.ExecuteNonQuery();
-
-            }catch(Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
 
         public void obrisiUcitelja(Ucitelj u)
         {
@@ -810,7 +243,7 @@ namespace BrokerBazePodataka
             {
                 connection.Open();
                 string query = "Delete from Ucitelj where idUcitelj = @Ucitelj";
-                SqlCommand command = new SqlCommand(query,connection);
+                SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@Ucitelj", u.Id);
                 command.ExecuteNonQuery();
             }
@@ -823,7 +256,60 @@ namespace BrokerBazePodataka
                 connection.Close();
             }
         }
-    
+
+
+        //UCENIK
+
+        public BindingList<Ucenik> vratiListuSviUcenici()
+        {
+            BindingList<Ucenik> result = new BindingList<Ucenik>();
+            Ucenik u = new Ucenik();
+            try
+            {
+                connection.Open();
+
+                string query = "Select * from ucenik";
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                result = u.popuniListu(reader);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public BindingList<Ucenik> vratiListuUcenika(GrupaUcenika gu)
+        {
+            BindingList<Ucenik> result = new BindingList<Ucenik>();
+            Ucenik u = new Ucenik();
+
+            try
+            {
+                connection.Open();
+
+                string query = "select u.* from Ucenik u join UcenikGrupa ug on (u.idUcenik = ug.idUcenik) join GrupaUcenika gu on (gu.idGrupa = ug.idGrupaUcenika) where gu.idGrupa = @IdGrupe";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@IdGrupe", gu.IdGrupe);
+                SqlDataReader reader = command.ExecuteReader();
+                result = u.popuniListu(reader);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
 
         public Ucenik pretraziUcenika(Ucenik ucenik)
         {
@@ -838,7 +324,8 @@ namespace BrokerBazePodataka
                 u = u.popuniListu(reader)[0];
 
                 return u;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -846,7 +333,7 @@ namespace BrokerBazePodataka
             {
                 connection.Close();
             }
-            
+
         }
 
         public void kreirajUcenika(Ucenik ucenik)
@@ -867,7 +354,7 @@ namespace BrokerBazePodataka
                 command.Parameters.AddWithValue("@EmailUcenika", ucenik.EmailUcenika);
                 command.ExecuteNonQuery();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -879,7 +366,7 @@ namespace BrokerBazePodataka
 
         public BindingList<Ucenik> pretraziUcenikaPoImenu(Ucenik ucenik)
         {
-            
+
             BindingList<Ucenik> res = new BindingList<Ucenik>();
 
             try
@@ -947,27 +434,8 @@ namespace BrokerBazePodataka
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@ID", ucenik.IdUcenika);
                 command.ExecuteNonQuery();
-            }catch(Exception ex)
-            {
-                throw ex;
             }
-            finally
-            {
-                connection.Close();
-            }
-        }
-    
-        public void ubaciSertifikat(Sertifikat sertifikat)
-        {
-            try
-            {
-                connection.Open();
-                string query = "Insert into sertifikat values(@Naziv)";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Naziv", sertifikat.NazivSertifikata);
-                command.ExecuteNonQuery();
-
-            }catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -977,60 +445,97 @@ namespace BrokerBazePodataka
             }
         }
 
-        public void promeniSertifikat(Sertifikat sertifikat)
+
+
+        //GRUPA UCENIKA
+
+        public BindingList<GrupaUcenika> vratiGrupeUcenika(Ucitelj u)
         {
+            BindingList<GrupaUcenika> result = new BindingList<GrupaUcenika>();
             try
             {
                 connection.Open();
-                string query = "Update sertifikat set nazivSertifikata = @Naziv where idSertifikat = @Id";
+                string query = "Select gu.*, k.* from EvidencijaNastave ev join GrupaUcenika gu on (ev.idGrupa = gu.idGrupa) join Kurs k on(gu.idKurs = k.idKurs) where idUcitelja = @Ucitelj";
                 SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Naziv", sertifikat.NazivSertifikata);
-                command.Parameters.AddWithValue("@Id", sertifikat.IdSertifikata);
-                command.ExecuteNonQuery();
-            }catch(Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-        public void obrisiSertikat(Sertifikat sertifikat)
-        {
-            try
-            {
-                connection.Open();
-                string query = "delete from sertifikat where idSertifikat = @ID";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@ID", sertifikat.IdSertifikata);
-                command.ExecuteNonQuery();
-            }catch(Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-        public BindingList<Sertifikat> vratiListuSertifikata(Sertifikat sertifikat)
-        {
-            BindingList<Sertifikat> result = new BindingList<Sertifikat>();
-            try
-            {
-
-                connection.Open();
-                string query = "Select * from sertifikat where nazivSertifikata like @Naziv";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Naziv", "%" + sertifikat.NazivSertifikata + "%");
+                command.Parameters.AddWithValue("@Ucitelj", u.Id);
                 SqlDataReader reader = command.ExecuteReader();
-                result = sertifikat.popuniListu(reader);
+                GrupaUcenika gu = new GrupaUcenika();
+                result = gu.popuniListu(reader);
                 return result;
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
+            {
+                return null;
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public BindingList<GrupaUcenika> vratiListuSveGrupeUcenika()
+        {
+            BindingList<GrupaUcenika> result = new BindingList<GrupaUcenika>();
+
+            try
+            {
+                connection.Open();
+
+                string query = "Select * from GrupaUcenika gu join Kurs k on (gu.idKurs = k.idKurs);";
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    GrupaUcenika gu = new GrupaUcenika
+                    {
+                        IdGrupe = (int)reader[0],
+                        OznakaGrupe = (string)reader[1],
+                        BrojUcenika = (int)reader[2],
+                        Termin = (string)reader[3],
+                        Kurs = new Kurs
+                        {
+                            IdKursa = (int)reader[5],
+                            NazivKursa = (string)reader[6],
+                            TezinaKursa = Enum.Parse<TezinaKursa>((string)reader[7]),
+                            UzrastKursa = Enum.Parse<Uzrast>((string)reader[8]),
+                            TrajanjeKursa = (int)reader[9],
+                            OznakaKursa = (string)reader[10]
+                        }
+                    };
+
+                    result.Add(gu);
+                }
+
+                return result;
+            }
+            catch
+            {
+                throw new Exception("Greska prilikom rada sa bazom");
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public void KreirajGrupuUcenika(GrupaUcenika grupa)
+        {
+            try
+            {
+                connection.Open();
+                string query = "insert into GrupaUcenika values(@Oznaka, @Broj, @Termin, @Kurs)";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Oznaka", grupa.OznakaGrupe);
+                command.Parameters.AddWithValue("@Broj", grupa.BrojUcenika);
+                command.Parameters.AddWithValue("@Termin", grupa.Termin);
+                command.Parameters.AddWithValue("@Kurs", grupa.Kurs.IdKursa);
+                command.ExecuteNonQuery();
+
+
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -1039,6 +544,178 @@ namespace BrokerBazePodataka
                 connection.Close();
             }
         }
+
+
+        public BindingList<GrupaUcenika> vratiListuGrupaUcenika(Kurs k)
+        {
+            BindingList<GrupaUcenika> result = new BindingList<GrupaUcenika>();
+            try
+            {
+                connection.Open();
+
+                string query = "Select * from GrupaUcenika gu join Kurs k on (k.idKurs = gu.idKurs) where k.idKurs = @KursId";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@KursId", k.IdKursa);
+                SqlDataReader reader = command.ExecuteReader();
+                GrupaUcenika gu = new GrupaUcenika();
+                result = gu.popuniListu(reader);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public void PromeniGrupuUcenika(GrupaUcenika grupa)
+        {
+            try
+            {
+                connection.Open();
+                string query = "Update GrupaUcenika set oznakagrupe = @Oznaka, termin = @Termin, brojUcenika = @Broj, idKurs = @Kurs where idGrupa = @ID";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Oznaka", grupa.OznakaGrupe);
+                command.Parameters.AddWithValue("@Termin", grupa.Termin);
+                command.Parameters.AddWithValue("@Broj", grupa.BrojUcenika);
+                command.Parameters.AddWithValue("@Kurs", grupa.Kurs.IdKursa);
+                command.Parameters.AddWithValue("@ID", grupa.IdGrupe);
+                command.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public void ObrisiGrupuUcenika(GrupaUcenika grupa)
+        {
+            try
+            {
+                connection.Open();
+                string query = "Delete from GrupaUcenika where idGrupa = @Id";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Id", grupa.IdGrupe);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public List<string> vratiZauzeteTermine()
+        {
+            List<string> res = new List<string>();
+            try
+            {
+                connection.Open();
+                string query = "select  gu.termin from EvidencijaNastave en join GrupaUcenika gu on (en.idGrupa = gu.idGrupa) where en.statusAktivnosti = 1";
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    res.Add((string)reader[0]);
+                }
+
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public BindingList<GrupaUcenika> vratiListuSlobodneGrupe()
+        {
+            BindingList<GrupaUcenika> res = new BindingList<GrupaUcenika>();
+            try
+            {
+                connection.Open();
+                string query = "select * from GrupaUcenika gu left join EvidencijaNastave en on (gu.idGrupa = en.idGrupa) join Kurs k on (gu.idKurs = k.idKurs) where en.idEvidencijaNastave is null";
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                GrupaUcenika gu = new GrupaUcenika();
+                res = gu.popuniListu(reader);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public BindingList<GrupaUcenika> vratiListuGrupaUcenika(Ucenik u)
+        {
+            BindingList<GrupaUcenika> result = new BindingList<GrupaUcenika>();
+            try
+            {
+                connection.Open();
+                string query = "select * from GrupaUcenika gu join UcenikGrupa ug on(gu.idGrupa = ug.idGrupaUcenika) join Kurs k on(gu.idKurs = k.idKurs) where ug.idUcenik = @IdUcenik";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@IdUcenik", u.IdUcenika);
+                SqlDataReader reader = command.ExecuteReader();
+                GrupaUcenika gu = new GrupaUcenika();
+                result = gu.popuniListu(reader);
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        //UCENIK GRUPA
+
+        public void kreirajUcenikGrupa(Ucenik ucenik, GrupaUcenika grupa)
+        {
+            try
+            {
+                connection.Open();
+                string query = "Insert into UcenikGrupa values(@UcenikId, @GrupaId)";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@UcenikId", ucenik.IdUcenika);
+                command.Parameters.AddWithValue("@GrupaId", grupa.IdGrupe);
+                command.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        //KURS
 
         public void kreirajKurs(Kurs k)
         {
@@ -1076,7 +753,8 @@ namespace BrokerBazePodataka
                 SqlDataReader reader = command.ExecuteReader();
                 result = zaPretragu.popuniListu(reader);
                 return result;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -1100,7 +778,7 @@ namespace BrokerBazePodataka
                 command.Parameters.AddWithValue("@Id", kurs.IdKursa);
                 command.ExecuteNonQuery();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -1121,7 +799,7 @@ namespace BrokerBazePodataka
                 SqlDataReader reader = command.ExecuteReader();
                 return kurs.popuniListu(reader)[0];
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -1131,78 +809,19 @@ namespace BrokerBazePodataka
             }
         }
 
-        public void kreirajStavkuEvidencijeNastave(StavkaEvidencijeNastave stavka)
+        public BindingList<Kurs> vratiListuSviKursevi()
         {
-            try
-            {
-                connection.Open();
-                string query = "Insert into StavkaEvidencijeNastave values(@IdEvidencije, @Prisustvo, @Komentar, @Datum, @Domaci, @RB, @Ucenik)";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@IdEvidencije", stavka.Evidencija.IdEvidencijeNastave);
-                command.Parameters.AddWithValue("@Prisustvo", stavka.Prisustvo);
-                command.Parameters.AddWithValue("@Komentar", stavka.Komentar);
-                command.Parameters.AddWithValue("@Datum", stavka.DatumOdrzavanja);
-                command.Parameters.AddWithValue("@Domaci", stavka.UradjenDomaci);
-                command.Parameters.AddWithValue("@RB", stavka.RedniBrojCasa);
-                command.Parameters.AddWithValue("@Ucenik", stavka.Ucenik.IdUcenika);
-                command.ExecuteNonQuery();
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
+            BindingList<Kurs> result = new BindingList<Kurs>();
 
-        public BindingList<StavkaEvidencijeNastave> vratiListuSveStavkeEvidencijeNastave()
-        {
-            BindingList<StavkaEvidencijeNastave> result = new BindingList<StavkaEvidencijeNastave>();
             try
             {
                 connection.Open();
-                string query = "select sen.*, u.* ,ev.*, gu.*, uc.*  " +
-                    "from StavkaEvidencijeNastave sen join Ucenik u on(sen.idUcenik = u.idUcenik) " +
-                    "join EvidencijaNastave ev on (ev.idEvidencijaNastave = sen.idEvidencijeNastave) " +
-                    "join GrupaUcenika gu on (ev.idGrupa = gu.idGrupa) " +
-                    "join Ucitelj uc on(ev.idUcitelja = uc.idUcitelj) Order by sen.redniBrojCasa";
+
+                string query = "Select * from Kurs";
                 SqlCommand command = new SqlCommand(query, connection);
                 SqlDataReader reader = command.ExecuteReader();
-                StavkaEvidencijeNastave stavka = new StavkaEvidencijeNastave();
-                result = stavka.popuniListu(reader);
-                return result;
-
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-        public BindingList<StavkaEvidencijeNastave> vratiListuStavkiEvidencijeNastave(EvidencijaNastave evidencija)
-        {
-            BindingList<StavkaEvidencijeNastave> result = new BindingList<StavkaEvidencijeNastave>();
-
-            try
-            {
-                connection.Open();
-                string query = "select sen.*, u.* ,ev.*, gu.*, uc.*  " +
-                    "from StavkaEvidencijeNastave sen join Ucenik u on(sen.idUcenik = u.idUcenik) " +
-                    "join EvidencijaNastave ev on (ev.idEvidencijaNastave = sen.idEvidencijeNastave) " +
-                    "join GrupaUcenika gu on (ev.idGrupa = gu.idGrupa) " +
-                    "join Ucitelj uc on(ev.idUcitelja = uc.idUcitelj) " +
-                    "where sen.idEvidencijeNastave = @IdEvidencije Order by sen.redniBrojCasa";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("IdEvidencije", evidencija.IdEvidencijeNastave);
-                SqlDataReader reader = command.ExecuteReader();
-                StavkaEvidencijeNastave stavka = new StavkaEvidencijeNastave();
-                result = stavka.popuniListu(reader);
+                Kurs k = new Kurs();
+                result = k.popuniListu(reader);
                 return result;
             }
             catch (Exception ex)
@@ -1215,23 +834,48 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<StavkaEvidencijeNastave> vratiListuStavkiEvidencijeNastave(Ucenik ucenik)
+        //SERTIFIKATI
+
+        public BindingList<Sertifikat> vratiListuSertifikata(Ucitelj u)
         {
-            BindingList<StavkaEvidencijeNastave> result = new BindingList<StavkaEvidencijeNastave>();
+            BindingList<Sertifikat> result = new BindingList<Sertifikat>();
 
             try
             {
                 connection.Open();
-                string query = "select sen.*, u.* ,ev.*, gu.*, uc.*  from StavkaEvidencijeNastave sen" +
-                    " join Ucenik u on(sen.idUcenik = u.idUcenik) " +
-                    "join EvidencijaNastave ev on (ev.idEvidencijaNastave = sen.idEvidencijeNastave) join " +
-                    "GrupaUcenika gu on (ev.idGrupa = gu.idGrupa) join Ucitelj uc on(ev.idUcitelja = uc.idUcitelj) where u.idUcenik = @IdUcenik Order by sen.redniBrojCasa";
+
+                string query = "Select s.* from licenca l join sertifikat s on(l.idSertifikat = s.idSertifikat) where l.idUcitelj = @UciteljID";
                 SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@IdUcenik", ucenik.IdUcenika);
+                command.Parameters.AddWithValue("@UciteljID", u.Id);
                 SqlDataReader reader = command.ExecuteReader();
-                StavkaEvidencijeNastave stavka = new StavkaEvidencijeNastave();
-                result = stavka.popuniListu(reader);
+                Sertifikat s = new Sertifikat();
+                result = s.popuniListu(reader);
                 return result;
+
+
+                return result;
+            }
+            catch
+            {
+                return null;
+                throw new Exception("Greska prilikom rada sa bazom");
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public void ubaciSertifikat(Sertifikat sertifikat)
+        {
+            try
+            {
+                connection.Open();
+                string query = "Insert into sertifikat values(@Naziv)";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Naziv", sertifikat.NazivSertifikata);
+                command.ExecuteNonQuery();
+
             }
             catch (Exception ex)
             {
@@ -1243,29 +887,115 @@ namespace BrokerBazePodataka
             }
         }
 
-        public List<StavkaEvidencijeNastave> vratiListuStavkiEvidencijeNastave(EvidencijaNastave en, Ucenik ucenik)
-        {
-            return vratiListuStavkiEvidencijeNastave(en).Intersect(vratiListuStavkiEvidencijeNastave(ucenik)).ToList();
-        }
-
-
-        public void promeniStavkuEvidencijeNastave(StavkaEvidencijeNastave stavka)
+        public void promeniSertifikat(Sertifikat sertifikat)
         {
             try
             {
                 connection.Open();
-                string query = "Update StavkaEvidencijeNastave set prisustvo = @Prisustvo, komentar = @Komentar, " +
-                    "datumOdrzavanja = @Datum, uradjenDomaci = @Domaci, redniBrojCasa = @rbCasa where idStavkaEvidencije = @idStavke";
+                string query = "Update sertifikat set nazivSertifikata = @Naziv where idSertifikat = @Id";
                 SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Prisustvo", stavka.Prisustvo);
-                command.Parameters.AddWithValue("@Komentar", stavka.Komentar);
-                command.Parameters.AddWithValue("@Datum", stavka.DatumOdrzavanja);
-                command.Parameters.AddWithValue("@Domaci", stavka.UradjenDomaci);
-                command.Parameters.AddWithValue("@rbCasa", stavka.RedniBrojCasa);
-                command.Parameters.AddWithValue("@idStavke", stavka.idStavkeEvidencije);
+                command.Parameters.AddWithValue("@Naziv", sertifikat.NazivSertifikata);
+                command.Parameters.AddWithValue("@Id", sertifikat.IdSertifikata);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public void obrisiSertikat(Sertifikat sertifikat)
+        {
+            try
+            {
+                connection.Open();
+                string query = "delete from sertifikat where idSertifikat = @ID";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@ID", sertifikat.IdSertifikata);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public BindingList<Sertifikat> vratiListuSertifikata(Sertifikat sertifikat)
+        {
+            BindingList<Sertifikat> result = new BindingList<Sertifikat>();
+            try
+            {
+
+                connection.Open();
+                string query = "Select * from sertifikat where nazivSertifikata like @Naziv";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Naziv", "%" + sertifikat.NazivSertifikata + "%");
+                SqlDataReader reader = command.ExecuteReader();
+                result = sertifikat.popuniListu(reader);
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public BindingList<Sertifikat> vratiListuSviSertifikati()
+        {
+            BindingList<Sertifikat> result = new BindingList<Sertifikat>();
+
+            try
+            {
+                connection.Open();
+
+                string query = "Select * from sertifikat";
+                SqlCommand command = new SqlCommand(query, connection);
+
+                SqlDataReader reader = command.ExecuteReader();
+                Sertifikat s = new Sertifikat();
+                result = s.popuniListu(reader);
+                return result;
+            }
+            catch
+            {
+                return null;
+                throw new Exception("Greska prilikom rada sa bazom");
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        //LICENCE
+
+        public void kreirajLicencu(Licenca licenca)
+        {
+            try
+            {
+                connection.Open();
+                string query = "Insert into Licenca values(@IdUcitelj, @IdSertifikat, @Datum)";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@IdUcitelj", licenca.ucitelj.Id);
+                command.Parameters.AddWithValue("@IdSertifikat", licenca.sertifikat.IdSertifikata);
+                command.Parameters.AddWithValue("@Datum", licenca.DatumDobijanja);
                 command.ExecuteNonQuery();
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -1370,7 +1100,8 @@ namespace BrokerBazePodataka
                 command.Parameters.AddWithValue("@IdSertifikat", licenca.sertifikat.IdSertifikata);
                 command.ExecuteNonQuery();
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -1380,19 +1111,250 @@ namespace BrokerBazePodataka
             }
         }
 
+        //EVIDENCIJA NASTAVE
 
-        public void kreirajUcenikGrupa(Ucenik ucenik, GrupaUcenika grupa)
+        public void KreirajEvidencijuNastave(EvidencijaNastave evidencija)
         {
             try
             {
                 connection.Open();
-                string query = "Insert into UcenikGrupa values(@UcenikId, @GrupaId)";
+                string query = "Insert into EvidencijaNastave values(@StatusAkitvnosti, @Datum, @Ucitelj, @Grupa)";
                 SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@UcenikId", ucenik.IdUcenika);
-                command.Parameters.AddWithValue("@GrupaId", grupa.IdGrupe);
+                command.Parameters.AddWithValue("@StatusAkitvnosti", evidencija.StatusAktivnosti);
+                command.Parameters.AddWithValue("@Datum", evidencija.DatumPocetkaRada);
+                command.Parameters.AddWithValue("@Ucitelj", evidencija.Ucitelj.Id);
+                command.Parameters.AddWithValue("@Grupa", evidencija.Grupa.IdGrupe);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public BindingList<EvidencijaNastave> vratiListuEvidencijaNastave(GrupaUcenika grupaUcenika)
+        {
+            BindingList<EvidencijaNastave> result = new BindingList<EvidencijaNastave>();
+
+            if (grupaUcenika == null)
+            {
+                return vratiListuSveEvidencijaNastave();
+            }
+
+            try
+            {
+                connection.Open();
+
+                string query = "Select * from EvidencijaNastave ev join GrupaUcenika  gu on (ev.idGrupa =  gu.idGrupa) join Ucitelj u on (u.idUcitelj = ev.idEvidencijaNastave) where gu.idGrupa = @Grupa";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Grupa", grupaUcenika.IdGrupe);
+                SqlDataReader reader = command.ExecuteReader();
+                EvidencijaNastave ev = new EvidencijaNastave();
+                result = ev.popuniListu(reader);
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public BindingList<EvidencijaNastave> vratiListuEvidencijaNastave(Kurs kurs)
+        {
+            BindingList<EvidencijaNastave> result = new BindingList<EvidencijaNastave>();
+
+            if (kurs == null)
+            {
+                return vratiListuSveEvidencijaNastave();
+            }
+
+            try
+            {
+                connection.Open();
+
+                string query = "Select * from EvidencijaNastave ev join GrupaUcenika  gu on (ev.idGrupa =  gu.idGrupa) join Ucitelj u on (u.idUcitelj = ev.idUcitelja) join Kurs k on (gu.idKurs = k.idKurs) where k.idKurs = @IdKurs";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@IdKurs", kurs.IdKursa);
+                SqlDataReader reader = command.ExecuteReader();
+                EvidencijaNastave ev = new EvidencijaNastave();
+                result = ev.popuniListu(reader);
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public BindingList<EvidencijaNastave> vratiListuSveEvidencijaNastave()
+        {
+            BindingList<EvidencijaNastave> result = new BindingList<EvidencijaNastave>();
+
+            try
+            {
+                connection.Open();
+
+                string query = "select * from EvidencijaNastave ev join Ucitelj u on(ev.idUcitelja = u.idUcitelj) join GrupaUcenika gu on (gu.idGrupa = ev.idGrupa)";
+                SqlCommand command = new SqlCommand(query, connection);
+
+                SqlDataReader reader = command.ExecuteReader();
+                EvidencijaNastave ev = new EvidencijaNastave();
+                result = ev.popuniListu(reader);
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public BindingList<EvidencijaNastave> vratiListuEvidencijaNastave(Ucitelj ucitelj)
+        {
+            BindingList<EvidencijaNastave> result = new BindingList<EvidencijaNastave>();
+            if (ucitelj == null)
+            {
+                return vratiListuSveEvidencijaNastave();
+            }
+            try
+            {
+                connection.Open();
+
+                string query = "Select * from EvidencijaNastave ev join GrupaUcenika  gu on (ev.idGrupa =  gu.idGrupa) join Ucitelj u on (u.idUcitelj = ev.idUcitelja) where idUcitelja = @Ucitelj";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Ucitelj", ucitelj.Id);
+                SqlDataReader reader = command.ExecuteReader();
+                EvidencijaNastave ev = new EvidencijaNastave();
+                result = ev.popuniListu(reader);
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public BindingList<EvidencijaNastave> vratiListuEvidencijaNastave(EvidencijaNastave evd)
+        {
+            BindingList<EvidencijaNastave> result = new BindingList<EvidencijaNastave>();
+            if (evd == null)
+            {
+                return vratiListuSveEvidencijaNastave();
+            }
+            try
+            {
+                connection.Open();
+
+                string query = "Select * from EvidencijaNastave ev join GrupaUcenika  gu on (ev.idGrupa =  gu.idGrupa) join Ucitelj u on (u.idUcitelj = ev.idUcitelja) where ev.idEvidencijaNastave = @Evidencija";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Evidencija", evd.IdEvidencijeNastave);
+                SqlDataReader reader = command.ExecuteReader();
+                EvidencijaNastave ev = new EvidencijaNastave();
+                result = ev.popuniListu(reader);
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public BindingList<EvidencijaNastave> vratiListuEvidencijaNastave(Ucenik ucenik)
+        {
+            BindingList<EvidencijaNastave> result = new BindingList<EvidencijaNastave>();
+            if (ucenik == null)
+            {
+                return vratiListuSveEvidencijaNastave();
+            }
+            try
+            {
+                connection.Open();
+
+                string query = "Select * from EvidencijaNastave ev" +
+                    " join GrupaUcenika  gu on (ev.idGrupa =  gu.idGrupa)" +
+                    " join Ucitelj u on (u.idUcitelj = ev.idUcitelja) " +
+                    "join UcenikGrupa ug on (ug.idGrupaUcenika= gu.idGrupa) " +
+                    "where ug.idUcenik =  @Ucenik";
+
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Ucenik", ucenik.IdUcenika);
+                SqlDataReader reader = command.ExecuteReader();
+                EvidencijaNastave ev = new EvidencijaNastave();
+                result = ev.popuniListu(reader);
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public List<EvidencijaNastave> vratiListuEvidencijaNastave(GrupaUcenika gu, Ucitelj u, Ucenik ucenik, EvidencijaNastave ev)
+        {
+            List<EvidencijaNastave> res = vratiListuEvidencijaNastave(gu).Intersect(vratiListuEvidencijaNastave(u)).Intersect(vratiListuEvidencijaNastave(ucenik)).ToList();
+            return res;
+        }
+
+        public List<EvidencijaNastave> vratiListuEvidencijaNastave(GrupaUcenika gu, Ucitelj u, Ucenik ucenik, EvidencijaNastave ev, Kurs k)
+        {
+            List<EvidencijaNastave> res = vratiListuEvidencijaNastave(gu).Intersect(vratiListuEvidencijaNastave(u)).Intersect(vratiListuEvidencijaNastave(ucenik).Intersect(vratiListuEvidencijaNastave(k))).ToList();
+            return res;
+        }
+
+        public void PromeniEvidencijuNastave(EvidencijaNastave evidencija)
+        {
+            try
+            {
+                connection.Open();
+                string query = "Update EvidencijaNastave set datumPocetkaRada = @Datum, statusAktivnosti = @StatusAktivnosti, idUcitelja = @idUcitelja where idEvidencijaNastave = @IdEvidencije";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Datum", evidencija.DatumPocetkaRada);
+                command.Parameters.AddWithValue("StatusAktivnosti", evidencija.StatusAktivnosti);
+                command.Parameters.AddWithValue("@IdUcitelja", evidencija.Ucitelj.Id);
+                command.Parameters.AddWithValue("@IdEvidencije", evidencija.IdEvidencijeNastave);
                 command.ExecuteNonQuery();
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -1402,23 +1364,25 @@ namespace BrokerBazePodataka
             }
         }
 
-        public List<string> vratiZauzeteTermine()
+        //STAVKA EVIDENCIJE NASTAVE
+
+        public void kreirajStavkuEvidencijeNastave(StavkaEvidencijeNastave stavka)
         {
-            List<string> res = new List<string>();
             try
             {
                 connection.Open();
-                string query = "select  gu.termin from EvidencijaNastave en join GrupaUcenika gu on (en.idGrupa = gu.idGrupa) where en.statusAktivnosti = 1";
+                string query = "Insert into StavkaEvidencijeNastave values(@IdEvidencije, @Prisustvo, @Komentar, @Datum, @Domaci, @RB, @Ucenik)";
                 SqlCommand command = new SqlCommand(query, connection);
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    res.Add((string)reader[0]);
-                }
-
-                return res;
+                command.Parameters.AddWithValue("@IdEvidencije", stavka.Evidencija.IdEvidencijeNastave);
+                command.Parameters.AddWithValue("@Prisustvo", stavka.Prisustvo);
+                command.Parameters.AddWithValue("@Komentar", stavka.Komentar);
+                command.Parameters.AddWithValue("@Datum", stavka.DatumOdrzavanja);
+                command.Parameters.AddWithValue("@Domaci", stavka.UradjenDomaci);
+                command.Parameters.AddWithValue("@RB", stavka.RedniBrojCasa);
+                command.Parameters.AddWithValue("@Ucenik", stavka.Ucenik.IdUcenika);
+                command.ExecuteNonQuery();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -1428,19 +1392,25 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<GrupaUcenika> vratiListuSlobodneGrupe()
+        public BindingList<StavkaEvidencijeNastave> vratiListuSveStavkeEvidencijeNastave()
         {
-            BindingList<GrupaUcenika> res = new BindingList<GrupaUcenika>();
+            BindingList<StavkaEvidencijeNastave> result = new BindingList<StavkaEvidencijeNastave>();
             try
             {
                 connection.Open();
-                string query = "select * from GrupaUcenika gu left join EvidencijaNastave en on (gu.idGrupa = en.idGrupa) join Kurs k on (gu.idKurs = k.idKurs) where en.idEvidencijaNastave is null";
+                string query = "select sen.*, u.* ,ev.*, gu.*, uc.*  " +
+                    "from StavkaEvidencijeNastave sen join Ucenik u on(sen.idUcenik = u.idUcenik) " +
+                    "join EvidencijaNastave ev on (ev.idEvidencijaNastave = sen.idEvidencijeNastave) " +
+                    "join GrupaUcenika gu on (ev.idGrupa = gu.idGrupa) " +
+                    "join Ucitelj uc on(ev.idUcitelja = uc.idUcitelj) Order by sen.redniBrojCasa";
                 SqlCommand command = new SqlCommand(query, connection);
                 SqlDataReader reader = command.ExecuteReader();
-                GrupaUcenika gu = new GrupaUcenika();
-                res = gu.popuniListu(reader);
-                return res;
-            }catch(Exception ex)
+                StavkaEvidencijeNastave stavka = new StavkaEvidencijeNastave();
+                result = stavka.popuniListu(reader);
+                return result;
+
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -1449,6 +1419,99 @@ namespace BrokerBazePodataka
                 connection.Close();
             }
         }
+
+        public BindingList<StavkaEvidencijeNastave> vratiListuStavkiEvidencijeNastave(EvidencijaNastave evidencija)
+        {
+            BindingList<StavkaEvidencijeNastave> result = new BindingList<StavkaEvidencijeNastave>();
+
+            try
+            {
+                connection.Open();
+                string query = "select sen.*, u.* ,ev.*, gu.*, uc.*  " +
+                    "from StavkaEvidencijeNastave sen join Ucenik u on(sen.idUcenik = u.idUcenik) " +
+                    "join EvidencijaNastave ev on (ev.idEvidencijaNastave = sen.idEvidencijeNastave) " +
+                    "join GrupaUcenika gu on (ev.idGrupa = gu.idGrupa) " +
+                    "join Ucitelj uc on(ev.idUcitelja = uc.idUcitelj) " +
+                    "where sen.idEvidencijeNastave = @IdEvidencije Order by sen.redniBrojCasa";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("IdEvidencije", evidencija.IdEvidencijeNastave);
+                SqlDataReader reader = command.ExecuteReader();
+                StavkaEvidencijeNastave stavka = new StavkaEvidencijeNastave();
+                result = stavka.popuniListu(reader);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public BindingList<StavkaEvidencijeNastave> vratiListuStavkiEvidencijeNastave(Ucenik ucenik)
+        {
+            BindingList<StavkaEvidencijeNastave> result = new BindingList<StavkaEvidencijeNastave>();
+
+            try
+            {
+                connection.Open();
+                string query = "select sen.*, u.* ,ev.*, gu.*, uc.*  from StavkaEvidencijeNastave sen" +
+                    " join Ucenik u on(sen.idUcenik = u.idUcenik) " +
+                    "join EvidencijaNastave ev on (ev.idEvidencijaNastave = sen.idEvidencijeNastave) join " +
+                    "GrupaUcenika gu on (ev.idGrupa = gu.idGrupa) join Ucitelj uc on(ev.idUcitelja = uc.idUcitelj) where u.idUcenik = @IdUcenik Order by sen.redniBrojCasa";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@IdUcenik", ucenik.IdUcenika);
+                SqlDataReader reader = command.ExecuteReader();
+                StavkaEvidencijeNastave stavka = new StavkaEvidencijeNastave();
+                result = stavka.popuniListu(reader);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public List<StavkaEvidencijeNastave> vratiListuStavkiEvidencijeNastave(EvidencijaNastave en, Ucenik ucenik)
+        {
+            return vratiListuStavkiEvidencijeNastave(en).Intersect(vratiListuStavkiEvidencijeNastave(ucenik)).ToList();
+        }
+
+
+        public void promeniStavkuEvidencijeNastave(StavkaEvidencijeNastave stavka)
+        {
+            try
+            {
+                connection.Open();
+                string query = "Update StavkaEvidencijeNastave set prisustvo = @Prisustvo, komentar = @Komentar, " +
+                    "datumOdrzavanja = @Datum, uradjenDomaci = @Domaci, redniBrojCasa = @rbCasa where idStavkaEvidencije = @idStavke";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Prisustvo", stavka.Prisustvo);
+                command.Parameters.AddWithValue("@Komentar", stavka.Komentar);
+                command.Parameters.AddWithValue("@Datum", stavka.DatumOdrzavanja);
+                command.Parameters.AddWithValue("@Domaci", stavka.UradjenDomaci);
+                command.Parameters.AddWithValue("@rbCasa", stavka.RedniBrojCasa);
+                command.Parameters.AddWithValue("@idStavke", stavka.idStavkeEvidencije);
+                command.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+
     }
 
     

@@ -108,10 +108,19 @@ namespace Forme.User_controlers
         {
             try
             {
-                UCPrikazUcitelja uCPrikazUcitelja = new UCPrikazUcitelja((Ucitelj)dgvUcitelji.CurrentRow.DataBoundItem);
-                PomocnaForma frm = new PomocnaForma(uCPrikazUcitelja);
-                frm.Show();
-                
+                if(dgvUcitelji.CurrentRow != null)
+                {
+                    UCPrikazUcitelja uCPrikazUcitelja = new UCPrikazUcitelja((Ucitelj)dgvUcitelji.CurrentRow.DataBoundItem);
+                    PomocnaForma frm = new PomocnaForma(uCPrikazUcitelja);
+                    frm.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Odaberite ucitelja za prikaz!", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+
+
 
             }
             catch(Exception ex)

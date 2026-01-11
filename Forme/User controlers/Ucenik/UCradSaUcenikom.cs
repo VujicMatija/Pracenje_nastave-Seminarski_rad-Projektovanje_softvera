@@ -30,7 +30,7 @@ namespace Forme.User_controlers
         public UCradSaUcenikom(Ucenik ucenik)
         {
             InitializeComponent();
-            dgvEvidencijeNastave.Visible = true;
+            dgvGrupe.Visible = true;
             globalniUcenik = ucenik;
             cbPol.DataSource = Enum.GetValues<Pol>();
             txtImeUcenika.Text = ucenik.ImeUcenika;
@@ -43,12 +43,16 @@ namespace Forme.User_controlers
             dateDatumRodjenja.Value = ucenik.DatumRodjenjaUcenika;
             cbPol.SelectedItem = ucenik.PolUcenika;
             btnKreiraj.Visible = false;
-            dgvEvidencijeNastave.DataSource = broker.vratiListuEvidencijaNastave(ucenik);
-
-            dgvEvidencijeNastave.Columns[0].Visible = false;
-            dgvEvidencijeNastave.Columns[2].Visible = false;
-            dgvEvidencijeNastave.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvEvidencijeNastave.Enabled = false;
+            dgvGrupe.DataSource = broker.vratiListuGrupaUcenika(ucenik);
+            foreach(DataGridViewColumn col in dgvGrupe.Columns)
+            {
+                col.Visible = false;
+            }
+            dgvGrupe.Columns[1].Visible = true;
+            dgvGrupe.Columns[3].Visible = true;
+            dgvGrupe.Columns[4].Visible = true;
+            dgvGrupe.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvGrupe.Enabled = false;
             btnOmoguciIzmene.Visible = true;
             omoguciPolja(false);
             btnObrisi.Visible = false;

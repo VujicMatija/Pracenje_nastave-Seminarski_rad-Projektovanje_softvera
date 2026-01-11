@@ -19,7 +19,7 @@ namespace Domeni
         public override string ToString()
         {
             if (Ucitelj != null && Grupa != null)
-                return $"{Ucitelj.ToString()} - {Grupa.ToString()}";
+                return $"{Grupa.ToString()} - {Ucitelj.ToString()}";
             else return "";
         }
 

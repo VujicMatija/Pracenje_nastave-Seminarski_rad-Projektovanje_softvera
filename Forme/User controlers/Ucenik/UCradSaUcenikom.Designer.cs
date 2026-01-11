@@ -46,14 +46,14 @@
             txtTelefonRoditelja = new TextBox();
             txtTelefonUcenika = new TextBox();
             txtEmailUcenika = new TextBox();
-            dgvEvidencijeNastave = new DataGridView();
+            dgvGrupe = new DataGridView();
             btnKreiraj = new Button();
             dateDatumRodjenja = new DateTimePicker();
             btnOmoguciIzmene = new Button();
             btnIzmeni = new Button();
             btnObrisi = new Button();
             pictureBox1 = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)dgvEvidencijeNastave).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvGrupe).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -201,15 +201,15 @@
             txtEmailUcenika.Size = new Size(179, 27);
             txtEmailUcenika.TabIndex = 17;
             // 
-            // dgvEvidencijeNastave
+            // dgvGrupe
             // 
-            dgvEvidencijeNastave.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvEvidencijeNastave.Location = new Point(363, 163);
-            dgvEvidencijeNastave.Name = "dgvEvidencijeNastave";
-            dgvEvidencijeNastave.RowHeadersWidth = 51;
-            dgvEvidencijeNastave.Size = new Size(423, 206);
-            dgvEvidencijeNastave.TabIndex = 18;
-            dgvEvidencijeNastave.Visible = false;
+            dgvGrupe.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvGrupe.Location = new Point(363, 163);
+            dgvGrupe.Name = "dgvGrupe";
+            dgvGrupe.RowHeadersWidth = 51;
+            dgvGrupe.Size = new Size(423, 206);
+            dgvGrupe.TabIndex = 18;
+            dgvGrupe.Visible = false;
             // 
             // btnKreiraj
             // 
@@ -281,7 +281,7 @@
             Controls.Add(btnOmoguciIzmene);
             Controls.Add(dateDatumRodjenja);
             Controls.Add(btnKreiraj);
-            Controls.Add(dgvEvidencijeNastave);
+            Controls.Add(dgvGrupe);
             Controls.Add(txtEmailUcenika);
             Controls.Add(txtTelefonUcenika);
             Controls.Add(txtTelefonRoditelja);
@@ -303,7 +303,7 @@
             Margin = new Padding(2);
             Name = "UCradSaUcenikom";
             Size = new Size(810, 400);
-            ((System.ComponentModel.ISupportInitialize)dgvEvidencijeNastave).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvGrupe).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -328,7 +328,7 @@
         private TextBox txtTelefonRoditelja;
         private TextBox txtTelefonUcenika;
         private TextBox txtEmailUcenika;
-        private DataGridView dgvEvidencijeNastave;
+        private DataGridView dgvGrupe;
         private Button btnKreiraj;
         private DateTimePicker dateDatumRodjenja;
         private Button btnOmoguciIzmene;

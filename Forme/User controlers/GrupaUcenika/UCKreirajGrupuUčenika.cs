@@ -195,6 +195,11 @@ namespace Forme.User_controlers
                 OznakaGrupe = txtOznaka.Text,
                 IdGrupe = globalnaGrupa.IdGrupe
             };
+            if (zauzetiTermini.Contains(grupa.Termin))
+            {
+                MessageBox.Show("Ovaj termin je vec zauzet, nije moguce kreirati grupu ucenika u tom terminu!");
+                return;
+            }
             try
             {
                 broker.PromeniGrupuUcenika(grupa);
@@ -258,8 +263,11 @@ namespace Forme.User_controlers
 
         public string ispisZauzetihTermina()
         {
+            List<string> dani = Enum.GetNames<Dani>().ToList();
+            List<string> sveKombinacije = dani.SelectMany(dan => sati, (dan, sati) => $"{dan} {sati}").ToList();
+            List<string> slobodni = sveKombinacije.Except(zauzetiTermini).ToList();
             string ispis = "\n";
-            foreach(string s in zauzetiTermini)
+            foreach(string s in slobodni)
             {
                 ispis = ispis + s + "\n";
                 //ispis.Concat(s + "\n");
@@ -270,7 +278,7 @@ namespace Forme.User_controlers
         private void btnHint_Click(object sender, EventArgs e)
         {
             zauzetiTermini = broker.vratiZauzeteTermine();
-            MessageBox.Show($"Zauzeti termini su {ispisZauzetihTermina()}");
+            MessageBox.Show($"Slobodni termini su {ispisZauzetihTermina()}");
         }
     }
 }

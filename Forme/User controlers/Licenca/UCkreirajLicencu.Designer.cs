@@ -42,58 +42,54 @@
             // cbSertifikati
             // 
             cbSertifikati.FormattingEnabled = true;
-            cbSertifikati.Location = new Point(254, 141);
-            cbSertifikati.Margin = new Padding(5);
+            cbSertifikati.Location = new Point(156, 88);
             cbSertifikati.Name = "cbSertifikati";
-            cbSertifikati.Size = new Size(243, 40);
+            cbSertifikati.Size = new Size(151, 28);
             cbSertifikati.TabIndex = 1;
             // 
             // dateDobijanje
             // 
             dateDobijanje.CustomFormat = "dd/MM/yyyy";
             dateDobijanje.Format = DateTimePickerFormat.Custom;
-            dateDobijanje.Location = new Point(254, 219);
-            dateDobijanje.Margin = new Padding(5);
+            dateDobijanje.Location = new Point(156, 137);
+            dateDobijanje.MaxDate = new DateTime(2026, 1, 10, 0, 0, 0, 0);
             dateDobijanje.Name = "dateDobijanje";
-            dateDobijanje.Size = new Size(243, 39);
+            dateDobijanje.Size = new Size(151, 27);
             dateDobijanje.TabIndex = 2;
+            dateDobijanje.Value = new DateTime(2026, 1, 10, 0, 0, 0, 0);
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(161, 64);
-            label1.Margin = new Padding(5, 0, 5, 0);
+            label1.Location = new Point(99, 40);
             label1.Name = "label1";
-            label1.Size = new Size(80, 32);
+            label1.Size = new Size(51, 20);
             label1.TabIndex = 3;
             label1.Text = "Učitelj";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(133, 146);
-            label2.Margin = new Padding(5, 0, 5, 0);
+            label2.Location = new Point(82, 91);
             label2.Name = "label2";
-            label2.Size = new Size(108, 32);
+            label2.Size = new Size(68, 20);
             label2.TabIndex = 4;
             label2.Text = "Sertifikat";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(47, 227);
-            label3.Margin = new Padding(5, 0, 5, 0);
+            label3.Location = new Point(29, 142);
             label3.Name = "label3";
-            label3.Size = new Size(191, 32);
+            label3.Size = new Size(121, 20);
             label3.TabIndex = 5;
             label3.Text = "Datum dobijanja";
             // 
             // btnDodajLicencu
             // 
-            btnDodajLicencu.Location = new Point(182, 301);
-            btnDodajLicencu.Margin = new Padding(5);
+            btnDodajLicencu.Location = new Point(112, 188);
             btnDodajLicencu.Name = "btnDodajLicencu";
-            btnDodajLicencu.Size = new Size(205, 104);
+            btnDodajLicencu.Size = new Size(126, 65);
             btnDodajLicencu.TabIndex = 6;
             btnDodajLicencu.Text = "Dodaj licencu";
             btnDodajLicencu.UseVisualStyleBackColor = true;
@@ -102,17 +98,17 @@
             // txtUcitelj
             // 
             txtUcitelj.Enabled = false;
-            txtUcitelj.Location = new Point(254, 59);
-            txtUcitelj.Margin = new Padding(5);
+            txtUcitelj.Location = new Point(156, 37);
             txtUcitelj.Name = "txtUcitelj";
-            txtUcitelj.Size = new Size(243, 39);
+            txtUcitelj.Size = new Size(151, 27);
             txtUcitelj.TabIndex = 7;
             // 
             // btnOmoguciIzmenu
             // 
-            btnOmoguciIzmenu.Location = new Point(182, 301);
+            btnOmoguciIzmenu.Location = new Point(112, 188);
+            btnOmoguciIzmenu.Margin = new Padding(2, 2, 2, 2);
             btnOmoguciIzmenu.Name = "btnOmoguciIzmenu";
-            btnOmoguciIzmenu.Size = new Size(205, 104);
+            btnOmoguciIzmenu.Size = new Size(126, 65);
             btnOmoguciIzmenu.TabIndex = 8;
             btnOmoguciIzmenu.Text = "Omoguci izmenu";
             btnOmoguciIzmenu.UseVisualStyleBackColor = true;
@@ -121,9 +117,10 @@
             // 
             // btnIzmeni
             // 
-            btnIzmeni.Location = new Point(182, 301);
+            btnIzmeni.Location = new Point(112, 188);
+            btnIzmeni.Margin = new Padding(2, 2, 2, 2);
             btnIzmeni.Name = "btnIzmeni";
-            btnIzmeni.Size = new Size(205, 104);
+            btnIzmeni.Size = new Size(126, 65);
             btnIzmeni.TabIndex = 9;
             btnIzmeni.Text = "Izmeni";
             btnIzmeni.UseVisualStyleBackColor = true;
@@ -132,7 +129,7 @@
             // 
             // UCkreirajLicencu
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(btnIzmeni);
             Controls.Add(btnOmoguciIzmenu);
@@ -143,9 +140,8 @@
             Controls.Add(label1);
             Controls.Add(dateDobijanje);
             Controls.Add(cbSertifikati);
-            Margin = new Padding(5);
             Name = "UCkreirajLicencu";
-            Size = new Size(566, 480);
+            Size = new Size(348, 300);
             ResumeLayout(false);
             PerformLayout();
         }

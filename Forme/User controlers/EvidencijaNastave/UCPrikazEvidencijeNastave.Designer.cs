@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCPrikazEvidencijeNastave));
             label1 = new Label();
             label2 = new Label();
             cbUcitelj = new ComboBox();
@@ -41,6 +42,10 @@
             label5 = new Label();
             btnPromeni = new Button();
             btnDodajStavku = new Button();
+            label6 = new Label();
+            cbUcenici = new ComboBox();
+            button1 = new Button();
+            btnPrikazStavke = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvUcenici).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvStavke).BeginInit();
             SuspendLayout();
@@ -106,17 +111,17 @@
             // dgvStavke
             // 
             dgvStavke.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvStavke.Location = new Point(34, 244);
+            dgvStavke.Location = new Point(33, 315);
             dgvStavke.Margin = new Padding(2);
             dgvStavke.Name = "dgvStavke";
             dgvStavke.RowHeadersWidth = 82;
-            dgvStavke.Size = new Size(574, 134);
+            dgvStavke.Size = new Size(723, 202);
             dgvStavke.TabIndex = 6;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(34, 218);
+            label4.Location = new Point(34, 236);
             label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
             label4.Size = new Size(177, 20);
@@ -157,7 +162,7 @@
             // 
             // btnPromeni
             // 
-            btnPromeni.Location = new Point(625, 254);
+            btnPromeni.Location = new Point(33, 585);
             btnPromeni.Margin = new Padding(2);
             btnPromeni.Name = "btnPromeni";
             btnPromeni.Size = new Size(132, 49);
@@ -168,7 +173,7 @@
             // 
             // btnDodajStavku
             // 
-            btnDodajStavku.Location = new Point(625, 317);
+            btnDodajStavku.Location = new Point(33, 532);
             btnDodajStavku.Margin = new Padding(2);
             btnDodajStavku.Name = "btnDodajStavku";
             btnDodajStavku.Size = new Size(132, 49);
@@ -177,10 +182,53 @@
             btnDodajStavku.UseVisualStyleBackColor = true;
             btnDodajStavku.Click += btnDodajStavku_Click;
             // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(33, 277);
+            label6.Name = "label6";
+            label6.Size = new Size(177, 20);
+            label6.TabIndex = 13;
+            label6.Text = "Prikazi stavke za učenika: ";
+            // 
+            // cbUcenici
+            // 
+            cbUcenici.FormattingEnabled = true;
+            cbUcenici.Location = new Point(216, 274);
+            cbUcenici.Name = "cbUcenici";
+            cbUcenici.Size = new Size(206, 28);
+            cbUcenici.TabIndex = 14;
+            cbUcenici.SelectedIndexChanged += cbUcenici_SelectedIndexChanged;
+            // 
+            // button1
+            // 
+            button1.BackgroundImage = (Image)resources.GetObject("button1.BackgroundImage");
+            button1.BackgroundImageLayout = ImageLayout.Zoom;
+            button1.Location = new Point(428, 277);
+            button1.Name = "button1";
+            button1.Size = new Size(40, 29);
+            button1.TabIndex = 15;
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // btnPrikazStavke
+            // 
+            btnPrikazStavke.Location = new Point(187, 532);
+            btnPrikazStavke.Name = "btnPrikazStavke";
+            btnPrikazStavke.Size = new Size(149, 49);
+            btnPrikazStavke.TabIndex = 16;
+            btnPrikazStavke.Text = "Prikaži stavku evidencije nastave";
+            btnPrikazStavke.UseVisualStyleBackColor = true;
+            btnPrikazStavke.Click += btnPrikazStavke_Click;
+            // 
             // UCPrikazEvidencijeNastave
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(btnPrikazStavke);
+            Controls.Add(button1);
+            Controls.Add(cbUcenici);
+            Controls.Add(label6);
             Controls.Add(btnDodajStavku);
             Controls.Add(btnPromeni);
             Controls.Add(label5);
@@ -196,7 +244,7 @@
             Controls.Add(label1);
             Margin = new Padding(2);
             Name = "UCPrikazEvidencijeNastave";
-            Size = new Size(800, 400);
+            Size = new Size(800, 645);
             ((System.ComponentModel.ISupportInitialize)dgvUcenici).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvStavke).EndInit();
             ResumeLayout(false);
@@ -218,5 +266,9 @@
         private Label label5;
         private Button btnPromeni;
         private Button btnDodajStavku;
+        private Label label6;
+        private ComboBox cbUcenici;
+        private Button button1;
+        private Button btnPrikazStavke;
     }
 }

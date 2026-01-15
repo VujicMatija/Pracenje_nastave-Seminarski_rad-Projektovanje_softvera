@@ -22,11 +22,17 @@ namespace Forme.User_controlers
         {
             InitializeComponent();
             globalna = evidencija;
+
             cbGrupa.DataSource = broker.vratiListuSveGrupeUcenika();
             cbGrupa.SelectedItem = evidencija.Grupa;
+
             cbUcitelj.DataSource = broker.vratiListuSviUcitelji();
             cbUcitelj.SelectedItem = evidencija.Ucitelj;
+
             dgvUcenici.DataSource = broker.vratiListuUcenika(evidencija.Grupa);
+            cbUcenici.DataSource = broker.vratiListuUcenika(evidencija.Grupa);
+            cbUcenici.SelectedItem = null;
+
             foreach (DataGridViewColumn col in dgvUcenici.Columns)
             {
                 col.Visible = false;
@@ -36,9 +42,11 @@ namespace Forme.User_controlers
             dgvUcenici.Columns[1].HeaderText = "Ime";
             dgvUcenici.Columns[2].HeaderText = "Prezime";
             dgvUcenici.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
             dgvStavke.DataSource = broker.vratiListuStavkiEvidencijeNastave(evidencija);
             dgvStavke.Columns[0].Visible = false;
             dgvStavke.Columns[dgvStavke.Columns.Count - 1].Visible = false;
+
             datePocetak.Value = evidencija.DatumPocetkaRada;
             chAktivna.Checked = evidencija.StatusAktivnosti;
 
@@ -60,7 +68,7 @@ namespace Forme.User_controlers
                 btnPromeni.Visible = true;
             }
 
-            
+
         }
 
         private void btnPromeni_Click(object sender, EventArgs e)
@@ -92,6 +100,39 @@ namespace Forme.User_controlers
         private void label4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void cbUcenici_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbUcenici.SelectedItem == null)
+            {
+                dgvStavke.DataSource = broker.vratiListuStavkiEvidencijeNastave(globalna);
+            }
+            else
+            {
+                dgvStavke.DataSource = broker.vratiListuStavkiEvidencijeNastave(globalna, (Ucenik)cbUcenici.SelectedItem);
+            }
+            dgvStavke.Columns[0].Visible = false;
+            dgvStavke.Columns[dgvStavke.Columns.Count - 1].Visible = false;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            cbUcenici.SelectedIndex = -1;
+        }
+
+        private void btnPrikazStavke_Click(object sender, EventArgs e)
+        {
+            if (dgvStavke.CurrentRow == null)
+            {
+                MessageBox.Show("Niste odabrali stavku evidencije za prikaz!");
+            }
+            else
+            {
+                StavkaEvidencijeNastave stavka = (StavkaEvidencijeNastave)dgvStavke.CurrentRow.DataBoundItem;
+                PomocnaForma frm = new PomocnaForma(new UCradSaStavkomEvidencijeNastave(stavka));
+                frm.ShowDialog();
+            }
         }
     }
 }

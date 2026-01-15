@@ -7,9 +7,11 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices.Marshalling;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Forme.User_controlers
 {
@@ -17,10 +19,38 @@ namespace Forme.User_controlers
     {
 
         Broker broker = new Broker();
+        BindingList<StavkaEvidencijeNastave> stavke = new BindingList<StavkaEvidencijeNastave>();
 
         public UCRadSaEvidencijomNastave()
         {
             InitializeComponent();
+
+            dateDatumStavke.MaxDate = DateTime.Today;
+            datePocetakRada.MaxDate = DateTime.Today;
+
+            cbGrupa.MouseWheel += (s, e) =>
+            {
+                ((HandledMouseEventArgs)e).Handled = true;
+            };
+
+            cbRBCasa.MouseWheel += (s, e) =>
+            {
+                ((HandledMouseEventArgs)e).Handled = true;
+            };
+
+            cbUcenici.MouseWheel += (s, e) =>
+            {
+                ((HandledMouseEventArgs)e).Handled = true;
+            };
+
+            cbUcitelj.MouseWheel += (s, e) =>
+            {
+                ((HandledMouseEventArgs)e).Handled = true;
+            };
+
+
+
+
             BindingList<Ucitelj> sviUcitelji = broker.vratiListuSviUcitelji();
             cbUcitelj.DataSource = sviUcitelji;
             cbUcitelj.SelectedItem = null;
@@ -31,6 +61,13 @@ namespace Forme.User_controlers
                 MessageBox.Show("Nema slobodnih grupa!");
             }
             cbGrupa.SelectedItem = null;
+            cbUcenici.DataSource = null;
+            cbRBCasa.DataSource = null;
+            dgvStavke.DataSource = stavke;
+            dgvStavke.Columns[0].Visible = false;
+            dgvStavke.Columns[1].Visible = false;
+            dgvStavke.Columns[7].Visible = false;
+            dgvStavke.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void UCRadSaEvidencijomNastave_Load(object sender, EventArgs e)
@@ -42,7 +79,7 @@ namespace Forme.User_controlers
         {
             if (cbGrupa.SelectedItem == null || cbUcitelj.SelectedItem == null)
             {
-                MessageBox.Show("Morate popuniti sva polja!", "Greska!",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("Morate popuniti sva polja!", "Greska!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -55,23 +92,144 @@ namespace Forme.User_controlers
 
                 };
 
-                
-                try
+                DialogResult res = MessageBox.Show("Da li ste sigurni da zelite da kreirate evidenciju nastave?", "Potvrda", MessageBoxButtons.YesNo);
+                if(res == DialogResult.Yes)
                 {
-                    broker.KreirajEvidencijuNastave(unos);
-                    MessageBox.Show("Uspesan unos");
-                    BindingList<GrupaUcenika> dostupneGrupeUcenika = broker.vratiListuSlobodneGrupe();
-                    cbGrupa.DataSource = dostupneGrupeUcenika;
-                    if (dostupneGrupeUcenika.IsNullOrEmpty())
+                    try
                     {
-                        MessageBox.Show("Nema slobodnih grupa!");
+                        broker.KreirajEvidencijuNastave(unos, stavke);
+                        MessageBox.Show("Uspesan unos");
+                        resetujFormu();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
                     }
                 }
-                catch(Exception ex)
+                else
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("OK!");
+                }
+               
+            }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        
+        private void cbGrupa_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            
+
+            if (stavke.IsNullOrEmpty() == false)
+            {
+                DialogResult res = MessageBox.Show("Da li ste sigurni da zelite da promenite grupu? Trenutno unete stavke ce biti ponistene!", "Potvrda", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (res == DialogResult.No)
+                {
+                    try
+                    {
+                        cbGrupa.SelectedIndex = trenutniIndex;
+                        cbUcenici.DataSource = broker.vratiListuUcenika(trenutnaGrupa);
+                    }catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    
+                }
+                else
+                {
+                    stavke.Clear();
                 }
             }
+
+        }
+
+        private void cbGrupa_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbGrupa.SelectedItem != null)
+            {
+
+                if (stavke.Count == 0)
+                {
+                    GrupaUcenika novaGrupa = (GrupaUcenika)cbGrupa.SelectedItem;
+                    cbUcenici.DataSource = broker.vratiListuUcenika(novaGrupa);
+                    Kurs k = broker.pretraziKurs(new Kurs() { IdKursa = novaGrupa.Kurs.IdKursa });
+                    cbRBCasa.DataSource = Enumerable.Range(1, broker.pretraziKurs(k).TrajanjeKursa).ToList();
+                }
+                else
+                {
+                    if(trenutniIndex >= 0)
+                    {
+                        cbGrupa.SelectedIndex = trenutniIndex;
+                        cbGrupa.SelectedItem = trenutnaGrupa;
+                        cbUcenici.DataSource = broker.vratiListuUcenika(trenutnaGrupa);
+                        Kurs k = broker.pretraziKurs(new Kurs() { IdKursa = trenutnaGrupa.Kurs.IdKursa });
+                        cbRBCasa.DataSource = Enumerable.Range(1, broker.pretraziKurs(k).TrajanjeKursa).ToList();
+                    }
+                    
+
+                }
+
+            }
+
+        }
+
+        private void btnDodajStavku_Click(object sender, EventArgs e)
+        {
+            StavkaEvidencijeNastave stavka = new StavkaEvidencijeNastave()
+            {
+                Prisustvo = chPrisustvo.Checked,
+                Komentar = txtKomentar.Text,
+                DatumOdrzavanja = dateDatumStavke.Value,
+                UradjenDomaci = chDomaci.Checked,
+                RedniBrojCasa = (int)cbRBCasa.SelectedItem,
+                Ucenik = (Ucenik)cbUcenici.SelectedItem
+            };
+            stavke.Add(stavka);
+            resetujStavku();
+
+        }
+
+
+        int trenutniIndex = 0;
+        GrupaUcenika trenutnaGrupa;
+        private void cbGrupa_DropDown(object sender, EventArgs e)
+        {
+            trenutniIndex = cbGrupa.SelectedIndex;
+            trenutnaGrupa = (GrupaUcenika)cbGrupa.SelectedItem;
+        }
+
+        private void resetujStavku()
+        {
+            txtKomentar.Text = "";
+            cbUcenici.SelectedIndex = -1;
+            cbRBCasa.SelectedIndex = -1;
+            chPrisustvo.Checked = false;
+            chDomaci.Checked = false;
+            dateDatumStavke.Value = DateTime.Today;
+        }
+
+        private void resetujFormu()
+        {
+            BindingList<GrupaUcenika> dostupneGrupeUcenika = broker.vratiListuSlobodneGrupe();
+            cbGrupa.DataSource = dostupneGrupeUcenika;
+            cbGrupa.SelectedIndex = -1;
+            cbUcenici.DataSource = broker.vratiListuUcenika((GrupaUcenika)cbGrupa.SelectedItem);
+            cbUcitelj.SelectedIndex = -1;
+            chAktivna.Checked = false;
+            datePocetakRada.Value = DateTime.Today;
+            dateDatumStavke.Value = DateTime.Today;
+            txtKomentar.Text = "";
+            cbUcenici.SelectedIndex = -1;
+            cbRBCasa.SelectedIndex = -1;
+            chPrisustvo.Checked = false;
+            chDomaci.Checked = false;
+            dateDatumStavke.Value = DateTime.Today;
+            stavke.Clear();
         }
     }
 }

@@ -43,7 +43,7 @@ namespace Forme.User_controlers
         {
             dgvEvidencije.DataSource = null;
             dgvEvidencije.DataSource = broker.vratiListuEvidencijaNastave((GrupaUcenika)cbGrupa.SelectedItem, (Ucitelj)cbUcitelj.SelectedItem, (Ucenik)cbUcenik.SelectedItem, null);
-           // dgvEvidencije.DataSource = broker.vratiListuEvidencijaNastave((Ucitelj)cbUcitelj.SelectedItem);
+            // dgvEvidencije.DataSource = broker.vratiListuEvidencijaNastave((Ucitelj)cbUcitelj.SelectedItem);
             dgvEvidencije.Columns[0].Visible = false;
             dgvEvidencije.Columns[1].Visible = false;
             dgvEvidencije.Columns[2].Visible = false;
@@ -61,8 +61,9 @@ namespace Forme.User_controlers
             {
                 ev = (EvidencijaNastave)dgvEvidencije.CurrentRow.DataBoundItem;
                 UCPrikazEvidencijeNastave uCPrikazEvidencijeNastave = new UCPrikazEvidencijeNastave(ev);
+               
                 PomocnaForma pomFrm = new PomocnaForma(uCPrikazEvidencijeNastave);
-                
+
                 pomFrm.Show();
             }
         }
@@ -82,6 +83,34 @@ namespace Forme.User_controlers
                 PomocnaForma pomFrm = new PomocnaForma(uCPrikazEvidencijeNastave);
                 pomFrm.Show();
             }
+        }
+
+        private void btnRestart1_Click(object sender, EventArgs e)
+        {
+            cbUcitelj.SelectedItem = null;
+        }
+
+        private void btnRestart2_Click(object sender, EventArgs e)
+        {
+            cbUcenik.SelectedItem = null;
+        }
+
+        private void btnRestart3_Click(object sender, EventArgs e)
+        {
+            cbGrupa.SelectedItem = null;
+        }
+
+        private void btnOcistiFiltere_Click(object sender, EventArgs e)
+        {
+            cbUcitelj.SelectedItem = null;
+            cbUcenik.SelectedItem = null;
+            cbGrupa.SelectedItem = null;
+            dgvEvidencije.DataSource = broker.vratiListuSveEvidencijaNastave();
+            dgvEvidencije.Columns[0].Visible = false;
+            dgvEvidencije.Columns[1].Visible = false;
+            dgvEvidencije.Columns[2].Visible = false;
+            dgvEvidencije.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
         }
     }
 }

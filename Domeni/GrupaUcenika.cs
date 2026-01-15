@@ -28,6 +28,11 @@ namespace Domeni
                 && grupa.OznakaGrupe == OznakaGrupe;
         }
 
+        public override int GetHashCode()
+        {
+            return IdGrupe.GetHashCode();
+        }
+
         public BindingList<GrupaUcenika> popuniListu(SqlDataReader reader)
         {
             BindingList<GrupaUcenika> res = new BindingList<GrupaUcenika>();

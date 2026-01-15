@@ -15,13 +15,14 @@ namespace Forme.User_controlers
     public partial class UCpretraziUcitelja : UserControl
     {
         Broker broker = new Broker();
+        
         public UCpretraziUcitelja()
         {
             InitializeComponent();
-
+            BindingList<Ucitelj> res = broker.vratiListuSviUcitelji();
             cbSertifikati.DataSource = broker.vratiListuSviSertifikati();
             cbSertifikati.SelectedItem = null;
-            dgvUcitelji.DataSource = broker.vratiListuSviUcitelji();
+            dgvUcitelji.DataSource = res;
             foreach (DataGridViewColumn col in dgvUcitelji.Columns)
             {
                 col.Visible = false;
@@ -102,6 +103,8 @@ namespace Forme.User_controlers
         {
 
             cbSertifikati.SelectedItem = null;
+            txtImePrezime.Text = "";
+            dgvUcitelji.DataSource = broker.vratiListuSviUcitelji();
         }
 
         private void button1_Click_1(object sender, EventArgs e)

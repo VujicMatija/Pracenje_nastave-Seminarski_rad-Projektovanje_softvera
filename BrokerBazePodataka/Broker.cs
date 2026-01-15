@@ -4,6 +4,7 @@ using Microsoft.Identity.Client;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Transactions;
 namespace BrokerBazePodataka
 {
     public class Broker
@@ -151,9 +152,10 @@ namespace BrokerBazePodataka
 
         }
 
-        public List<Ucitelj> vratiListuUcitelja(Ucitelj u, Sertifikat s)
+        public BindingList<Ucitelj> vratiListuUcitelja(Ucitelj u, Sertifikat s)
         {
-            List<Ucitelj> res = vratiListuSviUcitelji().Intersect(vratiListuUcitelja(s).Intersect(vratiListuUcitelja(u))).ToList();
+            List<Ucitelj> lista =vratiListuSviUcitelji().Intersect(vratiListuUcitelja(s).Intersect(vratiListuUcitelja(u))).ToList();
+            BindingList<Ucitelj> res = new BindingList<Ucitelj>(lista);
             return res;
         }
 
@@ -287,7 +289,12 @@ namespace BrokerBazePodataka
 
         public BindingList<Ucenik> vratiListuUcenika(GrupaUcenika gu)
         {
+
             BindingList<Ucenik> result = new BindingList<Ucenik>();
+            if(gu == null)
+            {
+                return result;
+            }
             Ucenik u = new Ucenik();
 
             try
@@ -646,6 +653,7 @@ namespace BrokerBazePodataka
         public BindingList<GrupaUcenika> vratiListuSlobodneGrupe()
         {
             BindingList<GrupaUcenika> res = new BindingList<GrupaUcenika>();
+
             try
             {
                 connection.Open();
@@ -1113,21 +1121,42 @@ namespace BrokerBazePodataka
 
         //EVIDENCIJA NASTAVE
 
-        public void KreirajEvidencijuNastave(EvidencijaNastave evidencija)
+        public void KreirajEvidencijuNastave(EvidencijaNastave evidencija, BindingList<StavkaEvidencijeNastave> stavke = null)
         {
+            connection.Open();
+            SqlTransaction transaction = connection.BeginTransaction();
             try
             {
-                connection.Open();
-                string query = "Insert into EvidencijaNastave values(@StatusAkitvnosti, @Datum, @Ucitelj, @Grupa)";
-                SqlCommand command = new SqlCommand(query, connection);
+                
+                string query = "Insert into EvidencijaNastave output inserted.IdEvidencijaNastave values(@StatusAkitvnosti, @Datum, @Ucitelj, @Grupa)";
+                SqlCommand command = new SqlCommand(query, connection, transaction);
                 command.Parameters.AddWithValue("@StatusAkitvnosti", evidencija.StatusAktivnosti);
                 command.Parameters.AddWithValue("@Datum", evidencija.DatumPocetkaRada);
                 command.Parameters.AddWithValue("@Ucitelj", evidencija.Ucitelj.Id);
                 command.Parameters.AddWithValue("@Grupa", evidencija.Grupa.IdGrupe);
-                command.ExecuteNonQuery();
+                int id =(int)command.ExecuteScalar();
+                foreach(StavkaEvidencijeNastave stavka in stavke)
+                {
+                    stavka.Evidencija = new EvidencijaNastave() { IdEvidencijeNastave = id};
+                    query = "Insert into StavkaEvidencijeNastave values(@IdEvidencije, @Prisustvo, @Komentar, @Datum, @Domaci, @RB, @Ucenik)";
+                    command.CommandText = query;
+                    command.Parameters.Clear();
+                    command.Parameters.AddWithValue("@IdEvidencije", stavka.Evidencija.IdEvidencijeNastave);
+                    command.Parameters.AddWithValue("@Prisustvo", stavka.Prisustvo);
+                    command.Parameters.AddWithValue("@Komentar", stavka.Komentar);
+                    command.Parameters.AddWithValue("@Datum", stavka.DatumOdrzavanja);
+                    command.Parameters.AddWithValue("@Domaci", stavka.UradjenDomaci);
+                    command.Parameters.AddWithValue("@RB", stavka.RedniBrojCasa);
+                    command.Parameters.AddWithValue("@Ucenik", stavka.Ucenik.IdUcenika);
+                    command.ExecuteNonQuery();
+                }
+
+
+                transaction.Commit();
             }
             catch (Exception ex)
             {
+                transaction.Rollback();
                 throw ex;
             }
             finally
@@ -1149,7 +1178,7 @@ namespace BrokerBazePodataka
             {
                 connection.Open();
 
-                string query = "Select * from EvidencijaNastave ev join GrupaUcenika  gu on (ev.idGrupa =  gu.idGrupa) join Ucitelj u on (u.idUcitelj = ev.idEvidencijaNastave) where gu.idGrupa = @Grupa";
+                string query = "Select * from EvidencijaNastave ev join GrupaUcenika  gu on (ev.idGrupa =  gu.idGrupa) join Ucitelj u on (u.idUcitelj = ev.idUcitelja) where gu.idGrupa = @Grupa";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@Grupa", grupaUcenika.IdGrupe);
                 SqlDataReader reader = command.ExecuteReader();
@@ -1457,7 +1486,7 @@ namespace BrokerBazePodataka
             try
             {
                 connection.Open();
-                string query = "select sen.*, u.* ,ev.*, gu.*, uc.*  from StavkaEvidencijeNastave sen" +
+                string query = "select  sen.*, u.* ,ev.*, gu.*, uc.*  from StavkaEvidencijeNastave sen" +
                     " join Ucenik u on(sen.idUcenik = u.idUcenik) " +
                     "join EvidencijaNastave ev on (ev.idEvidencijaNastave = sen.idEvidencijeNastave) join " +
                     "GrupaUcenika gu on (ev.idGrupa = gu.idGrupa) join Ucitelj uc on(ev.idUcitelja = uc.idUcitelj) where u.idUcenik = @IdUcenik Order by sen.redniBrojCasa";

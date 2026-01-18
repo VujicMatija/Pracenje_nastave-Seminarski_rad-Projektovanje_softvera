@@ -1,5 +1,4 @@
-﻿using BrokerBazePodataka;
-using Domeni;
+﻿using Domeni;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,12 +14,12 @@ namespace Forme.User_controlers
     public partial class UCpretraziUcenika : UserControl
     {
 
-        Broker broker = new Broker();
+        
 
         public UCpretraziUcenika()
         {
             InitializeComponent();
-            dgvUcenici.DataSource = broker.vratiListuSviUcenici();
+            dgvUcenici.DataSource = Komunikacija.Instance.VratiListuSviUcenici();
             foreach (DataGridViewColumn col in dgvUcenici.Columns)
             {
                 col.Visible = false;
@@ -69,7 +68,7 @@ namespace Forme.User_controlers
             }
             else
             {
-                dgvUcenici.DataSource = broker.pretraziUcenikaPoImenu(ucenik);
+                dgvUcenici.DataSource = Komunikacija.Instance.PretraziUcenikaPoImenu(ucenik);
                 foreach(DataGridViewColumn col in dgvUcenici.Columns)
                 {
                     col.Visible = false;

@@ -9,17 +9,17 @@ namespace Forme
     {
         Ucitelj uciteljGlobalna = new Ucitelj();
 
+        
+        
         public Glavna(Ucitelj ucitelj)
         {
             InitializeComponent();
+            this.AutoScaleMode = AutoScaleMode.None;
             uciteljGlobalna = ucitelj;
             UCPrikazUcitelja prikazUcitelja = new UCPrikazUcitelja(ucitelj);
             panel.Controls.Clear();
             panel.Controls.Add(prikazUcitelja);
-            this.Width = 818;
-            panel.Width = 900;
-            this.Height = 500;
-            panel.Height = 400;
+
             this.CenterToScreen();
         }
 
@@ -30,10 +30,7 @@ namespace Forme
             panel.Controls.Clear();
             panel.Controls.Add(uCRadSaEvidencijomNastave);
             panel.VerticalScroll.Enabled = false;
-            this.Width = 1050;
-            panel.Width = 1020;
-            this.Height = 1000;
-            panel.Height = 900;
+  
             this.CenterToScreen();
         }
 
@@ -42,10 +39,7 @@ namespace Forme
             UCPrikazUcitelja prikazUcitelja = new UCPrikazUcitelja(uciteljGlobalna);
             panel.Controls.Clear();
             panel.Controls.Add(prikazUcitelja);
-            this.Width = 818;
-            panel.Width = 800;
-            this.Height = 500;
-            panel.Height = 400;
+
             this.CenterToScreen();
         }
 
@@ -59,10 +53,7 @@ namespace Forme
             panel.Controls.Clear();
             UCPretraziEvidencijuNastave ucPretrazi = new UCPretraziEvidencijuNastave();
             panel.Controls.Add(ucPretrazi);
-            this.Width = 818;
-            panel.Width = 800;
-            this.Height = 500;
-            panel.Height = 400;
+
             this.CenterToScreen();
         }
 
@@ -71,10 +62,7 @@ namespace Forme
             UCKreirajGrupuUčenika uCKreirajGrupuUčenika = new UCKreirajGrupuUčenika();
             panel.Controls.Clear();
             panel.Controls.Add(uCKreirajGrupuUčenika);
-            this.Width = 818;
-            panel.Width = 800;
-            this.Height = 500;
-            panel.Height = 400;
+
             this.CenterToScreen();
         }
 
@@ -83,10 +71,7 @@ namespace Forme
             panel.Controls.Clear();
             UCpretraziGrupuUcenika ucPretraziGrupuUcenika = new UCpretraziGrupuUcenika();
             panel.Controls.Add(ucPretraziGrupuUcenika);
-            this.Width = 818;
-            panel.Width = 800;
-            this.Height = 500;
-            panel.Height = 400;
+
             this.CenterToScreen();
         }
 
@@ -95,10 +80,7 @@ namespace Forme
             panel.Controls.Clear();
             UCKreirajGrupuUčenika ucPromeniGrupuUcenika = new UCKreirajGrupuUčenika(WorkMode.UPDATE);
             panel.Controls.Add(ucPromeniGrupuUcenika);
-            this.Width = 818;
-            panel.Width = 800;
-            this.Height = 500;
-            panel.Height = 400;
+
             this.CenterToScreen();
         }
 
@@ -107,10 +89,7 @@ namespace Forme
             panel.Controls.Clear();
             UCradSaUciteljem ucUcitelj = new UCradSaUciteljem();
             panel.Controls.Add(ucUcitelj);
-            this.Width = 818;
-            panel.Width = 800;
-            this.Height = 500;
-            panel.Height = 400;
+
             this.CenterToScreen();
 
         }
@@ -120,10 +99,7 @@ namespace Forme
             panel.Controls.Clear();
             UCpretraziUcitelja uCpretraziUcitelja = new UCpretraziUcitelja();
             panel.Controls.Add(uCpretraziUcitelja);
-            this.Width = 818;
-            panel.Width = 800;
-            this.Height = 500;
-            panel.Height = 400;
+
             this.CenterToScreen();
         }
 
@@ -132,10 +108,7 @@ namespace Forme
             panel.Controls.Clear();
             UCradSaUcenikom uCradSaUcenikom = new UCradSaUcenikom();
             panel.Controls.Add(uCradSaUcenikom);
-            this.Width = 818;
-            panel.Width = 800;
-            this.Height = 500;
-            panel.Height = 400;
+
             this.CenterToScreen();
         }
 
@@ -144,10 +117,7 @@ namespace Forme
             panel.Controls.Clear();
             UCpretraziUcenika uCpretraziUcenika = new UCpretraziUcenika();
             panel.Controls.Add(uCpretraziUcenika);
-            this.Width = 818;
-            panel.Width = 800;
-            this.Height = 500;
-            panel.Height = 400;
+
             this.CenterToScreen();
         }
 
@@ -156,10 +126,7 @@ namespace Forme
             UcRadSaSertifikatima ucSertifikati = new UcRadSaSertifikatima();
             panel.Controls.Clear();
             panel.Controls.Add(ucSertifikati);
-            this.Width = 818;
-            panel.Width = 800;
-            this.Height = 500;
-            panel.Height = 400;
+
             this.CenterToScreen();
         }
 
@@ -173,10 +140,7 @@ namespace Forme
             panel.Controls.Clear();
             UCradSaKursom ucRadSaKursevima = new UCradSaKursom();
             panel.Controls.Add(ucRadSaKursevima);
-            this.Width = 818;
-            panel.Width = 800;
-            this.Height = 500;
-            panel.Height = 400;
+
             this.CenterToScreen();
         }
 
@@ -185,10 +149,7 @@ namespace Forme
             panel.Controls.Clear();
             UCpretragaStavkiEvidencijeNastave uCpretragaStavkiEvidencijeNastave = new UCpretragaStavkiEvidencijeNastave();
             panel.Controls.Add(uCpretragaStavkiEvidencijeNastave);
-            this.Width = 818;
-            panel.Width = 800;
-            this.Height = 500;
-            panel.Height = 400;
+
             this.CenterToScreen();
         }
 
@@ -207,10 +168,7 @@ namespace Forme
             panel.Controls.Clear();
             UCpretraziLicencu uCpretraziLicencu = new UCpretraziLicencu();
             panel.Controls.Add(uCpretraziLicencu);
-            this.Width = 818;
-            panel.Width = 800;
-            this.Height = 500;
-            panel.Height = 400;
+
             this.CenterToScreen();
         }
 

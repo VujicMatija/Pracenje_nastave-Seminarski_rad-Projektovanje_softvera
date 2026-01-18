@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domeni", "Domeni\Domeni.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrokerBazePodataka", "BrokerBazePodataka\BrokerBazePodataka.csproj", "{0060E554-166B-4C06-A716-C49C0239429E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{B8719316-3267-49B5-B380-78414F51CBB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zajednicki", "Zajednicki\Zajednicki.csproj", "{FFDDEDD8-4BB0-4E8D-A7E4-72080C6FEF12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{0060E554-166B-4C06-A716-C49C0239429E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0060E554-166B-4C06-A716-C49C0239429E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0060E554-166B-4C06-A716-C49C0239429E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8719316-3267-49B5-B380-78414F51CBB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8719316-3267-49B5-B380-78414F51CBB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8719316-3267-49B5-B380-78414F51CBB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8719316-3267-49B5-B380-78414F51CBB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFDDEDD8-4BB0-4E8D-A7E4-72080C6FEF12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFDDEDD8-4BB0-4E8D-A7E4-72080C6FEF12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFDDEDD8-4BB0-4E8D-A7E4-72080C6FEF12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFDDEDD8-4BB0-4E8D-A7E4-72080C6FEF12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

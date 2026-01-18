@@ -26,6 +26,11 @@ namespace Domeni
             return $"{ImeUcenika} {ImeRoditelja.Substring(0,1)}. {PrezimeUcenika}";
         }
 
+        public override bool Equals(object? obj)
+        {
+            return obj is Ucenik ucenik && ucenik.IdUcenika == IdUcenika && ucenik.ImeUcenika == ImeUcenika && ucenik.PrezimeUcenika == PrezimeUcenika;
+        }
+
         public BindingList<Ucenik> popuniListu(SqlDataReader reader)
         {
             BindingList<Ucenik> result = new BindingList<Ucenik>();
@@ -50,42 +55,7 @@ namespace Domeni
             return result;
         }
 
-        public void validiraj()
-        {
-            if(ImeUcenika.Length < 3)
-            {
-                throw new Exception("Ime ucenika mora biti duze od dva karaktera");
-            }
-            if (PrezimeUcenika.Length < 3)
-            {
-                throw new Exception("Prezime ucenika mora biti duze od dva karaktera");
-            }
-            if (DatumRodjenjaUcenika > DateTime.Today)
-            {
-                throw new Exception("Morati uneti datum u proslosti");
-            }
-            if (ImeUcenika.Length < 3)
-            {
-                throw new Exception("Ime mora biti duze od dva karaktera");
-            }
-            if (EmailUcenika.Contains("@") == false || EmailUcenika.Contains(".com") == false)
-            {
-                throw new Exception("Email mora da sadrzi @ i .com");
-            }
-
-            if (ImeRoditelja.Length < 3)
-            {
-                throw new Exception("Ime roditelja mora biti duze od dva karaktera");
-            }
-            if (PrezimeRoditelja.Length < 3)
-            {
-                throw new Exception("Prezime roditelja mora biti duze od dva karaktera");
-            }
-            if(TelefonRoditelja == TelefonUcenika)
-            {
-                throw new Exception("Telefon roditelja i ucenika mora da se razlikuje!");
-            }
-        }
+        
 
     }
 }

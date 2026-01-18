@@ -1,5 +1,4 @@
-﻿ using BrokerBazePodataka;
-using Domeni;
+﻿using Domeni;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -18,7 +17,7 @@ namespace Forme.User_controlers
     public partial class UCRadSaEvidencijomNastave : UserControl
     {
 
-        Broker broker = new Broker();
+        
         BindingList<StavkaEvidencijeNastave> stavke = new BindingList<StavkaEvidencijeNastave>();
 
         public UCRadSaEvidencijomNastave()
@@ -51,10 +50,10 @@ namespace Forme.User_controlers
 
 
 
-            BindingList<Ucitelj> sviUcitelji = broker.vratiListuSviUcitelji();
+            BindingList<Ucitelj> sviUcitelji = Komunikacija.Instance.VratiListuSviUcitelji();
             cbUcitelj.DataSource = sviUcitelji;
             cbUcitelj.SelectedItem = null;
-            BindingList<GrupaUcenika> dostupneGrupeUcenika = broker.vratiListuSlobodneGrupe();
+            BindingList<GrupaUcenika> dostupneGrupeUcenika = Komunikacija.Instance.vratiListuSlobodneGrupe();
             cbGrupa.DataSource = dostupneGrupeUcenika;
             if (dostupneGrupeUcenika.IsNullOrEmpty())
             {
@@ -97,7 +96,7 @@ namespace Forme.User_controlers
                 {
                     try
                     {
-                        broker.KreirajEvidencijuNastave(unos, stavke);
+                        Komunikacija.Instance.KreirajEvidencijuNastave(unos, stavke);
                         MessageBox.Show("Uspesan unos");
                         resetujFormu();
 
@@ -133,7 +132,7 @@ namespace Forme.User_controlers
                     try
                     {
                         cbGrupa.SelectedIndex = trenutniIndex;
-                        cbUcenici.DataSource = broker.vratiListuUcenika(trenutnaGrupa);
+                        cbUcenici.DataSource = Komunikacija.Instance.VratiListuUcenika(trenutnaGrupa);
                     }catch(Exception ex)
                     {
                         MessageBox.Show(ex.Message);
@@ -156,9 +155,9 @@ namespace Forme.User_controlers
                 if (stavke.Count == 0)
                 {
                     GrupaUcenika novaGrupa = (GrupaUcenika)cbGrupa.SelectedItem;
-                    cbUcenici.DataSource = broker.vratiListuUcenika(novaGrupa);
-                    Kurs k = broker.pretraziKurs(new Kurs() { IdKursa = novaGrupa.Kurs.IdKursa });
-                    cbRBCasa.DataSource = Enumerable.Range(1, broker.pretraziKurs(k).TrajanjeKursa).ToList();
+                    cbUcenici.DataSource = Komunikacija.instance.VratiListuUcenika(novaGrupa);
+                    Kurs k = Komunikacija.Instance.PretraziKurs(new Kurs() { IdKursa = novaGrupa.Kurs.IdKursa });
+                    cbRBCasa.DataSource = Enumerable.Range(1, Komunikacija.Instance.PretraziKurs(k).TrajanjeKursa).ToList();
                 }
                 else
                 {
@@ -166,9 +165,9 @@ namespace Forme.User_controlers
                     {
                         cbGrupa.SelectedIndex = trenutniIndex;
                         cbGrupa.SelectedItem = trenutnaGrupa;
-                        cbUcenici.DataSource = broker.vratiListuUcenika(trenutnaGrupa);
-                        Kurs k = broker.pretraziKurs(new Kurs() { IdKursa = trenutnaGrupa.Kurs.IdKursa });
-                        cbRBCasa.DataSource = Enumerable.Range(1, broker.pretraziKurs(k).TrajanjeKursa).ToList();
+                        cbUcenici.DataSource = Komunikacija.instance.VratiListuUcenika(trenutnaGrupa);
+                        Kurs k = Komunikacija.instance.PretraziKurs(new Kurs() { IdKursa = trenutnaGrupa.Kurs.IdKursa });
+                        cbRBCasa.DataSource = Enumerable.Range(1, Komunikacija.Instance.PretraziKurs(k).TrajanjeKursa).ToList();
                     }
                     
 
@@ -180,17 +179,34 @@ namespace Forme.User_controlers
 
         private void btnDodajStavku_Click(object sender, EventArgs e)
         {
-            StavkaEvidencijeNastave stavka = new StavkaEvidencijeNastave()
+            txtKomentar.BackColor = SystemColors.Window;
+            try
             {
-                Prisustvo = chPrisustvo.Checked,
-                Komentar = txtKomentar.Text,
-                DatumOdrzavanja = dateDatumStavke.Value,
-                UradjenDomaci = chDomaci.Checked,
-                RedniBrojCasa = (int)cbRBCasa.SelectedItem,
-                Ucenik = (Ucenik)cbUcenici.SelectedItem
-            };
-            stavke.Add(stavka);
-            resetujStavku();
+                if(txtKomentar.Text.Length < 11)
+                {
+                    MessageBox.Show("Komentar mora biti duzi od 10 karaktera");
+                    txtKomentar.BackColor = ColorTranslator.FromHtml("#d96f6f");
+                }
+                else
+                {
+                    StavkaEvidencijeNastave stavka = new StavkaEvidencijeNastave()
+                    {
+                        Prisustvo = chPrisustvo.Checked,
+                        Komentar = txtKomentar.Text,
+                        DatumOdrzavanja = dateDatumStavke.Value,
+                        UradjenDomaci = chDomaci.Checked,
+                        RedniBrojCasa = (int)cbRBCasa.SelectedItem,
+                        Ucenik = (Ucenik)cbUcenici.SelectedItem
+                    };
+                    stavke.Add(stavka);
+                    resetujStavku();
+                }
+                    
+            }catch(Exception ex)
+            {
+                MessageBox.Show("Unos stavke neuspesan, probajte ponovo!");
+            }
+           
 
         }
 
@@ -215,10 +231,10 @@ namespace Forme.User_controlers
 
         private void resetujFormu()
         {
-            BindingList<GrupaUcenika> dostupneGrupeUcenika = broker.vratiListuSlobodneGrupe();
+            BindingList<GrupaUcenika> dostupneGrupeUcenika = Komunikacija.Instance.vratiListuSlobodneGrupe();
             cbGrupa.DataSource = dostupneGrupeUcenika;
             cbGrupa.SelectedIndex = -1;
-            cbUcenici.DataSource = broker.vratiListuUcenika((GrupaUcenika)cbGrupa.SelectedItem);
+            cbUcenici.DataSource = Komunikacija.Instance.VratiListuUcenika((GrupaUcenika)cbGrupa.SelectedItem);
             cbUcitelj.SelectedIndex = -1;
             chAktivna.Checked = false;
             datePocetakRada.Value = DateTime.Today;

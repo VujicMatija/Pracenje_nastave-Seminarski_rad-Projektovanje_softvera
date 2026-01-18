@@ -1,5 +1,4 @@
-﻿using BrokerBazePodataka;
-using Domeni;
+﻿using Domeni;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,15 +14,15 @@ namespace Forme.User_controlers
 {
     public partial class UCkreirajLicencu : UserControl
     {
-        Broker broker = new Broker();
+        
         Ucitelj globUcitelj = new Ucitelj();
         public UCkreirajLicencu(Ucitelj ucitelj)
         {
             InitializeComponent();
             txtUcitelj.Enabled = false;
             txtUcitelj.Text = ucitelj.ToString();
-            BindingList<Sertifikat> sviSertifikati = broker.vratiListuSviSertifikati();
-            BindingList<Sertifikat> uciteljeviSertifikati = broker.vratiListuSertifikata(ucitelj);
+            BindingList<Sertifikat> sviSertifikati = Komunikacija.Instance.VratiListuSviSertifikati();
+            BindingList<Sertifikat> uciteljeviSertifikati = Komunikacija.Instance.vratiListuSertifikata(ucitelj);
             cbSertifikati.DataSource = sviSertifikati.Except(uciteljeviSertifikati).ToList();
             globUcitelj = ucitelj;
         }
@@ -34,7 +33,7 @@ namespace Forme.User_controlers
             globUcitelj = licenca.ucitelj;
             txtUcitelj.Enabled = false;
             txtUcitelj.Text = licenca.ucitelj.ToString();
-            cbSertifikati.DataSource = broker.vratiListuSviSertifikati();
+            cbSertifikati.DataSource = Komunikacija.Instance.VratiListuSviSertifikati();
             cbSertifikati.SelectedItem = licenca.sertifikat;
             dateDobijanje.Value = licenca.DatumDobijanja;
             txtUcitelj.Enabled = false;
@@ -60,7 +59,7 @@ namespace Forme.User_controlers
             };
             try
             {
-                broker.kreirajLicencu(licenca);
+                Komunikacija.Instance.KreirajLicencu(licenca);
                 MessageBox.Show("Licenca je dodata!");
             }
             catch
@@ -90,7 +89,7 @@ namespace Forme.User_controlers
             {
                 try
                 {
-                    broker.promeniLicencu(licenca);
+                    Komunikacija.Instance.PromeniLicencu(licenca);
                 }catch(Exception ex)
                 {
                     MessageBox.Show(ex.Message);

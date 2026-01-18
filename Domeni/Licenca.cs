@@ -27,6 +27,15 @@ namespace Domeni
                 && l.DatumDobijanja == DatumDobijanja;
         }
 
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(
+            ucitelj?.Id,
+            sertifikat?.IdSertifikata,
+            DatumDobijanja
+            );  
+        }
+
         public BindingList<Licenca> popuniListu(SqlDataReader reader)
         {
             BindingList<Licenca> result = new BindingList<Licenca>();

@@ -1,5 +1,4 @@
-﻿using BrokerBazePodataka;
-using Domeni;
+﻿using Domeni;
 using Forme.Utils;
 using System;
 using System.Collections.Generic;
@@ -15,14 +14,14 @@ namespace Forme.User_controlers
 {
     public partial class UCpretraziGrupuUcenika : UserControl
     {
-        Broker broker = new Broker();
+        
 
         public UCpretraziGrupuUcenika()
         {
             InitializeComponent();
-            cbKursevi.DataSource = broker.vratiListuSviKursevi();
+            cbKursevi.DataSource = Komunikacija.Instance.VratiListuSviKursevi();
             cbKursevi.SelectedItem = null;
-            dgvGrupeUcenika.DataSource = broker.vratiListuSveGrupeUcenika();
+            dgvGrupeUcenika.DataSource = Komunikacija.Instance.VratiListuSveGrupeUcenika();
             dgvGrupeUcenika.Columns[0].Visible = false;
 
         }
@@ -36,13 +35,14 @@ namespace Forme.User_controlers
         {
             if (cbKursevi.SelectedItem == null)
             {
-                dgvGrupeUcenika.DataSource = broker.vratiListuSveGrupeUcenika();
+                dgvGrupeUcenika.DataSource = Komunikacija.Instance.VratiListuSveGrupeUcenika();
                 dgvGrupeUcenika.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dgvGrupeUcenika.Columns[0].Visible = false;
             }
             else
             {
-                dgvGrupeUcenika.DataSource = broker.vratiListuGrupaUcenika((Kurs)cbKursevi.SelectedItem);
+                
+                dgvGrupeUcenika.DataSource = Komunikacija.Instance.vratiListuGrupaUcenika((Kurs)cbKursevi.SelectedItem);
                 dgvGrupeUcenika.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dgvGrupeUcenika.Columns[0].Visible = false;
 

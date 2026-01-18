@@ -46,7 +46,7 @@
             cbEvidencija.Name = "cbEvidencija";
             cbEvidencija.Size = new Size(373, 40);
             cbEvidencija.TabIndex = 0;
-            cbEvidencija.SelectedIndexChanged += cbEvidencija_SelectedIndexChanged;
+           // cbEvidencija.SelectedIndexChanged += cbEvidencija_SelectedIndexChanged;
             // 
             // label1
             // 
@@ -91,7 +91,7 @@
             btnResetuj.TabIndex = 5;
             btnResetuj.Text = "Resetuj";
             btnResetuj.UseVisualStyleBackColor = true;
-            btnResetuj.Click += btnResetuj_Click;
+           // btnResetuj.Click += btnResetuj_Click;
             // 
             // btnPretrazi
             // 
@@ -101,7 +101,7 @@
             btnPretrazi.TabIndex = 6;
             btnPretrazi.Text = "Pretrazi";
             btnPretrazi.UseVisualStyleBackColor = true;
-            btnPretrazi.Click += btnPretrazi_Click;
+           // btnPretrazi.Click += btnPretrazi_Click;
             // 
             // btnPromeni
             // 
@@ -111,7 +111,7 @@
             btnPromeni.TabIndex = 7;
             btnPromeni.Text = "Promeni izabranu stavku evidencije";
             btnPromeni.UseVisualStyleBackColor = true;
-            btnPromeni.Click += btnPromeni_Click;
+          //  btnPromeni.Click += btnPromeni_Click;
             // 
             // UCpretragaStavkiEvidencijeNastave
             // 

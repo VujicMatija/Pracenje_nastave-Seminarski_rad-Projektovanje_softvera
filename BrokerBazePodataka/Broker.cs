@@ -456,7 +456,7 @@ namespace BrokerBazePodataka
 
         //GRUPA UCENIKA
 
-        public BindingList<GrupaUcenika> vratiGrupeUcenika(Ucitelj u)
+        public BindingList<GrupaUcenika> vratiListuGrupaUcenika(Ucitelj u)
         {
             BindingList<GrupaUcenika> result = new BindingList<GrupaUcenika>();
             try
@@ -485,7 +485,7 @@ namespace BrokerBazePodataka
         public BindingList<GrupaUcenika> vratiListuSveGrupeUcenika()
         {
             BindingList<GrupaUcenika> result = new BindingList<GrupaUcenika>();
-
+            GrupaUcenika gu = new GrupaUcenika();
             try
             {
                 connection.Open();
@@ -493,27 +493,7 @@ namespace BrokerBazePodataka
                 string query = "Select * from GrupaUcenika gu join Kurs k on (gu.idKurs = k.idKurs);";
                 SqlCommand command = new SqlCommand(query, connection);
                 SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    GrupaUcenika gu = new GrupaUcenika
-                    {
-                        IdGrupe = (int)reader[0],
-                        OznakaGrupe = (string)reader[1],
-                        BrojUcenika = (int)reader[2],
-                        Termin = (string)reader[3],
-                        Kurs = new Kurs
-                        {
-                            IdKursa = (int)reader[5],
-                            NazivKursa = (string)reader[6],
-                            TezinaKursa = Enum.Parse<TezinaKursa>((string)reader[7]),
-                            UzrastKursa = Enum.Parse<Uzrast>((string)reader[8]),
-                            TrajanjeKursa = (int)reader[9],
-                            OznakaKursa = (string)reader[10]
-                        }
-                    };
-
-                    result.Add(gu);
-                }
+                result = gu.popuniListu(reader);
 
                 return result;
             }
@@ -1357,7 +1337,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public List<EvidencijaNastave> vratiListuEvidencijaNastave(GrupaUcenika gu, Ucitelj u, Ucenik ucenik, EvidencijaNastave ev)
+        public List<EvidencijaNastave> vratiListuEvidencijaNastave(GrupaUcenika gu, Ucitelj u, Ucenik ucenik, EvidencijaNastave ev = null)
         {
             List<EvidencijaNastave> res = vratiListuEvidencijaNastave(gu).Intersect(vratiListuEvidencijaNastave(u)).Intersect(vratiListuEvidencijaNastave(ucenik)).ToList();
             return res;

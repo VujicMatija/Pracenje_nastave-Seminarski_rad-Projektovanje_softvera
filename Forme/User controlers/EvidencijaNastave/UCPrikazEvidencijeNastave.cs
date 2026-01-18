@@ -1,5 +1,4 @@
-﻿using BrokerBazePodataka;
-using Domeni;
+﻿using Domeni;
 using Forme.Utils;
 using System;
 using System.Collections.Generic;
@@ -16,21 +15,20 @@ namespace Forme.User_controlers
     public partial class UCPrikazEvidencijeNastave : UserControl
     {
 
-        Broker broker = new Broker();
         EvidencijaNastave globalna = new EvidencijaNastave();
         public UCPrikazEvidencijeNastave(EvidencijaNastave evidencija, WorkMode mode = WorkMode.READ)
         {
             InitializeComponent();
             globalna = evidencija;
 
-            cbGrupa.DataSource = broker.vratiListuSveGrupeUcenika();
+            cbGrupa.DataSource = Komunikacija.Instance.VratiListuSveGrupeUcenika();
             cbGrupa.SelectedItem = evidencija.Grupa;
 
-            cbUcitelj.DataSource = broker.vratiListuSviUcitelji();
+            cbUcitelj.DataSource = Komunikacija.Instance.VratiListuSviUcitelji();
             cbUcitelj.SelectedItem = evidencija.Ucitelj;
 
-            dgvUcenici.DataSource = broker.vratiListuUcenika(evidencija.Grupa);
-            cbUcenici.DataSource = broker.vratiListuUcenika(evidencija.Grupa);
+            dgvUcenici.DataSource = Komunikacija.Instance.VratiListuUcenika(evidencija.Grupa);
+            cbUcenici.DataSource = Komunikacija.Instance.VratiListuUcenika(evidencija.Grupa);
             cbUcenici.SelectedItem = null;
 
             foreach (DataGridViewColumn col in dgvUcenici.Columns)
@@ -43,7 +41,7 @@ namespace Forme.User_controlers
             dgvUcenici.Columns[2].HeaderText = "Prezime";
             dgvUcenici.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            dgvStavke.DataSource = broker.vratiListuStavkiEvidencijeNastave(evidencija);
+            dgvStavke.DataSource = Komunikacija.Instance.VratiListuStavkiEvidencijeNastave(evidencija);
             dgvStavke.Columns[0].Visible = false;
             dgvStavke.Columns[dgvStavke.Columns.Count - 1].Visible = false;
 
@@ -79,7 +77,7 @@ namespace Forme.User_controlers
             novaEvidencija.Ucitelj.Id = ((Ucitelj)cbUcitelj.SelectedItem).Id;
             try
             {
-                broker.PromeniEvidencijuNastave(novaEvidencija);
+                Komunikacija.Instance.PromeniEvidencijuNastave(novaEvidencija);
                 MessageBox.Show("Evidencija uspesno izmenjena");
 
             }
@@ -106,11 +104,11 @@ namespace Forme.User_controlers
         {
             if (cbUcenici.SelectedItem == null)
             {
-                dgvStavke.DataSource = broker.vratiListuStavkiEvidencijeNastave(globalna);
+                dgvStavke.DataSource = Komunikacija.instance.VratiListuStavkiEvidencijeNastave(globalna);
             }
             else
             {
-                dgvStavke.DataSource = broker.vratiListuStavkiEvidencijeNastave(globalna, (Ucenik)cbUcenici.SelectedItem);
+                dgvStavke.DataSource = Komunikacija.Instance.VratiListuStavkiEvidencijeNastave(globalna, (Ucenik)cbUcenici.SelectedItem);
             }
             dgvStavke.Columns[0].Visible = false;
             dgvStavke.Columns[dgvStavke.Columns.Count - 1].Visible = false;

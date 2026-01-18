@@ -21,8 +21,8 @@ namespace Forme
         public PomocnaForma(UCPrikazEvidencijeNastave uc)
         {
             InitializeComponent();
-            this.Height = 710;
-            panel1.Height = 700;
+            this.Height = 880;
+            panel1.Height = 800;
             panel1.Controls.Clear();
             panel1.Controls.Add(uc);
         }

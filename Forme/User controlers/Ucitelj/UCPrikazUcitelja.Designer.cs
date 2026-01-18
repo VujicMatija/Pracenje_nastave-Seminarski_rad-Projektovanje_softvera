@@ -53,134 +53,135 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(97, 74);
+            label1.Location = new Point(98, 50);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(37, 20);
+            label1.Size = new Size(30, 15);
             label1.TabIndex = 0;
             label1.Text = "Ime:";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(70, 126);
+            label2.Location = new Point(74, 88);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(65, 20);
+            label2.Size = new Size(52, 15);
             label2.TabIndex = 1;
             label2.Text = "Prezime:";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(87, 178);
+            label3.Location = new Point(89, 128);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new Size(49, 20);
+            label3.Size = new Size(39, 15);
             label3.TabIndex = 2;
             label3.Text = "Email:";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(73, 231);
+            label4.Location = new Point(77, 167);
             label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
-            label4.Size = new Size(61, 20);
+            label4.Size = new Size(49, 15);
             label4.TabIndex = 3;
             label4.Text = "Telefon:";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(39, 282);
+            label5.Location = new Point(47, 206);
             label5.Margin = new Padding(2, 0, 2, 0);
             label5.Name = "label5";
-            label5.Size = new Size(97, 20);
+            label5.Size = new Size(78, 15);
             label5.TabIndex = 4;
             label5.Text = "Početak rada:";
             // 
             // txtIme
             // 
             txtIme.Enabled = false;
-            txtIme.Location = new Point(174, 72);
-            txtIme.Margin = new Padding(2, 2, 2, 2);
+            txtIme.Location = new Point(165, 48);
+            txtIme.Margin = new Padding(2);
             txtIme.Name = "txtIme";
-            txtIme.Size = new Size(184, 27);
+            txtIme.Size = new Size(162, 23);
             txtIme.TabIndex = 5;
             // 
             // txtPrezime
             // 
             txtPrezime.Enabled = false;
-            txtPrezime.Location = new Point(174, 126);
-            txtPrezime.Margin = new Padding(2, 2, 2, 2);
+            txtPrezime.Location = new Point(165, 88);
+            txtPrezime.Margin = new Padding(2);
             txtPrezime.Name = "txtPrezime";
-            txtPrezime.Size = new Size(184, 27);
+            txtPrezime.Size = new Size(162, 23);
             txtPrezime.TabIndex = 6;
             // 
             // txtEmail
             // 
             txtEmail.Enabled = false;
-            txtEmail.Location = new Point(174, 178);
-            txtEmail.Margin = new Padding(2, 2, 2, 2);
+            txtEmail.Location = new Point(165, 128);
+            txtEmail.Margin = new Padding(2);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(184, 27);
+            txtEmail.Size = new Size(162, 23);
             txtEmail.TabIndex = 7;
             // 
             // txtTelefon
             // 
             txtTelefon.Enabled = false;
-            txtTelefon.Location = new Point(174, 231);
-            txtTelefon.Margin = new Padding(2, 2, 2, 2);
+            txtTelefon.Location = new Point(165, 167);
+            txtTelefon.Margin = new Padding(2);
             txtTelefon.Name = "txtTelefon";
-            txtTelefon.Size = new Size(184, 27);
+            txtTelefon.Size = new Size(162, 23);
             txtTelefon.TabIndex = 8;
             // 
             // dgvLicence
             // 
             dgvLicence.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvLicence.Location = new Point(418, 103);
-            dgvLicence.Margin = new Padding(2, 2, 2, 2);
+            dgvLicence.Location = new Point(379, 71);
+            dgvLicence.Margin = new Padding(2);
             dgvLicence.Name = "dgvLicence";
             dgvLicence.RowHeadersWidth = 82;
-            dgvLicence.Size = new Size(146, 204);
+            dgvLicence.Size = new Size(128, 153);
             dgvLicence.TabIndex = 10;
             // 
             // dgvGrupe
             // 
             dgvGrupe.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvGrupe.Location = new Point(590, 103);
-            dgvGrupe.Margin = new Padding(2, 2, 2, 2);
+            dgvGrupe.Location = new Point(529, 71);
+            dgvGrupe.Margin = new Padding(2);
             dgvGrupe.Name = "dgvGrupe";
             dgvGrupe.RowHeadersWidth = 82;
-            dgvGrupe.Size = new Size(146, 204);
+            dgvGrupe.Size = new Size(128, 153);
             dgvGrupe.TabIndex = 11;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(418, 69);
+            label6.Location = new Point(379, 46);
             label6.Margin = new Padding(2, 0, 2, 0);
             label6.Name = "label6";
-            label6.Size = new Size(110, 20);
+            label6.Size = new Size(88, 15);
             label6.TabIndex = 12;
             label6.Text = "Licence učitelja";
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(590, 69);
+            label7.Location = new Point(529, 46);
             label7.Margin = new Padding(2, 0, 2, 0);
             label7.Name = "label7";
-            label7.Size = new Size(103, 20);
+            label7.Size = new Size(83, 15);
             label7.TabIndex = 13;
             label7.Text = "Grupe učenika";
             // 
             // btnIzmeni
             // 
-            btnIzmeni.Location = new Point(215, 325);
+            btnIzmeni.Location = new Point(201, 238);
+            btnIzmeni.Margin = new Padding(3, 2, 3, 2);
             btnIzmeni.Name = "btnIzmeni";
-            btnIzmeni.Size = new Size(142, 29);
+            btnIzmeni.Size = new Size(124, 22);
             btnIzmeni.TabIndex = 15;
             btnIzmeni.Text = "Izmeni";
             btnIzmeni.UseVisualStyleBackColor = true;
@@ -191,16 +192,18 @@
             dateDatumPocetka.CustomFormat = "dd/MM/yyyy";
             dateDatumPocetka.Enabled = false;
             dateDatumPocetka.Format = DateTimePickerFormat.Custom;
-            dateDatumPocetka.Location = new Point(174, 282);
+            dateDatumPocetka.Location = new Point(165, 206);
+            dateDatumPocetka.Margin = new Padding(3, 2, 3, 2);
             dateDatumPocetka.Name = "dateDatumPocetka";
-            dateDatumPocetka.Size = new Size(184, 27);
+            dateDatumPocetka.Size = new Size(162, 23);
             dateDatumPocetka.TabIndex = 16;
             // 
             // btnDodajLicencu
             // 
-            btnDodajLicencu.Location = new Point(423, 325);
+            btnDodajLicencu.Location = new Point(383, 238);
+            btnDodajLicencu.Margin = new Padding(3, 2, 3, 2);
             btnDodajLicencu.Name = "btnDodajLicencu";
-            btnDodajLicencu.Size = new Size(135, 29);
+            btnDodajLicencu.Size = new Size(118, 22);
             btnDodajLicencu.TabIndex = 17;
             btnDodajLicencu.Text = "Dodaj licencu";
             btnDodajLicencu.UseVisualStyleBackColor = true;
@@ -208,9 +211,10 @@
             // 
             // btnObrisi
             // 
-            btnObrisi.Location = new Point(39, 325);
+            btnObrisi.Location = new Point(47, 238);
+            btnObrisi.Margin = new Padding(3, 2, 3, 2);
             btnObrisi.Name = "btnObrisi";
-            btnObrisi.Size = new Size(142, 29);
+            btnObrisi.Size = new Size(124, 22);
             btnObrisi.TabIndex = 18;
             btnObrisi.Text = "Obriši učitelja";
             btnObrisi.UseVisualStyleBackColor = true;
@@ -218,9 +222,10 @@
             // 
             // btnOmoguciIzmenu
             // 
-            btnOmoguciIzmenu.Location = new Point(215, 325);
+            btnOmoguciIzmenu.Location = new Point(201, 238);
+            btnOmoguciIzmenu.Margin = new Padding(3, 2, 3, 2);
             btnOmoguciIzmenu.Name = "btnOmoguciIzmenu";
-            btnOmoguciIzmenu.Size = new Size(142, 29);
+            btnOmoguciIzmenu.Size = new Size(124, 22);
             btnOmoguciIzmenu.TabIndex = 14;
             btnOmoguciIzmenu.Text = "Omogući izmenu";
             btnOmoguciIzmenu.UseVisualStyleBackColor = true;
@@ -228,7 +233,7 @@
             // 
             // UCPrikazUcitelja
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             Controls.Add(btnObrisi);
@@ -249,9 +254,9 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(btnIzmeni);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "UCPrikazUcitelja";
-            Size = new Size(800, 400);
+            Size = new Size(700, 300);
             ((System.ComponentModel.ISupportInitialize)dgvLicence).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvGrupe).EndInit();
             ResumeLayout(false);

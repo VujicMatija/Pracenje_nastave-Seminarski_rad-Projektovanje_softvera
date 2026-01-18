@@ -49,60 +49,64 @@
             // cbUcitelj
             // 
             cbUcitelj.FormattingEnabled = true;
-            cbUcitelj.Location = new Point(87, 63);
+            cbUcitelj.Location = new Point(55, 47);
+            cbUcitelj.Margin = new Padding(3, 2, 3, 2);
             cbUcitelj.Name = "cbUcitelj";
-            cbUcitelj.Size = new Size(149, 28);
+            cbUcitelj.Size = new Size(131, 23);
             cbUcitelj.TabIndex = 0;
             // 
             // cbGrupa
             // 
             cbGrupa.FormattingEnabled = true;
-            cbGrupa.Location = new Point(549, 65);
+            cbGrupa.Location = new Point(487, 49);
+            cbGrupa.Margin = new Padding(3, 2, 3, 2);
             cbGrupa.Name = "cbGrupa";
-            cbGrupa.Size = new Size(149, 28);
+            cbGrupa.Size = new Size(131, 23);
             cbGrupa.TabIndex = 2;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(87, 31);
+            label1.Location = new Point(55, 23);
             label1.Name = "label1";
-            label1.Size = new Size(51, 20);
+            label1.Size = new Size(40, 15);
             label1.TabIndex = 3;
             label1.Text = "Učitelj";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(322, 31);
+            label2.Location = new Point(277, 23);
             label2.Name = "label2";
-            label2.Size = new Size(53, 20);
+            label2.Size = new Size(43, 15);
             label2.TabIndex = 4;
             label2.Text = "Učenik";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(549, 32);
+            label3.Location = new Point(487, 24);
             label3.Name = "label3";
-            label3.Size = new Size(103, 20);
+            label3.Size = new Size(83, 15);
             label3.TabIndex = 5;
             label3.Text = "Grupa učenika";
             // 
             // dgvEvidencije
             // 
             dgvEvidencije.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvEvidencije.Location = new Point(87, 158);
+            dgvEvidencije.Location = new Point(55, 118);
+            dgvEvidencije.Margin = new Padding(3, 2, 3, 2);
             dgvEvidencije.Name = "dgvEvidencije";
             dgvEvidencije.RowHeadersWidth = 51;
-            dgvEvidencije.Size = new Size(650, 158);
+            dgvEvidencije.Size = new Size(597, 118);
             dgvEvidencije.TabIndex = 6;
             // 
             // btnPretraziEvidencije
             // 
-            btnPretraziEvidencije.Location = new Point(586, 105);
+            btnPretraziEvidencije.Location = new Point(520, 79);
+            btnPretraziEvidencije.Margin = new Padding(3, 2, 3, 2);
             btnPretraziEvidencije.Name = "btnPretraziEvidencije";
-            btnPretraziEvidencije.Size = new Size(151, 37);
+            btnPretraziEvidencije.Size = new Size(132, 28);
             btnPretraziEvidencije.TabIndex = 7;
             btnPretraziEvidencije.Text = "Pretrazi";
             btnPretraziEvidencije.UseVisualStyleBackColor = true;
@@ -110,10 +114,10 @@
             // 
             // btnPrikazi
             // 
-            btnPrikazi.Location = new Point(441, 334);
+            btnPrikazi.Location = new Point(393, 250);
             btnPrikazi.Margin = new Padding(2);
             btnPrikazi.Name = "btnPrikazi";
-            btnPrikazi.Size = new Size(195, 46);
+            btnPrikazi.Size = new Size(171, 34);
             btnPrikazi.TabIndex = 8;
             btnPrikazi.Text = "Prikazi izabranu evidenciju";
             btnPrikazi.UseVisualStyleBackColor = true;
@@ -121,10 +125,10 @@
             // 
             // btnIzmeni
             // 
-            btnIzmeni.Location = new Point(210, 334);
+            btnIzmeni.Location = new Point(191, 250);
             btnIzmeni.Margin = new Padding(2);
             btnIzmeni.Name = "btnIzmeni";
-            btnIzmeni.Size = new Size(200, 46);
+            btnIzmeni.Size = new Size(175, 34);
             btnIzmeni.TabIndex = 9;
             btnIzmeni.Text = "Izmeni izabranu evidenciju";
             btnIzmeni.UseVisualStyleBackColor = true;
@@ -134,9 +138,10 @@
             // 
             btnRestart1.BackgroundImage = (Image)resources.GetObject("btnRestart1.BackgroundImage");
             btnRestart1.BackgroundImageLayout = ImageLayout.Zoom;
-            btnRestart1.Location = new Point(242, 63);
+            btnRestart1.Location = new Point(191, 47);
+            btnRestart1.Margin = new Padding(3, 2, 3, 2);
             btnRestart1.Name = "btnRestart1";
-            btnRestart1.Size = new Size(34, 27);
+            btnRestart1.Size = new Size(30, 20);
             btnRestart1.TabIndex = 10;
             btnRestart1.UseVisualStyleBackColor = true;
             btnRestart1.Click += btnRestart1_Click;
@@ -145,9 +150,10 @@
             // 
             btnRestart2.BackgroundImage = (Image)resources.GetObject("btnRestart2.BackgroundImage");
             btnRestart2.BackgroundImageLayout = ImageLayout.Zoom;
-            btnRestart2.Location = new Point(477, 63);
+            btnRestart2.Location = new Point(412, 47);
+            btnRestart2.Margin = new Padding(3, 2, 3, 2);
             btnRestart2.Name = "btnRestart2";
-            btnRestart2.Size = new Size(34, 27);
+            btnRestart2.Size = new Size(30, 20);
             btnRestart2.TabIndex = 11;
             btnRestart2.UseVisualStyleBackColor = true;
             btnRestart2.Click += btnRestart2_Click;
@@ -156,9 +162,10 @@
             // 
             btnRestart3.BackgroundImage = (Image)resources.GetObject("btnRestart3.BackgroundImage");
             btnRestart3.BackgroundImageLayout = ImageLayout.Zoom;
-            btnRestart3.Location = new Point(703, 66);
+            btnRestart3.Location = new Point(622, 50);
+            btnRestart3.Margin = new Padding(3, 2, 3, 2);
             btnRestart3.Name = "btnRestart3";
-            btnRestart3.Size = new Size(34, 27);
+            btnRestart3.Size = new Size(30, 20);
             btnRestart3.TabIndex = 12;
             btnRestart3.UseVisualStyleBackColor = true;
             btnRestart3.Click += btnRestart3_Click;
@@ -166,16 +173,18 @@
             // cbUcenik
             // 
             cbUcenik.FormattingEnabled = true;
-            cbUcenik.Location = new Point(322, 63);
+            cbUcenik.Location = new Point(277, 47);
+            cbUcenik.Margin = new Padding(3, 2, 3, 2);
             cbUcenik.Name = "cbUcenik";
-            cbUcenik.Size = new Size(149, 28);
+            cbUcenik.Size = new Size(131, 23);
             cbUcenik.TabIndex = 1;
             // 
             // btnOcistiFiltere
             // 
-            btnOcistiFiltere.Location = new Point(467, 109);
+            btnOcistiFiltere.Location = new Point(416, 82);
+            btnOcistiFiltere.Margin = new Padding(3, 2, 3, 2);
             btnOcistiFiltere.Name = "btnOcistiFiltere";
-            btnOcistiFiltere.Size = new Size(113, 29);
+            btnOcistiFiltere.Size = new Size(99, 22);
             btnOcistiFiltere.TabIndex = 13;
             btnOcistiFiltere.Text = "Očisti filtere";
             btnOcistiFiltere.UseVisualStyleBackColor = true;
@@ -183,7 +192,7 @@
             // 
             // UCPretraziEvidencijuNastave
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(btnOcistiFiltere);
             Controls.Add(btnRestart3);
@@ -199,8 +208,9 @@
             Controls.Add(cbGrupa);
             Controls.Add(cbUcenik);
             Controls.Add(cbUcitelj);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "UCPretraziEvidencijuNastave";
-            Size = new Size(800, 400);
+            Size = new Size(700, 300);
             Load += UCPretraziEvidencijuNastave_Load;
             ((System.ComponentModel.ISupportInitialize)dgvEvidencije).EndInit();
             ResumeLayout(false);

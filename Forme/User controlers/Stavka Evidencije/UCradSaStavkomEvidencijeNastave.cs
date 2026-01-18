@@ -1,4 +1,4 @@
-﻿using BrokerBazePodataka;
+﻿
 using Domeni;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace Forme.User_controlers
 {
     public partial class UCradSaStavkomEvidencijeNastave : UserControl
     {
-        Broker broker = new Broker();
+        
         EvidencijaNastave globalnaEvidencija = new EvidencijaNastave();
         StavkaEvidencijeNastave globalnaStavka = new StavkaEvidencijeNastave();
 
@@ -25,9 +25,9 @@ namespace Forme.User_controlers
             globalnaEvidencija = evidencija;
             txtEvidencija.Text = evidencija.ToString();
             txtEvidencija.Enabled = false;
-            cbUcenik.DataSource = broker.vratiListuUcenika(evidencija.Grupa);
-            Kurs k = broker.pretraziKurs(new Kurs() { IdKursa = evidencija.Grupa.Kurs.IdKursa });
-            cbRedniBrojCasa.DataSource = Enumerable.Range(1, broker.pretraziKurs(k).TrajanjeKursa).ToList();
+            cbUcenik.DataSource = Komunikacija.Instance.VratiListuUcenika(evidencija.Grupa);
+            Kurs k = Komunikacija.Instance.PretraziKurs(new Kurs() { IdKursa = evidencija.Grupa.Kurs.IdKursa });
+            cbRedniBrojCasa.DataSource = Enumerable.Range(1, Komunikacija.Instance.PretraziKurs(k).TrajanjeKursa).ToList();
             dateDatum.MaxDate = DateTime.Today;
         }
 
@@ -39,10 +39,11 @@ namespace Forme.User_controlers
             txtEvidencija.Text = stavka.Evidencija.ToString();
             btnOmoguciIzmenu.Visible = true;
             txtKomentar.Text = stavka.Komentar;
-            cbUcenik.DataSource = broker.vratiListuUcenika(stavka.Evidencija.Grupa);
+            cbUcenik.DataSource = Komunikacija.Instance.VratiListuUcenika(stavka.Evidencija.Grupa);
             cbUcenik.SelectedItem = stavka.Ucenik;
-            Kurs k = broker.pretraziKurs(new Kurs() { IdKursa = stavka.Evidencija.Grupa.Kurs.IdKursa });
-            cbRedniBrojCasa.DataSource = Enumerable.Range(1, broker.pretraziKurs(k).TrajanjeKursa).ToList();
+            Kurs k = Komunikacija.Instance.PretraziKurs(new Kurs() { IdKursa = stavka.Evidencija.Grupa.Kurs.IdKursa });
+            cbRedniBrojCasa.DataSource = Enumerable.Range(1, Komunikacija.Instance.PretraziKurs(k).TrajanjeKursa).ToList();
+            cbRedniBrojCasa.SelectedItem = stavka.RedniBrojCasa;
             dateDatum.Value = stavka.DatumOdrzavanja;
             chDomaci.Checked = stavka.UradjenDomaci;
             chPrisustvo.Checked = stavka.Prisustvo;
@@ -81,7 +82,7 @@ namespace Forme.User_controlers
                 stavka.validiraj();
                 try
                 {
-                    broker.kreirajStavkuEvidencijeNastave(stavka);
+                    Komunikacija.Instance.KreirajStavkuEvidencijeNastave(stavka);
                     MessageBox.Show("Stavka je dodata");
                     
                 }
@@ -109,33 +110,44 @@ namespace Forme.User_controlers
         {
             try
             {
-                StavkaEvidencijeNastave stavka = new StavkaEvidencijeNastave()
+                txtKomentar.BackColor = SystemColors.Window;
+                if (txtKomentar.Text.Length < 11)
                 {
-                    idStavkeEvidencije = globalnaStavka.idStavkeEvidencije,
-                    Prisustvo = chPrisustvo.Checked,
-                    UradjenDomaci = chDomaci.Checked,
-                    DatumOdrzavanja = dateDatum.Value,
-                    Komentar = txtKomentar.Text,
-                    RedniBrojCasa = (int)cbRedniBrojCasa.SelectedItem
-                };
-                stavka.validiraj();
-                DialogResult res = MessageBox.Show("Da li ste sigurni da zelite da zapamtite promenu?", "Potvrda", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (res == DialogResult.Yes)
-                {
-                    try
-                    {
-                        broker.promeniStavkuEvidencijeNastave(stavka);
-                        MessageBox.Show("Promene su sacuvane");
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                    MessageBox.Show("Komentar mora biti duzi od 10 karaktera");
+                    txtKomentar.BackColor = ColorTranslator.FromHtml("#d96f6f");
                 }
                 else
                 {
-                    MessageBox.Show("OK");
+                    StavkaEvidencijeNastave stavka = new StavkaEvidencijeNastave()
+                    {
+                        idStavkeEvidencije = globalnaStavka.idStavkeEvidencije,
+                        Prisustvo = chPrisustvo.Checked,
+                        UradjenDomaci = chDomaci.Checked,
+                        DatumOdrzavanja = dateDatum.Value,
+                        Komentar = txtKomentar.Text,
+                        RedniBrojCasa = (int)cbRedniBrojCasa.SelectedItem
+                    };
+                    DialogResult res = MessageBox.Show("Da li ste sigurni da zelite da zapamtite promenu?", "Potvrda", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (res == DialogResult.Yes)
+                    {
+                        try
+                        {
+                            Komunikacija.Instance.PromeniStavkuEvidencijeNastave(stavka);
+                            MessageBox.Show("Promene su sacuvane");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("OK");
+                    }
                 }
+                    
+              
+                
             }
             catch(Exception ex)
             {

@@ -38,43 +38,43 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(59, 60);
+            label1.Location = new Point(60, 66);
             label1.Name = "label1";
-            label1.Size = new Size(109, 20);
+            label1.Size = new Size(88, 15);
             label1.TabIndex = 0;
             label1.Text = "Korisničko ime:";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(102, 102);
+            label2.Location = new Point(95, 99);
             label2.Name = "label2";
-            label2.Size = new Size(66, 20);
+            label2.Size = new Size(53, 15);
             label2.TabIndex = 1;
             label2.Text = "Lozinka: ";
             // 
             // txtKorisnickoIme
             // 
-            txtKorisnickoIme.Location = new Point(214, 57);
+            txtKorisnickoIme.Location = new Point(172, 63);
             txtKorisnickoIme.Name = "txtKorisnickoIme";
-            txtKorisnickoIme.Size = new Size(168, 27);
+            txtKorisnickoIme.Size = new Size(183, 23);
             txtKorisnickoIme.TabIndex = 2;
             txtKorisnickoIme.Text = "vujicmatija";
             // 
             // txtLozinka
             // 
-            txtLozinka.Location = new Point(214, 102);
+            txtLozinka.Location = new Point(172, 96);
             txtLozinka.Name = "txtLozinka";
             txtLozinka.PasswordChar = '*';
-            txtLozinka.Size = new Size(168, 27);
+            txtLozinka.Size = new Size(183, 23);
             txtLozinka.TabIndex = 3;
             txtLozinka.Text = "vm123";
             // 
             // btnPrijava
             // 
-            btnPrijava.Location = new Point(136, 152);
+            btnPrijava.Location = new Point(120, 146);
             btnPrijava.Name = "btnPrijava";
-            btnPrijava.Size = new Size(125, 54);
+            btnPrijava.Size = new Size(130, 57);
             btnPrijava.TabIndex = 4;
             btnPrijava.Text = "Prijavi se";
             btnPrijava.UseVisualStyleBackColor = true;
@@ -82,21 +82,21 @@
             // 
             // LogIn
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(429, 272);
+            AutoScaleMode = AutoScaleMode.None;
+            BackColor = SystemColors.Control;
+            ClientSize = new Size(385, 252);
             Controls.Add(btnPrijava);
             Controls.Add(txtLozinka);
             Controls.Add(txtKorisnickoIme);
             Controls.Add(label2);
             Controls.Add(label1);
-            Cursor = Cursors.Default;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "LogIn";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "LogIn";
+            Load += LogIn_Load;
             ResumeLayout(false);
             PerformLayout();
         }

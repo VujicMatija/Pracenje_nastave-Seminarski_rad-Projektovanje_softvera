@@ -25,11 +25,18 @@ namespace Domeni
 
         public override bool Equals(object? obj)
         {
-
-            return obj is EvidencijaNastave evd 
-                && IdEvidencijeNastave == evd.IdEvidencijeNastave
-                &&  Ucitelj.Id == evd.Ucitelj.Id 
-                && Grupa.IdGrupe == evd.Grupa.IdGrupe;
+            try
+            {
+                return obj is EvidencijaNastave evd
+               && IdEvidencijeNastave == evd.IdEvidencijeNastave
+               && Ucitelj.Id == evd.Ucitelj.Id
+               && Grupa.IdGrupe == evd.Grupa.IdGrupe;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+           
         }
 
         public override int GetHashCode()

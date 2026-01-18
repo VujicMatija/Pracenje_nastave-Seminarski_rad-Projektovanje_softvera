@@ -1,5 +1,4 @@
-﻿using BrokerBazePodataka;
-using Domeni;
+﻿using Domeni;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,20 +13,20 @@ namespace Forme.User_controlers
 {
     public partial class UCPretraziEvidencijuNastave : UserControl
     {
-        Broker broker = new Broker();
+        
         public UCPretraziEvidencijuNastave()
         {
             InitializeComponent();
-            BindingList<Ucitelj> sviUcitelji = broker.vratiListuSviUcitelji();
+            BindingList<Ucitelj> sviUcitelji = Komunikacija.Instance.VratiListuSviUcitelji();
             cbUcitelj.DataSource = sviUcitelji;
             cbUcitelj.SelectedItem = null;
-            BindingList<GrupaUcenika> sveGrupeUcenika = broker.vratiListuSveGrupeUcenika();
+            BindingList<GrupaUcenika> sveGrupeUcenika = Komunikacija.Instance.VratiListuSveGrupeUcenika();
             cbGrupa.DataSource = sveGrupeUcenika;
             cbGrupa.SelectedItem = null;
-            BindingList<Ucenik> sviUcenici = broker.vratiListuSviUcenici();
+            BindingList<Ucenik> sviUcenici = Komunikacija.Instance.VratiListuSviUcenici();
             cbUcenik.DataSource = sviUcenici;
             cbUcenik.SelectedItem = null;
-            dgvEvidencije.DataSource = broker.vratiListuSveEvidencijaNastave();
+            dgvEvidencije.DataSource = Komunikacija.Instance.VratiListuSveEvidencijeNastave();
             dgvEvidencije.Columns[0].Visible = false;
             dgvEvidencije.Columns[1].Visible = false;
             dgvEvidencije.Columns[2].Visible = false;
@@ -42,7 +41,7 @@ namespace Forme.User_controlers
         private void btnPretraziEvidencije_Click(object sender, EventArgs e)
         {
             dgvEvidencije.DataSource = null;
-            dgvEvidencije.DataSource = broker.vratiListuEvidencijaNastave((GrupaUcenika)cbGrupa.SelectedItem, (Ucitelj)cbUcitelj.SelectedItem, (Ucenik)cbUcenik.SelectedItem, null);
+            dgvEvidencije.DataSource = Komunikacija.Instance.VratiListuEvidencijaNastave((GrupaUcenika)cbGrupa.SelectedItem, (Ucitelj)cbUcitelj.SelectedItem, (Ucenik)cbUcenik.SelectedItem);
             // dgvEvidencije.DataSource = broker.vratiListuEvidencijaNastave((Ucitelj)cbUcitelj.SelectedItem);
             dgvEvidencije.Columns[0].Visible = false;
             dgvEvidencije.Columns[1].Visible = false;
@@ -105,7 +104,7 @@ namespace Forme.User_controlers
             cbUcitelj.SelectedItem = null;
             cbUcenik.SelectedItem = null;
             cbGrupa.SelectedItem = null;
-            dgvEvidencije.DataSource = broker.vratiListuSveEvidencijaNastave();
+            dgvEvidencije.DataSource = Komunikacija.Instance.VratiListuSveEvidencijeNastave();
             dgvEvidencije.Columns[0].Visible = false;
             dgvEvidencije.Columns[1].Visible = false;
             dgvEvidencije.Columns[2].Visible = false;

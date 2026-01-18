@@ -120,6 +120,7 @@
             // 
             // txtIme
             // 
+            txtIme.BackColor = SystemColors.Window;
             txtIme.Location = new Point(204, 36);
             txtIme.Name = "txtIme";
             txtIme.RightToLeft = RightToLeft.No;

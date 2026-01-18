@@ -1,9 +1,9 @@
-﻿using BrokerBazePodataka;
-using Domeni;
+﻿using Domeni;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -14,13 +14,13 @@ namespace Forme.User_controlers
 {
     public partial class UCpretraziUcitelja : UserControl
     {
-        Broker broker = new Broker();
+        
         
         public UCpretraziUcitelja()
         {
             InitializeComponent();
-            BindingList<Ucitelj> res = broker.vratiListuSviUcitelji();
-            cbSertifikati.DataSource = broker.vratiListuSviSertifikati();
+            BindingList<Ucitelj> res = Komunikacija.Instance.VratiListuSviUcitelji();
+            cbSertifikati.DataSource = Komunikacija.Instance.VratiListuSviSertifikati();
             cbSertifikati.SelectedItem = null;
             dgvUcitelji.DataSource = res;
             foreach (DataGridViewColumn col in dgvUcitelji.Columns)
@@ -80,15 +80,25 @@ namespace Forme.User_controlers
 
             if (s == null && u != null)
             {
-                dgvUcitelji.DataSource = broker.vratiListuUcitelja(u);
+                dgvUcitelji.DataSource = Komunikacija.Instance.VratiListuUcitelja(u);
             }
-            else if (u == null && s != null)
+            else if (string.IsNullOrWhiteSpace(txtImePrezime.Text) && s != null)
             {
-                dgvUcitelji.DataSource = broker.vratiListuUcitelja(s);
+                
+                dgvUcitelji.DataSource = Komunikacija.Instance.VratiListuUcitelja(s);
             }
             else
             {
-                dgvUcitelji.DataSource = broker.vratiListuUcitelja(u, s);
+                try
+                {
+                    
+                    dgvUcitelji.DataSource = Komunikacija.Instance.VratiListuUcitelja(u, s);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                
             }
             foreach (DataGridViewColumn col in dgvUcitelji.Columns)
             {
@@ -104,7 +114,7 @@ namespace Forme.User_controlers
 
             cbSertifikati.SelectedItem = null;
             txtImePrezime.Text = "";
-            dgvUcitelji.DataSource = broker.vratiListuSviUcitelji();
+            dgvUcitelji.DataSource = Komunikacija.Instance.VratiListuSviUcitelji();
         }
 
         private void button1_Click_1(object sender, EventArgs e)

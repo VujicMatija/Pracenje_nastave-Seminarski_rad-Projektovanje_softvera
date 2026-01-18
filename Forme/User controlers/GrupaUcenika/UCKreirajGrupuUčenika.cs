@@ -1,5 +1,4 @@
-﻿using BrokerBazePodataka;
-using Domeni;
+﻿using Domeni;
 using Forme.Utils;
 using System;
 using System.Collections.Generic;
@@ -16,7 +15,6 @@ namespace Forme.User_controlers
     public partial class UCKreirajGrupuUčenika : UserControl
     {
         List<string> sati = new List<string>() { "10:00h", "12:00h", "14:00h", "16:00h", "18:00h", "20:00h" };
-        Broker broker = new Broker();
         GrupaUcenika globalnaGrupa = new GrupaUcenika();
         List<string> zauzetiTermini = new List<string>();
         
@@ -24,8 +22,8 @@ namespace Forme.User_controlers
         public UCKreirajGrupuUčenika(WorkMode mode = WorkMode.CREATE, GrupaUcenika grupa = null)
         {
             InitializeComponent();
-            zauzetiTermini = broker.vratiZauzeteTermine();
-            cbKursevi.DataSource = broker.vratiListuSviKursevi();
+            zauzetiTermini = Komunikacija.Instance.VratiZauzeteTermine();
+            cbKursevi.DataSource = Komunikacija.Instance.VratiListuSviKursevi();
             cbDani.DataSource = Enum.GetNames(typeof(Dani));
             cbSati.DataSource = sati;
             txtTermin.Visible = false;
@@ -56,7 +54,7 @@ namespace Forme.User_controlers
                 lblBrojUcenika.Visible = true;
                 btnObrisi.Visible = true;
                 btnDodajUcenika.Visible = true;
-                dgvUcenici.DataSource = broker.vratiListuUcenika(grupa);
+                dgvUcenici.DataSource = Komunikacija.Instance.VratiListuUcenika(grupa);
                 foreach (DataGridViewColumn col in dgvUcenici.Columns)
                 {
                     col.Visible = false;
@@ -91,7 +89,7 @@ namespace Forme.User_controlers
                 numBrojUcenika.Visible = true;
                 lblBrojUcenika.Visible = true;
                 btnDodajUcenika.Visible = false;
-                dgvUcenici.DataSource = broker.vratiListuUcenika(grupa);
+                dgvUcenici.DataSource = Komunikacija.Instance.VratiListuUcenika(grupa);
                 foreach (DataGridViewColumn col in dgvUcenici.Columns)
                 {
                     col.Visible = false;
@@ -163,8 +161,8 @@ namespace Forme.User_controlers
                 DialogResult res = MessageBox.Show("Da li želite da kreirate grupu učenika?", "Potvrda", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (res == DialogResult.Yes)
                 {
-                    broker.KreirajGrupuUcenika(grupa);
-                    zauzetiTermini = broker.vratiZauzeteTermine();
+                    Komunikacija.Instance.KreirajGrupuUcenika(grupa);
+                    zauzetiTermini = Komunikacija.Instance.VratiZauzeteTermine();
                     MessageBox.Show("Grupa učenika je uspešno kreirana!");
                 }
                 else
@@ -202,7 +200,7 @@ namespace Forme.User_controlers
             }
             try
             {
-                broker.PromeniGrupuUcenika(grupa);
+                Komunikacija.Instance.PromeniGrupuUcenika(grupa);
                 MessageBox.Show("Promene su sačuvane!");
             }
             catch (Exception ex)
@@ -214,6 +212,7 @@ namespace Forme.User_controlers
 
         private void btnOmoguciIzmene_Click(object sender, EventArgs e)
         {
+            btnOmoguciIzmene.Visible = false;
             slika.Visible = false;
             btnKreiraj.Visible = false;
             btnIzmeni.Visible = true;
@@ -225,7 +224,6 @@ namespace Forme.User_controlers
             btnHint.Visible = true;
             btnIzmeni.Visible = true;
             btnKreiraj.Visible = false;
-            btnOmoguciIzmene.Visible = true;
             cbDani.Visible = true;
             cbSati.Visible = true;
             btnObrisi.Visible = false;
@@ -240,7 +238,7 @@ namespace Forme.User_controlers
             DialogResult res = MessageBox.Show("Da li ste sigurni da želite da obrišete grupu učenika?", "Potvrda", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (res == DialogResult.Yes)
             {
-                broker.ObrisiGrupuUcenika(globalnaGrupa);
+                Komunikacija.Instance.ObrisiGrupuUcenika(globalnaGrupa);
                 MessageBox.Show("Grupa je obrisana");
             }
             else
@@ -277,7 +275,7 @@ namespace Forme.User_controlers
 
         private void btnHint_Click(object sender, EventArgs e)
         {
-            zauzetiTermini = broker.vratiZauzeteTermine();
+            zauzetiTermini = Komunikacija.Instance.VratiZauzeteTermine();
             MessageBox.Show($"Slobodni termini su {ispisZauzetihTermina()}");
         }
     }

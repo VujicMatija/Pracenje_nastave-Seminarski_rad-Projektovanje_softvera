@@ -48,16 +48,6 @@ namespace Domeni
             return result;
         }
 
-        public void validiraj()
-        {
-            if (string.IsNullOrWhiteSpace(NazivKursa))
-            {
-                throw new Exception("Morate uneti naziv kursa!");
-            }
-            if (TrajanjeKursa > 0)
-            {
-                throw new Exception("Trajanje kursa mora biti vece od 0!");
-            }
-        }
+        
     }
 }

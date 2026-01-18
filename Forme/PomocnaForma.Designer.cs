@@ -33,21 +33,25 @@
             // 
             // panel1
             // 
+            panel1.AutoSize = true;
+            panel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             panel1.Location = new Point(12, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(800, 400);
+            panel1.Size = new Size(0, 0);
             panel1.TabIndex = 0;
             // 
             // PomocnaForma
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(832, 425);
+            AutoScaleMode = AutoScaleMode.None;
+            AutoSize = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            ClientSize = new Size(832, 376);
             Controls.Add(panel1);
             Name = "PomocnaForma";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "PomocnaForma";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

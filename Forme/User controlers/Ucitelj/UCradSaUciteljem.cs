@@ -1,5 +1,4 @@
-﻿using BrokerBazePodataka;
-using Domeni;
+﻿using Domeni;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -10,13 +9,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Forme.User_controlers
 {
     public partial class UCradSaUciteljem : UserControl
     {
 
-        Broker broker = new Broker();
+        
 
         public UCradSaUciteljem()
         {
@@ -31,9 +31,12 @@ namespace Forme.User_controlers
 
         private void btnKreiraj_Click(object sender, EventArgs e)
         {
+            Ucitelj u = new Ucitelj();
+            RestartujTextBoxove();
             try
             {
-                Ucitelj u = new Ucitelj
+               
+                u = new Ucitelj
                 {
                     ImeUcitelja = txtIme.Text,
                     PrezimeUcitelja = txtPrezime.Text,
@@ -43,59 +46,93 @@ namespace Forme.User_controlers
                     Lozinka = txtLozinka.Text,
                     DatumPocetkaRada = datePocetakRada.Value
                 };
-                u.validiraj();
-                try
+                if (ValidirajUcitelja())
                 {
-                    broker.kreirajUcitelja(u);
-                    MessageBox.Show("Učitelj je kreiran!");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Greška prilikom rada sa bazom!", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    try
+                    {
+                        Komunikacija.Instance.KreirajUcitelja(u);
+                        MessageBox.Show("Učitelj je kreiran!");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Greška prilikom rada sa bazom!", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
+     
+                
+               
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
+
+               
+
             }
 
-
-            //if(string.IsNullOrEmpty(txtIme.Text) || string.IsNullOrEmpty(txtPrezime.Text) || string.IsNullOrEmpty(txtEmail.Text) ||
-            //    string.IsNullOrEmpty(txtTelefon.Text) || string.IsNullOrEmpty(txtKorisnickoIme.Text) || string.IsNullOrEmpty(txtLozinka.Text))
-            //{
-            //    MessageBox.Show("Sva polja moraju biti uneta!", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}else if(txtIme.Text == txtKorisnickoIme.Text)
-            //{
-            //    MessageBox.Show("Korisničko ime i ime učitelja moraju da se razlikuju!", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-            //else if (txtLozinka.Text == txtKorisnickoIme.Text)
-            //{
-            //    MessageBox.Show("Korisničko ime i lozinka moraju da se razlikuju!", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-            //else
-            //{
-            //    Ucitelj u = new Ucitelj
-            //    {
-            //        ImeUcitelja = txtIme.Text,
-            //        PrezimeUcitelja = txtPrezime.Text,
-            //        Email = txtEmail.Text,
-            //        Telefon = txtTelefon.Text,
-            //        KorisnickoIme = txtKorisnickoIme.Text,
-            //        Lozinka = txtLozinka.Text,
-            //        DatumPocetkaRada = datePocetakRada.Value
-            //    };
-
-            //    try
-            //    {
-            //        broker.kreirajUcitelja(u);
-            //        MessageBox.Show("Učitelj je kreiran!");
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show("Greška prilikom rada sa bazom!", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-
             
+        }
+
+        private bool ValidirajUcitelja()
+        {
+            Color boja = ColorTranslator.FromHtml("#d96f6f");
+            bool uspesno = true;
+            string poruka = "";
+            if (txtIme.Text.Length < 3)
+            {
+                txtIme.BackColor = boja;
+                poruka = poruka + "Ime mora imati vise od 2 slova!\n";
+            }
+            if (txtPrezime.Text.Length < 3)
+            {
+                txtPrezime.BackColor = boja;
+                poruka = poruka + "Prezime mora imati vise od 2 slova!\n";
+            }
+            if (txtEmail.Text.Contains("@") == false || txtEmail.Text.Contains(".com") == false)
+            {
+                txtEmail.BackColor = boja;
+                poruka = poruka + "Email mora da sadrzi @ i .com\n";
+            }
+            if (txtTelefon.Text.Length > 3 && txtTelefon.Text.Substring(0, 2) != "06")
+            {
+                poruka = poruka + "Broj telefona mora da pocinenje sa 06!\n";
+                txtTelefon.BackColor = boja;
+            }else if(txtTelefon.Text.Length < 3){
+                poruka = poruka + "Broj telefona mora da pocinenje sa 06!\n";
+                txtTelefon.BackColor = boja;
+            }
+            if (txtKorisnickoIme.Text.Length < 8)
+            {
+                poruka = poruka + "Korisnicko ime mora biti duze od 7 karaktera\n";
+                txtKorisnickoIme.BackColor = boja;
+            }
+            if (txtLozinka.Text.Length < 10)
+            {
+                poruka = poruka + "Lozinka mora imati minimum 10 karaktera\n";
+                txtLozinka.BackColor = boja;
+            }
+            if (txtKorisnickoIme.Text == txtLozinka.Text)
+            {
+                txtLozinka.BackColor = boja;
+                txtKorisnickoIme.BackColor = boja;
+                poruka = poruka + "Lozinka i korisnicko ime moraju  da se razlikuju\n";
+            }
+            if(string.IsNullOrEmpty(poruka) == false)
+            {
+                uspesno = false;
+                MessageBox.Show("Neuspesna validacija podataka\n" + poruka);
+            }
+            return uspesno;
+        }
+
+        private void RestartujTextBoxove()
+        {
+            txtIme.BackColor = SystemColors.Window;
+            txtPrezime.BackColor = SystemColors.Window;
+            txtEmail.BackColor = SystemColors.Window;
+            txtTelefon.BackColor = SystemColors.Window;
+            txtLozinka.BackColor = SystemColors.Window;
+            txtKorisnickoIme.BackColor = SystemColors.Window;
         }
     }
 }

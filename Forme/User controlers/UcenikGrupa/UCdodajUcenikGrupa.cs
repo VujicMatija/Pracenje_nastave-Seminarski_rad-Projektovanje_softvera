@@ -1,5 +1,4 @@
-﻿using BrokerBazePodataka;
-using Domeni;
+﻿using Domeni;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,7 +14,7 @@ namespace Forme.User_controlers
     public partial class UCdodajUcenikGrupa : UserControl
     {
 
-        Broker broker = new Broker();
+        
         GrupaUcenika globalnaGrupa = new GrupaUcenika();
 
         public UCdodajUcenikGrupa(GrupaUcenika grupa)
@@ -24,7 +23,7 @@ namespace Forme.User_controlers
             globalnaGrupa = grupa;
             lblGrupa.Text = $"Učenici grupe {grupa.OznakaGrupe}";
 
-            dgvTrenutni.DataSource = broker.vratiListuUcenika(grupa);
+            dgvTrenutni.DataSource = Komunikacija.Instance.VratiListuUcenika(grupa);
             foreach(DataGridViewColumn col in dgvTrenutni.Columns)
             {
                 col.Visible = false;
@@ -34,7 +33,7 @@ namespace Forme.User_controlers
             dgvTrenutni.Columns[4].Visible = true;
             dgvTrenutni.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            dgvRaspolozivi.DataSource = broker.vratiListuSviUcenici();
+            dgvRaspolozivi.DataSource = Komunikacija.Instance.VratiListuSviUcenici();
             foreach (DataGridViewColumn col in dgvRaspolozivi.Columns)
             {
                 col.Visible = false;
@@ -83,7 +82,7 @@ namespace Forme.User_controlers
             }
             else
             {
-                dgvRaspolozivi.DataSource = broker.pretraziUcenikaPoImenu(ucenik);
+                dgvRaspolozivi.DataSource = Komunikacija.Instance.PretraziUcenikaPoImenu(ucenik);
                 foreach (DataGridViewColumn col in dgvRaspolozivi.Columns)
                 {
                     col.Visible = false;
@@ -109,11 +108,11 @@ namespace Forme.User_controlers
                 {
                     try
                     {
-                        broker.kreirajUcenikGrupa((Ucenik)dgvRaspolozivi.CurrentRow.DataBoundItem, globalnaGrupa);
+                        Komunikacija.Instance.KreirajUcenikGrupa((Ucenik)dgvRaspolozivi.CurrentRow.DataBoundItem, globalnaGrupa);
                         MessageBox.Show("Ucenik je dodat u grupu");
                         globalnaGrupa.BrojUcenika++;
-                        broker.PromeniGrupuUcenika(globalnaGrupa);
-                        dgvTrenutni.DataSource = broker.vratiListuUcenika(globalnaGrupa);
+                        Komunikacija.Instance.PromeniGrupuUcenika(globalnaGrupa);
+                        dgvTrenutni.DataSource = Komunikacija.Instance.VratiListuUcenika(globalnaGrupa);
                         
                         foreach (DataGridViewColumn col in dgvTrenutni.Columns)
                         {

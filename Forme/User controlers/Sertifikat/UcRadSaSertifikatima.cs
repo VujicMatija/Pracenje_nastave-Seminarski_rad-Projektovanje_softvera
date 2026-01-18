@@ -1,5 +1,4 @@
-﻿using BrokerBazePodataka;
-using Domeni;
+﻿using Domeni;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,12 +14,12 @@ namespace Forme.User_controlers
     public partial class UcRadSaSertifikatima : UserControl
     {
 
-        Broker broker = new Broker();
+        
         Sertifikat globalniSertifikat = new Sertifikat();
         public UcRadSaSertifikatima()
         {
             InitializeComponent();
-            dgvPodaci.DataSource = broker.vratiListuSviSertifikati();
+            dgvPodaci.DataSource = Komunikacija.Instance.VratiListuSviSertifikati();
             dgvPodaci.Columns[0].Visible = false;
             dgvPodaci.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
@@ -29,20 +28,22 @@ namespace Forme.User_controlers
         {
             InitializeComponent();
             globalniSertifikat = sertifikat;
+
             btnIzmeni.Visible = false;
             btnOmoguciIzmene.Visible = true;
-
-            txtNazivSertifikata.Text = sertifikat.NazivSertifikata;
             txtNazivSertifikata.Enabled = false;
             btnPrikazi.Visible = false;
             btnUbaciSertifikat.Visible = false;
-            dgvPodaci.DataSource = broker.vratiListuUcitelja(sertifikat);
+
+            txtNazivSertifikata.Text = sertifikat.NazivSertifikata;
+            
+            dgvPodaci.DataSource = Komunikacija.Instance.VratiListuSviSertifikati();
             foreach (DataGridViewColumn col in dgvPodaci.Columns)
             {
                 col.Visible = false;
             }
             dgvPodaci.Columns[1].Visible = true;
-            dgvPodaci.Columns[2].Visible = true;
+           // dgvPodaci.Columns[2].Visible = true;
             dgvPodaci.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
 
@@ -54,13 +55,15 @@ namespace Forme.User_controlers
 
             try
             {
+                if (ValidirajSertifikat())
+                {
+                    Sertifikat s = new Sertifikat() { NazivSertifikata = txtNazivSertifikata.Text };
+                    Komunikacija.Instance.UbaciSertifikat(s);
+                    MessageBox.Show("Sertifikat ubacen!");
+                    dgvPodaci.DataSource = Komunikacija.Instance.VratiListuSviSertifikati();
+                }
                 
-                Sertifikat s = new Sertifikat() { NazivSertifikata = txtNazivSertifikata.Text };
-                s.validiraj();
-                broker.ubaciSertifikat(s);
-                MessageBox.Show("Sertifikat ubacen!");
-                dgvPodaci.DataSource = broker.vratiListuSviSertifikati();
-                
+
 
 
             }
@@ -72,11 +75,16 @@ namespace Forme.User_controlers
 
         private void btnPrikazi_Click(object sender, EventArgs e)
         {
+
+
+            UcRadSaSertifikatima ucRadSaSertifikatima = new UcRadSaSertifikatima((Sertifikat)dgvPodaci.CurrentRow.DataBoundItem);
+            PomocnaForma prikazSertifikataForma = new PomocnaForma(ucRadSaSertifikatima);
+            prikazSertifikataForma.ShowDialog();
             try
             {
-                UcRadSaSertifikatima ucRadSaSertifikatima = new UcRadSaSertifikatima((Sertifikat)dgvPodaci.CurrentRow.DataBoundItem);
-                PomocnaForma prikazSertifikataForma = new PomocnaForma(ucRadSaSertifikatima);
-                prikazSertifikataForma.ShowDialog();
+                //UcRadSaSertifikatima ucRadSaSertifikatima = new UcRadSaSertifikatima((Sertifikat)dgvPodaci.CurrentRow.DataBoundItem);
+                //PomocnaForma prikazSertifikataForma = new PomocnaForma(ucRadSaSertifikatima);
+                //prikazSertifikataForma.ShowDialog();
             }
             catch
             {
@@ -96,25 +104,28 @@ namespace Forme.User_controlers
         {
             try
             {
-                Sertifikat s = new Sertifikat() { IdSertifikata = globalniSertifikat.IdSertifikata, NazivSertifikata = txtNazivSertifikata.Text };
-                s.validiraj();
-                DialogResult res = MessageBox.Show("Da li zelite da sacuvate promene?", "Potvrda", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (res == DialogResult.Yes)
+                if (ValidirajSertifikat())
                 {
-                    try
+                    Sertifikat s = new Sertifikat() { IdSertifikata = globalniSertifikat.IdSertifikata, NazivSertifikata = txtNazivSertifikata.Text };
+                    DialogResult res = MessageBox.Show("Da li zelite da sacuvate promene?", "Potvrda", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (res == DialogResult.Yes)
                     {
-                        broker.promeniSertifikat(s);
-                        MessageBox.Show("Promena sacuvana!");
+                        try
+                        {
+                            Komunikacija.Instance.PromeniSertifikat(s);
+                            MessageBox.Show("Promena sacuvana!");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show(ex.Message);
+                        MessageBox.Show("OK!");
                     }
                 }
-                else
-                {
-                    MessageBox.Show("OK!");
-                }
+                
             }
             catch(Exception ex)
             {
@@ -130,7 +141,7 @@ namespace Forme.User_controlers
             {
                 try
                 {
-                    broker.obrisiSertikat(globalniSertifikat);
+                    Komunikacija.Instance.ObrisiSertifikat(globalniSertifikat);
                     MessageBox.Show("Sertifikat obrisan!");
 
                 }
@@ -149,13 +160,33 @@ namespace Forme.User_controlers
         {
             if (string.IsNullOrWhiteSpace(txtNazivSertifikata.Text))
             {
-                dgvPodaci.DataSource = broker.vratiListuSviSertifikati();
+                dgvPodaci.DataSource = Komunikacija.Instance.VratiListuSviSertifikati();
             }
             else
             {
                 Sertifikat sertifikatZaPretragu = new Sertifikat() { NazivSertifikata = txtNazivSertifikata.Text };
-                dgvPodaci.DataSource = broker.vratiListuSertifikata(sertifikatZaPretragu);
+                dgvPodaci.DataSource = Komunikacija.Instance.VratiListuSertifikata(sertifikatZaPretragu);
             }
+        }
+
+
+        private bool ValidirajSertifikat()
+        {
+            bool uspesno = true;
+            txtNazivSertifikata.BackColor = SystemColors.Window;
+            string poruka = "";
+            if (string.IsNullOrEmpty(txtNazivSertifikata.Text))
+            {
+                poruka = poruka + "Morate uneti naziv sertifikata";
+                txtNazivSertifikata.BackColor = ColorTranslator.FromHtml("#d96f6f");
+            }
+            if (string.IsNullOrEmpty(poruka))
+            {
+                uspesno = false;
+                MessageBox.Show("Validacija sertifikata nije uspesna\n" + poruka);
+            }
+
+            return uspesno;
         }
     }
 }

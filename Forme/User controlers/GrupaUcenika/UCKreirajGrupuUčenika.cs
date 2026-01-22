@@ -54,7 +54,7 @@ namespace Forme.User_controlers
                 lblBrojUcenika.Visible = true;
                 btnObrisi.Visible = true;
                 btnDodajUcenika.Visible = true;
-                dgvUcenici.DataSource = Komunikacija.Instance.VratiListuUcenika(grupa);
+                dgvUcenici.DataSource = Komunikacija.Instance.VratiListuUcenika(grupa, null);
                 foreach (DataGridViewColumn col in dgvUcenici.Columns)
                 {
                     col.Visible = false;
@@ -89,7 +89,7 @@ namespace Forme.User_controlers
                 numBrojUcenika.Visible = true;
                 lblBrojUcenika.Visible = true;
                 btnDodajUcenika.Visible = false;
-                dgvUcenici.DataSource = Komunikacija.Instance.VratiListuUcenika(grupa);
+                dgvUcenici.DataSource = Komunikacija.Instance.VratiListuUcenika(grupa, null);
                 foreach (DataGridViewColumn col in dgvUcenici.Columns)
                 {
                     col.Visible = false;

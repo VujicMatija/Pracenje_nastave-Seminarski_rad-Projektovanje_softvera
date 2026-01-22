@@ -46,7 +46,7 @@ namespace Forme.User_controlers
 
 
             btnKreiraj.Visible = false;
-            dgvGrupe.DataSource = Komunikacija.Instance.vratiListuGrupaUcenika(ucenik);
+            dgvGrupe.DataSource = Komunikacija.Instance.vratiListuGrupaUcenika(ucenik: ucenik, ucitelj: null, kurs: null);
             foreach(DataGridViewColumn col in dgvGrupe.Columns)
             {
                 col.Visible = false;

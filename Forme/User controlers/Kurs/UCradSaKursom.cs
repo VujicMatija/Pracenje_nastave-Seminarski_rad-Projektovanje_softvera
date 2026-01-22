@@ -39,7 +39,7 @@ namespace Forme.User_controlers
             cbUzrast.DataSource = Enum.GetValues<Uzrast>();
             try
             {
-                dgvPodaci.DataSource = Komunikacija.Instance.VratiListuEvidencijaNastave(kurs);
+                dgvPodaci.DataSource = Komunikacija.Instance.VratiListuEvidencijaNastave(null, null,null,kurs,null);
                 dgvPodaci.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 foreach(DataGridViewColumn col in dgvPodaci.Columns)
                 {

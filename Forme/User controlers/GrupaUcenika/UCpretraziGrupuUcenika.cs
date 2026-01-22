@@ -41,8 +41,8 @@ namespace Forme.User_controlers
             }
             else
             {
-                
-                dgvGrupeUcenika.DataSource = Komunikacija.Instance.vratiListuGrupaUcenika((Kurs)cbKursevi.SelectedItem);
+
+                dgvGrupeUcenika.DataSource = Komunikacija.Instance.vratiListuGrupaUcenika(kurs: (Kurs)cbKursevi.SelectedItem, ucitelj:null, ucenik:null);
                 dgvGrupeUcenika.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dgvGrupeUcenika.Columns[0].Visible = false;
 

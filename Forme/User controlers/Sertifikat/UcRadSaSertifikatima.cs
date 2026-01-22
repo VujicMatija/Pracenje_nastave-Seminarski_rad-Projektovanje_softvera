@@ -165,7 +165,7 @@ namespace Forme.User_controlers
             else
             {
                 Sertifikat sertifikatZaPretragu = new Sertifikat() { NazivSertifikata = txtNazivSertifikata.Text };
-                dgvPodaci.DataSource = Komunikacija.Instance.VratiListuSertifikata(sertifikatZaPretragu);
+                dgvPodaci.DataSource = Komunikacija.Instance.VratiListuSertifikata(ucitelj: null,sertifikat:sertifikatZaPretragu);
             }
         }
 

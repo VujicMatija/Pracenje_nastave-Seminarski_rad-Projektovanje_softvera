@@ -132,7 +132,7 @@ namespace Forme.User_controlers
                     try
                     {
                         cbGrupa.SelectedIndex = trenutniIndex;
-                        cbUcenici.DataSource = Komunikacija.Instance.VratiListuUcenika(trenutnaGrupa);
+                        cbUcenici.DataSource = Komunikacija.Instance.VratiListuUcenika(trenutnaGrupa, null);
                     }catch(Exception ex)
                     {
                         MessageBox.Show(ex.Message);
@@ -155,7 +155,7 @@ namespace Forme.User_controlers
                 if (stavke.Count == 0)
                 {
                     GrupaUcenika novaGrupa = (GrupaUcenika)cbGrupa.SelectedItem;
-                    cbUcenici.DataSource = Komunikacija.instance.VratiListuUcenika(novaGrupa);
+                    cbUcenici.DataSource = Komunikacija.instance.VratiListuUcenika(novaGrupa, null);
                     Kurs k = Komunikacija.Instance.PretraziKurs(new Kurs() { IdKursa = novaGrupa.Kurs.IdKursa });
                     cbRBCasa.DataSource = Enumerable.Range(1, Komunikacija.Instance.PretraziKurs(k).TrajanjeKursa).ToList();
                 }
@@ -165,7 +165,7 @@ namespace Forme.User_controlers
                     {
                         cbGrupa.SelectedIndex = trenutniIndex;
                         cbGrupa.SelectedItem = trenutnaGrupa;
-                        cbUcenici.DataSource = Komunikacija.instance.VratiListuUcenika(trenutnaGrupa);
+                        cbUcenici.DataSource = Komunikacija.instance.VratiListuUcenika(trenutnaGrupa, null);
                         Kurs k = Komunikacija.instance.PretraziKurs(new Kurs() { IdKursa = trenutnaGrupa.Kurs.IdKursa });
                         cbRBCasa.DataSource = Enumerable.Range(1, Komunikacija.Instance.PretraziKurs(k).TrajanjeKursa).ToList();
                     }
@@ -223,7 +223,7 @@ namespace Forme.User_controlers
         {
             txtKomentar.Text = "";
             cbUcenici.SelectedIndex = -1;
-            cbRBCasa.SelectedIndex = -1;
+            cbRBCasa.SelectedIndex = 0;
             chPrisustvo.Checked = false;
             chDomaci.Checked = false;
             dateDatumStavke.Value = DateTime.Today;
@@ -231,10 +231,9 @@ namespace Forme.User_controlers
 
         private void resetujFormu()
         {
-            BindingList<GrupaUcenika> dostupneGrupeUcenika = Komunikacija.Instance.vratiListuSlobodneGrupe();
-            cbGrupa.DataSource = dostupneGrupeUcenika;
+            
+            cbGrupa.DataSource = Komunikacija.Instance.vratiListuSlobodneGrupe();
             cbGrupa.SelectedIndex = -1;
-            cbUcenici.DataSource = Komunikacija.Instance.VratiListuUcenika((GrupaUcenika)cbGrupa.SelectedItem);
             cbUcitelj.SelectedIndex = -1;
             chAktivna.Checked = false;
             datePocetakRada.Value = DateTime.Today;

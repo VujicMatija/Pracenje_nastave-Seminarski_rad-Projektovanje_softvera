@@ -23,7 +23,7 @@ namespace Forme.User_controlers
             globalnaGrupa = grupa;
             lblGrupa.Text = $"Učenici grupe {grupa.OznakaGrupe}";
 
-            dgvTrenutni.DataSource = Komunikacija.Instance.VratiListuUcenika(grupa);
+            dgvTrenutni.DataSource = Komunikacija.Instance.VratiListuUcenika(grupa, null);
             foreach(DataGridViewColumn col in dgvTrenutni.Columns)
             {
                 col.Visible = false;
@@ -82,7 +82,7 @@ namespace Forme.User_controlers
             }
             else
             {
-                dgvRaspolozivi.DataSource = Komunikacija.Instance.PretraziUcenikaPoImenu(ucenik);
+                dgvRaspolozivi.DataSource = Komunikacija.Instance.VratiListuUcenika(ucenik: ucenik, grupa: null);
                 foreach (DataGridViewColumn col in dgvRaspolozivi.Columns)
                 {
                     col.Visible = false;
@@ -112,7 +112,7 @@ namespace Forme.User_controlers
                         MessageBox.Show("Ucenik je dodat u grupu");
                         globalnaGrupa.BrojUcenika++;
                         Komunikacija.Instance.PromeniGrupuUcenika(globalnaGrupa);
-                        dgvTrenutni.DataSource = Komunikacija.Instance.VratiListuUcenika(globalnaGrupa);
+                        dgvTrenutni.DataSource = Komunikacija.Instance.VratiListuUcenika(globalnaGrupa, null);
                         
                         foreach (DataGridViewColumn col in dgvTrenutni.Columns)
                         {

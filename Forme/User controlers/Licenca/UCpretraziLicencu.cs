@@ -21,6 +21,8 @@ namespace Forme.User_controlers
             InitializeComponent();
             cbUcitelj.DataSource = Komunikacija.Instance.VratiListuSviUcitelji();
             cbSertifikat.DataSource = Komunikacija.Instance.VratiListuSviSertifikati();
+            cbSertifikat.SelectedIndex = -1;
+            cbUcitelj.SelectedIndex = -1;
             dgvLicence.DataSource = Komunikacija.Instance.VratiListuSveLicence();
             dgvLicence.Columns[2].Visible = false;
             dgvLicence.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -38,13 +40,13 @@ namespace Forme.User_controlers
             }
             else if (cbSertifikat.SelectedItem != null)
             {
-                dgvLicence.DataSource = Komunikacija.Instance.vratiListuLicence((Sertifikat)cbSertifikat.SelectedItem);
+                dgvLicence.DataSource = Komunikacija.Instance.vratiListuLicence(sertifikat:(Sertifikat)cbSertifikat.SelectedItem, ucitelj: null);
                 dgvLicence.Columns[2].Visible = false;
                 dgvLicence.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
             else if (cbUcitelj.SelectedItem != null)
             {
-                dgvLicence.DataSource = Komunikacija.Instance.vratiListuLicence((Ucitelj)cbUcitelj.SelectedItem);
+                dgvLicence.DataSource = Komunikacija.Instance.vratiListuLicence(ucitelj: (Ucitelj)cbUcitelj.SelectedItem, sertifikat: null);
                 dgvLicence.Columns[2].Visible = false;
                 dgvLicence.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
@@ -58,6 +60,7 @@ namespace Forme.User_controlers
         {
             cbUcitelj.SelectedItem = null;
             cbSertifikat.SelectedItem = null;
+            dgvLicence.DataSource = Komunikacija.Instance.VratiListuSveLicence();
         }
 
         private void btnPrikazi_Click(object sender, EventArgs e)

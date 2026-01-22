@@ -10,8 +10,7 @@ namespace Zajednicki
     public class Zahtev
     {
         public Operacija Operacija { get; set; }
-        public object Objekat1 { get; set; }
-        public object Objekat2 { get; set; }
-        public object Objekat3 { get; set; }
+        public object Objekat { get; set; }
+
     }
 }

@@ -45,61 +45,64 @@ namespace Forme.User_controlers
             //};
             //dgvUcitelji.DataSource = broker.vratiListuUcitelja(u);
             Ucitelj u = new Ucitelj();
-            Sertifikat s = (Sertifikat)cbSertifikati.SelectedItem;
-
-            try
+            Sertifikat s = new Sertifikat();
+            if(cbSertifikati.SelectedItem != null)
             {
-                if (string.IsNullOrEmpty(txtImePrezime.Text) == false)
-                {
-
-                    string[] uc = txtImePrezime.Text.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-                    string ime = uc[0] != null ? uc[0] : "";
-                    string prezime = "";
-                    try
-                    {
-                        prezime = uc[1] != null ? uc[1] : "";
-                    }
-                    catch
-                    {
-                        prezime = "";
-                    }
-
-                    u = new Ucitelj
-                    {
-                        ImeUcitelja = ime,
-                        PrezimeUcitelja = prezime
-                    };
-                }
-            }
-            catch
-            {
-                u = null;
-            }
-
-
-
-            if (s == null && u != null)
-            {
-                dgvUcitelji.DataSource = Komunikacija.Instance.VratiListuUcitelja(u);
-            }
-            else if (string.IsNullOrWhiteSpace(txtImePrezime.Text) && s != null)
-            {
-                
-                dgvUcitelji.DataSource = Komunikacija.Instance.VratiListuUcitelja(s);
+                s = (Sertifikat)cbSertifikati.SelectedItem;
             }
             else
             {
-                try
-                {
-                    
-                    dgvUcitelji.DataSource = Komunikacija.Instance.VratiListuUcitelja(u, s);
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                
+                s = null;
             }
+            if (string.IsNullOrEmpty(txtIme.Text) != true && string.IsNullOrWhiteSpace(txtIme.Text) != true)
+            {
+                u.ImeUcitelja = txtIme.Text;
+            }
+            else
+            {
+                u.ImeUcitelja = "";
+            }
+
+            if (string.IsNullOrEmpty(txtPrezime.Text) != true && string.IsNullOrWhiteSpace(txtPrezime.Text) != true)
+            {
+                u.PrezimeUcitelja= txtPrezime.Text;
+            }
+            else
+            {
+                u.PrezimeUcitelja = "";
+            }
+            if(string.IsNullOrEmpty(txtIme.Text) && string.IsNullOrWhiteSpace(txtIme.Text) && string.IsNullOrEmpty(txtPrezime.Text)  && string.IsNullOrWhiteSpace(txtPrezime.Text))
+            {
+                u = null;
+            }
+           
+            
+
+
+            dgvUcitelji.DataSource = Komunikacija.Instance.VratiListuUcitelja(ucitelj: u, sertifikat: s);
+
+            //if (s == null && u != null)
+            //{
+            //    dgvUcitelji.DataSource = Komunikacija.Instance.VratiListuUcitelja(u);
+            //}
+            //else if (string.IsNullOrWhiteSpace(txtImePrezime.Text) && s != null)
+            //{
+                
+            //    dgvUcitelji.DataSource = Komunikacija.Instance.VratiListuUcitelja(s);
+            //}
+            //else
+            //{
+            //    try
+            //    {
+                    
+            //        dgvUcitelji.DataSource = Komunikacija.Instance.VratiListuUcitelja(u, s);
+            //    }
+            //    catch(Exception ex)
+            //    {
+            //        MessageBox.Show(ex.Message);
+            //    }
+                
+            //}
             foreach (DataGridViewColumn col in dgvUcitelji.Columns)
             {
                 col.Visible = false;
@@ -113,7 +116,8 @@ namespace Forme.User_controlers
         {
 
             cbSertifikati.SelectedItem = null;
-            txtImePrezime.Text = "";
+            txtIme.Text = "";
+            txtPrezime.Text = "";
             dgvUcitelji.DataSource = Komunikacija.Instance.VratiListuSviUcitelji();
         }
 

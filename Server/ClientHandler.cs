@@ -55,12 +55,12 @@ namespace Server
                             HandlePretraziUcitelja(zahtev);
                             break;
 
-                        case Operacija.VratiListuSertifikataPoUcitelju:
-                            HandleVratiListuSertifikataPoUcitelju(zahtev);
-                            break;
-                        case Operacija.vratiListuGrupeUcenikaPoUcitelju:
-                            HandleVratiListuGrupaUcenikaPoUceitelju(zahtev);
-                            break;
+                        //case Operacija.VratiListuSertifikataPoUcitelju:
+                        //    HandleVratiListuSertifikataPoUcitelju(zahtev);
+                        //    break;
+                        //case Operacija.vratiListuGrupeUcenikaPoUcitelju:
+                        //    HandleVratiListuGrupaUcenikaPoUceitelju(zahtev);
+                        //    break;
                         case Operacija.PromeniUcitelja:
                             HandlePromeniUcitelja(zahtev);
                             break;
@@ -76,12 +76,12 @@ namespace Server
                         case Operacija.VratiListuSviUcitelji:
                             HandleVratiListuSviUcitelji(zahtev);
                             break;
-                        case Operacija.VratiListuUciteljaPoSertifikatu:
-                            HandleVratiListuUciteljaPoSertifikatu(zahtev);
-                            break;
-                        case Operacija.VratiListuUciteljaPoUcitelju:
-                            HandleVratiListuUciteljaPoUcitelju(zahtev);
-                            break;
+                        //case Operacija.VratiListuUciteljaPoSertifikatu:
+                        //    HandleVratiListuUciteljaPoSertifikatu(zahtev);
+                        //    break;
+                        //case Operacija.VratiListuUciteljaPoUcitelju:
+                        //    HandleVratiListuUciteljaPoUcitelju(zahtev);
+                        //    break;
                         case Operacija.VratiListuUcitelji:
                             HandleVratiListuUcitelja(zahtev);
                             break;
@@ -94,12 +94,12 @@ namespace Server
                         case Operacija.VratiListuSveLicence:
                             HandleVratiListuSveLicence(zahtev);
                             break;
-                        case Operacija.VratiListuLicencePoSertifikatu:
-                            HandleVratiListuLicencaPoSertifikatu(zahtev);
-                            break;
-                        case Operacija.VratiListuLicencePoUcitelju:
-                            HandleVratiListuLicencaPoUcitelju(zahtev);
-                            break;
+                        //case Operacija.VratiListuLicencePoSertifikatu:
+                        //    HandleVratiListuLicencaPoSertifikatu(zahtev);
+                        //    break;
+                        //case Operacija.VratiListuLicencePoUcitelju:
+                        //    HandleVratiListuLicencaPoUcitelju(zahtev);
+                        //    break;
                         case Operacija.VratiListuLicence:
                             HandleVratiListuLicenca(zahtev);
                             break;
@@ -130,9 +130,6 @@ namespace Server
                         case Operacija.VratiListuStavkiEvidencijeNastave:
                             HandleVratiListuStavkiEvidencijeNastave(zahtev);
                             break;
-                        case Operacija.VratiListuStavkiEvidencijeNastavePoUceniku:
-                            HandleVratiListuStavkiEvidencijeNastavePoUceniku(zahtev);
-                            break;
                         case Operacija.PromeniEvidencijuNastave:
                             HandlePromeniEvidencijuNastave(zahtev);
                             break;
@@ -142,9 +139,9 @@ namespace Server
                         case Operacija.PromeniStavkuEvidencijeNastave:
                             HandlePromeniStavkuEvidencijeNastave(zahtev);
                             break;
-                        case Operacija.VratiListuGrupeUcenikaPoUceniku:
-                            HandleVratiGrupuUcenikaPoUceniku(zahtev);
-                            break;
+                        //case Operacija.VratiListuGrupeUcenikaPoUceniku:
+                        //    HandleVratiGrupuUcenikaPoUceniku(zahtev);
+                        //    break;
                         case Operacija.KreirajUcenika:
                             HandleKreirajUcenika(zahtev);
                             break;
@@ -153,9 +150,6 @@ namespace Server
                             break;
                         case Operacija.PromeniUcenika:
                             HandlePromeniUcenika(zahtev);
-                            break;
-                        case Operacija.PretraziUcenikaPoImenu:
-                            HandlePretraziUcenikaPoImenu(zahtev);
                             break;
                         case Operacija.VratiZauzeteTermine:
                             HandleVratiZauzeteTermine(zahtev);
@@ -172,20 +166,20 @@ namespace Server
                         case Operacija.ObrisiGrupuUcenika:
                             HandleObrisiGrupuUcenika(zahtev);
                             break;
-                        case Operacija.VratiListuGrupeUcenikaPoKursu:
-                            HandleVratiListuGrupaUcenikaPoKursu(zahtev);
-                            break;
-                        case Operacija.VratiListuEvidencijeNastavePoKursu:
-                            HandleVratiListuEvidencijeNastavePoKursu(zahtev);
-                            break;
+                        //case Operacija.VratiListuGrupeUcenikaPoKursu:
+                        //    HandleVratiListuGrupaUcenikaPoKursu(zahtev);
+                        //    break;
+                        //case Operacija.VratiListuEvidencijeNastavePoKursu:
+                        //    HandleVratiListuEvidencijeNastavePoKursu(zahtev);
+                        //    break;
                         case Operacija.KreirajKurs:
                             HandleKreirajKurs(zahtev);
                             break;
                         case Operacija.PromeniKurs:
                             HandlePromeniKurs(zahtev);
                             break;
-                        case Operacija.VratiListuKursevaPoImenu:
-                            HandleVratiListuKursevaPoImenu(zahtev);
+                        case Operacija.VratiListuKurseva:
+                            HandleVratiListuKurseva(zahtev);
                             break;
                         case Operacija.UbaciSertifikat:
                             HandleUbaciSertifikat(zahtev);
@@ -196,12 +190,19 @@ namespace Server
                         case Operacija.ObrisiSertifikat:
                             HandleObrisiSertifikat(zahtev);
                             break;
-                        case Operacija.VratiListuSertifikataPoNazivu:
-                            HandleVratiListuSertifikataPoImenu(zahtev);
-                            break;
+                        //case Operacija.VratiListuSertifikataPoNazivu:
+                        //    HandleVratiListuSertifikataPoImenu(zahtev);
+                        //    break;
                         case Operacija.KreirajUcenikGrupa:
                             HandleKreirajUcenikGrupa(zahtev);
                             break;
+                        case Operacija.VratiListuGrupeUcenika:
+                            HandleVratiListuGrupaUcenika(zahtev);
+                            break;
+                        case Operacija.VratiListuSertifikata:
+                            HandleVratiListuSertifikata(zahtev);
+                            break;
+                      
                     }
 
 
@@ -223,9 +224,12 @@ namespace Server
             }
         }
 
+
+        //UCITELJ
+
         private void HandlePrijaviUcitelja(Zahtev zahtev)
         {
-            Ucitelj ucitelj = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat1.ToString());
+            Ucitelj ucitelj = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat.ToString());
             try
             {
 
@@ -257,13 +261,12 @@ namespace Server
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
         }
-
         private void HandlePretraziUcitelja(Zahtev zahtev)
         {
-            Ucitelj ucitelj = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat1.ToString());
+            Ucitelj ucitelj = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat.ToString());
             try
             {
-                Ucitelj res = broker.pretraziUcitelja(ucitelj);
+                Ucitelj res = broker.PretraziUcitelja(ucitelj);
                 if (res != null)
                 {
                     Odgovor odg = new Odgovor { Uspesno = true, Objekat = res };
@@ -285,104 +288,14 @@ namespace Server
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
         }
-
-        private void HandleVratiListuSertifikataPoUcitelju(Zahtev zahtev)
-        {
-            Ucitelj u = new Ucitelj();
-            u = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat1.ToString());
-            try
-            {
-
-                BindingList<Sertifikat> res = broker.vratiListuSertifikata(u);
-                Odgovor odg = new Odgovor { Uspesno = true, Objekat = res };
-                Debug.WriteLine(JsonSerializer.Serialize(res));
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor
-                {
-                    Uspesno = false,
-                    Greska = ex.Message
-                };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-        }
-
-        private void HandleVratiListuGrupaUcenikaPoUceitelju(Zahtev zahtev)
-        {
-            Ucitelj u = new Ucitelj();
-            u = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat1.ToString());
-            try
-            {
-
-                BindingList<GrupaUcenika> res = broker.vratiListuGrupaUcenika(u);
-                Odgovor odg = new Odgovor { Uspesno = true, Objekat = res };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor
-                {
-                    Uspesno = false,
-                    Greska = ex.Message
-                };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-        }
-
-        private void HandleVratiListuGrupaUcenikaPoKursu(Zahtev zahtev)
-        {
-            
-            Kurs kurs = JsonSerializer.Deserialize<Kurs>(zahtev.Objekat1.ToString());
-            try
-            {
-
-                BindingList<GrupaUcenika> res = broker.vratiListuGrupaUcenika(kurs);
-                Odgovor odg = new Odgovor { Uspesno = true, Objekat = res };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor
-                {
-                    Uspesno = false,
-                    Greska = ex.Message
-                };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-        }
-
-        private void HandleVratiGrupuUcenikaPoUceniku(Zahtev zahtev)
-        {
-            Ucenik u = new Ucenik();
-            u = JsonSerializer.Deserialize<Ucenik>(zahtev.Objekat1.ToString());
-            try
-            {
-
-                BindingList<GrupaUcenika> res = broker.vratiListuGrupaUcenika(u);
-                Odgovor odg = new Odgovor { Uspesno = true, Objekat = res };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor
-                {
-                    Uspesno = false,
-                    Greska = ex.Message
-                };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-        }
-
         private void HandlePromeniUcitelja(Zahtev zahtev)
         {
             Ucitelj u = new Ucitelj();
-            u = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat1.ToString());
+            u = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat.ToString());
             Debug.WriteLine(">>>>>>" + u.ToString());
             try
             {
-                broker.promeniUcitelja(u);
+                broker.PromeniUcitelja(u);
                 Odgovor odg = new Odgovor() { Uspesno = true };
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
@@ -392,15 +305,14 @@ namespace Server
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
         }
-
         private void HandleObrisiUcitelja(Zahtev zahtev)
         {
             Ucitelj u = new Ucitelj();
-            u = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat1.ToString());
+            u = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat.ToString());
             Debug.WriteLine(">>>>>>" + u.ToString());
             try
             {
-                broker.obrisiUcitelja(u);
+                broker.ObrisiUcitelja(u);
                 Odgovor odg = new Odgovor() { Uspesno = true };
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
@@ -410,15 +322,14 @@ namespace Server
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
         }
-
         private void HandleKreirajiUcitelja(Zahtev zahtev)
         {
             Ucitelj u = new Ucitelj();
-            u = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat1.ToString());
+            u = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat.ToString());
             Debug.WriteLine(">>>>>>" + u.ToString());
             try
             {
-                broker.kreirajUcitelja(u);
+                broker.KreirajUcitelja(u);
                 Odgovor odg = new Odgovor() { Uspesno = true };
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
@@ -428,27 +339,11 @@ namespace Server
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
         }
-
-        private void HandleVratiListuSviSertifikati(Zahtev zahtev)
-        {
-            try
-            {
-                BindingList<Sertifikat> res = broker.vratiListuSviSertifikati();
-                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-        }
-
         private void HandleVratiListuSviUcitelji(Zahtev zahtev)
         {
             try
             {
-                BindingList<Ucitelj> res = broker.vratiListuSviUcitelji();
+                BindingList<Ucitelj> res = broker.VratiListuSviUcitelji();
                 Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
@@ -458,47 +353,25 @@ namespace Server
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
         }
-        private void HandleVratiListuUciteljaPoSertifikatu(Zahtev zahtev)
-        {
-            Sertifikat s = JsonSerializer.Deserialize<Sertifikat>(zahtev.Objekat1.ToString());
-            try
-            {
-                BindingList<Ucitelj> res = broker.vratiListuUcitelja(s);
-                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-
-        }
-
-        private void HandleVratiListuUciteljaPoUcitelju(Zahtev zahtev)
-        {
-            Ucitelj ucitelj = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat1.ToString());
-            try
-            {
-                BindingList<Ucitelj> res = broker.vratiListuUcitelja(ucitelj);
-                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-
-        }
-
         private void HandleVratiListuUcitelja(Zahtev zahtev)
         {
-            Ucitelj ucitelj = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat1.ToString());
-            Sertifikat s = JsonSerializer.Deserialize<Sertifikat>(zahtev.Objekat2.ToString());
+            List<object> paket = JsonSerializer.Deserialize<List<object>>(zahtev.Objekat.ToString());
+            Ucitelj ucitelj = null;
+            Sertifikat sertifikat = null;
+            if (paket[0] != null)
+            {
+                ucitelj = JsonSerializer.Deserialize<Ucitelj>(paket[0].ToString());
+            }
+            if (paket[1] != null)
+            {
+                sertifikat = JsonSerializer.Deserialize<Sertifikat>(paket[1].ToString());
+            }
+
+
+
             try
             {
-                BindingList<Ucitelj> res = broker.vratiListuUcitelja(ucitelj, s);
+                BindingList<Ucitelj> res = broker.VratiListuUcitelja(ucitelj, sertifikat);
                 Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
@@ -507,16 +380,86 @@ namespace Server
                 Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
-            throw new Exception("NE RADI TRENUTNO");
+
 
         }
 
-        private void HandleKreirajLicencu(Zahtev zahtev)
+
+
+        //UCENIK
+        private void HandleVratiListuUcenika(Zahtev zahtev)
         {
-            Licenca licenca = JsonSerializer.Deserialize<Licenca>(zahtev.Objekat1.ToString());
+            GrupaUcenika grupaUcenika = null;
+            Ucenik ucenik = null;
+            List<object> paket = JsonSerializer.Deserialize<List<object>>(zahtev.Objekat.ToString());
+            if (paket[0] != null)
+                grupaUcenika = JsonSerializer.Deserialize<GrupaUcenika>(paket[0].ToString());
+            if (paket[1] != null)
+                ucenik = JsonSerializer.Deserialize<Ucenik>(paket[1].ToString());
             try
             {
-                broker.kreirajLicencu(licenca);
+                BindingList<Ucenik> res = broker.VratiListuUcenika(grupaUcenika, ucenik);
+                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+            catch (Exception ex)
+            {
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+
+        }
+        private void HandleVratiListuSviUcenici(Zahtev zahtev)
+        {
+            try
+            {
+                BindingList<Ucenik> res = broker.VratiListuSviUcenici();
+                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+            catch (Exception ex)
+            {
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+
+        }
+        private void HandleKreirajUcenika(Zahtev zahtev)
+        {
+            try
+            {
+                Ucenik ucenik = JsonSerializer.Deserialize<Ucenik>(zahtev.Objekat.ToString());
+                broker.KreirajUcenika(ucenik);
+                Odgovor odg = new Odgovor() { Uspesno = true };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+            catch (Exception ex)
+            {
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+        }
+        private void HandlePromeniUcenika(Zahtev zahtev)
+        {
+            try
+            {
+                Ucenik ucenik = JsonSerializer.Deserialize<Ucenik>(zahtev.Objekat.ToString());
+                broker.PromeniUcenika(ucenik);
+                Odgovor odg = new Odgovor() { Uspesno = true };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+            catch (Exception ex)
+            {
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+        }
+        private void HandleObrisiUcenika(Zahtev zahtev)
+        {
+            try
+            {
+                Ucenik ucenik = JsonSerializer.Deserialize<Ucenik>(zahtev.Objekat.ToString());
+                broker.ObrisiUcenika(ucenik);
                 Odgovor odg = new Odgovor() { Uspesno = true };
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
@@ -527,12 +470,77 @@ namespace Server
             }
         }
 
-        private void HandlePromeniLicencu(Zahtev zahtev)
+
+        //GRUPA UCENIKA
+        private void HandleVratiListuSveGrupeUcenika(Zahtev zahtev)
         {
-            Licenca licenca = JsonSerializer.Deserialize<Licenca>(zahtev.Objekat1.ToString());
             try
             {
-                broker.promeniLicencu(licenca);
+                BindingList<GrupaUcenika> res = broker.VratiListuSveGrupeUcenika();
+                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+            catch (Exception ex)
+            {
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+
+        }
+        private void HandleVratiListuGrupaUcenika(Zahtev zahtev)
+        {
+            Ucitelj ucitelj = null;
+            Ucenik ucenik = null;
+            Kurs kurs = null;
+            List<object> paket = JsonSerializer.Deserialize<List<object>>(zahtev.Objekat.ToString());
+            if (paket[0] != null)
+            {
+                ucitelj = JsonSerializer.Deserialize<Ucitelj>(paket[0].ToString());
+            }
+            if (paket[1] != null)
+            {
+                ucenik = JsonSerializer.Deserialize<Ucenik>(paket[1].ToString());
+            }
+            if (paket[2] != null)
+            {
+                kurs = new Kurs();
+                kurs = JsonSerializer.Deserialize<Kurs>(paket[2].ToString());
+            }
+
+
+            try
+            {
+                BindingList<GrupaUcenika> res = broker.VratiListuGrupaUcenika(ucenik: ucenik, ucitelj: ucitelj, kurs: kurs);
+                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+            catch (Exception ex)
+            {
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+
+        }
+        private void HandleVratiZauzeteTermine(Zahtev zahtev)
+        {
+            try
+            {
+                List<string> res = broker.VratiZauzeteTermine();
+                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+            catch (Exception ex)
+            {
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+        }
+        private void HandleKreirajGrupuUcenika(Zahtev zahtev)
+        {
+            try
+            {
+                GrupaUcenika grupa = JsonSerializer.Deserialize<GrupaUcenika>(zahtev.Objekat.ToString());
+                broker.KreirajGrupuUcenika(grupa);
                 Odgovor odg = new Odgovor() { Uspesno = true };
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
@@ -542,13 +550,13 @@ namespace Server
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
         }
-
-        private void HandleVratiListuSveLicence(Zahtev zahtev)
+        private void HandlePromeniGrupuUcenika(Zahtev zahtev)
         {
             try
             {
-                BindingList<Licenca> res = broker.vratiListuSveLicence();
-                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
+                GrupaUcenika grupa = JsonSerializer.Deserialize<GrupaUcenika>(zahtev.Objekat.ToString());
+                broker.PromeniGrupuUcenika(grupa);
+                Odgovor odg = new Odgovor() { Uspesno = true };
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
             catch (Exception ex)
@@ -556,16 +564,14 @@ namespace Server
                 Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
-
         }
-
-        private void HandleVratiListuLicencaPoUcitelju(Zahtev zahtev)
+        private void HandleObrisiGrupuUcenika(Zahtev zahtev)
         {
-            Ucitelj ucitelj = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat1.ToString());
             try
             {
-                BindingList<Licenca> res = broker.vratiListuLicence(ucitelj);
-                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
+                GrupaUcenika grupa = JsonSerializer.Deserialize<GrupaUcenika>(zahtev.Objekat.ToString());
+                broker.ObrisiGrupuUcenika(grupa);
+                Odgovor odg = new Odgovor() { Uspesno = true };
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
             catch (Exception ex)
@@ -573,52 +579,13 @@ namespace Server
                 Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
-
         }
-
-        private void HandleVratiListuLicencaPoSertifikatu(Zahtev zahtev)
-        {
-            Sertifikat sertifikat = JsonSerializer.Deserialize<Sertifikat>(zahtev.Objekat1.ToString());
-            try
-            {
-                BindingList<Licenca> res = broker.vratiListuLicence(sertifikat);
-                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-
-        }
-
-        private void HandleVratiListuLicenca(Zahtev zahtev)
-        {
-            Ucitelj ucitelj = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat1.ToString());
-            Sertifikat sertifikat = JsonSerializer.Deserialize<Sertifikat>(zahtev.Objekat2.ToString());
-            try
-            {
-                
-                List<Licenca> res = broker.vratiListuLicence(ucitelj, sertifikat);
-                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-
-        }
-
         private void HandleVratiListuSlobodneGrupe(Zahtev zahtev)
         {
             try
             {
 
-                BindingList<GrupaUcenika> res = broker.vratiListuSlobodneGrupe();
+                BindingList<GrupaUcenika> res = broker.VratiListuSlobodneGrupe();
                 Odgovor odg = new Odgovor { Uspesno = true, Objekat = res };
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
@@ -632,11 +599,19 @@ namespace Server
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
         }
+
+        //EVIDENCIJA NASTAVE
         private void HandleKreirajEvidencijuNastave(Zahtev zahtev)
         {
             EvidencijaNastave evidencija = new EvidencijaNastave();
-            evidencija = JsonSerializer.Deserialize<EvidencijaNastave>(zahtev.Objekat1.ToString());
-            BindingList<StavkaEvidencijeNastave> stavke = JsonSerializer.Deserialize<BindingList<StavkaEvidencijeNastave>>(zahtev.Objekat2.ToString());
+            BindingList<StavkaEvidencijeNastave> stavke = new BindingList<StavkaEvidencijeNastave>();
+            //evidencija = JsonSerializer.Deserialize<EvidencijaNastave>(zahtev.Objekat1.ToString());
+            //stavke = JsonSerializer.Deserialize<BindingList<StavkaEvidencijeNastave>>(zahtev.Objekat2.ToString());
+            List<object> paket = JsonSerializer.Deserialize<List<object>>(zahtev.Objekat.ToString());
+            Debug.Write(">>>> " + paket);
+            Debug.WriteLine(zahtev.Objekat.ToString());
+            evidencija = JsonSerializer.Deserialize<EvidencijaNastave>(paket[0].ToString());
+            stavke = JsonSerializer.Deserialize<BindingList<StavkaEvidencijeNastave>>(paket[1].ToString());
 
             try
             {
@@ -650,13 +625,48 @@ namespace Server
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
         }
-
-        private void HandleVratiListuUcenika(Zahtev zahtev)
+        private void HandleVratiListuSveEvidencijeNastave(Zahtev zahtev)
         {
-            GrupaUcenika grupaUcenika = JsonSerializer.Deserialize<GrupaUcenika>(zahtev.Objekat1.ToString());
             try
             {
-                BindingList<Ucenik> res = broker.vratiListuUcenika(grupaUcenika);
+                BindingList<EvidencijaNastave> res = broker.VratiListuSveEvidencijaNastave();
+                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+            catch (Exception ex)
+            {
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+
+        }
+        private void HandleVratiListuEvidencijaNastave(Zahtev zahtev)
+        {
+            GrupaUcenika grupaUcenika = null;
+            Ucitelj ucitelj = null;
+            Ucenik ucenik = null;
+            EvidencijaNastave evidencija = null;
+            Kurs kurs = null;
+
+            List<object> paket = JsonSerializer.Deserialize<List<object>>(zahtev.Objekat.ToString());
+            if (paket[0] != null)
+                grupaUcenika = JsonSerializer.Deserialize<GrupaUcenika>(paket[0].ToString());
+
+            if (paket[1] != null)
+                ucitelj = JsonSerializer.Deserialize<Ucitelj>(paket[1].ToString());
+
+            if (paket[2] != null)
+                ucenik = JsonSerializer.Deserialize<Ucenik>(paket[2].ToString());
+            if (paket[3] != null)
+                evidencija = JsonSerializer.Deserialize<EvidencijaNastave>(paket[3].ToString());
+            if (paket[4] != null)
+                kurs = JsonSerializer.Deserialize<Kurs>(paket[4].ToString());
+
+
+
+            try
+            {
+                List<EvidencijaNastave> res = broker.VratiListuEvidencijaNastave(grupaUcenika: grupaUcenika, ucitelj: ucitelj, ucenik: ucenik, evidencijaNastave: evidencija, kurs: kurs);
                 Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
@@ -668,12 +678,261 @@ namespace Server
 
         }
 
-        private void HandlePretraziKurs(Zahtev zahtev)
+
+        //STAVKA EVIDENCIJE NASTAVE
+        private void HandleVratiListuStavkiEvidencijeNastave(Zahtev zahtev)
         {
-            Kurs kurs = JsonSerializer.Deserialize<Kurs>(zahtev.Objekat1.ToString());
+            Ucenik ucenik = null;
+            EvidencijaNastave evidencija = null;
+            List<object> paket = JsonSerializer.Deserialize<List<object>>(zahtev.Objekat.ToString());
+            if (paket[0] != null)
+            {
+                evidencija = JsonSerializer.Deserialize<EvidencijaNastave>(paket[0].ToString());
+            }
+            if (paket[1] != null)
+            {
+                ucenik = JsonSerializer.Deserialize<Ucenik>(paket[1].ToString());
+            }
+
+
             try
             {
-                Kurs res = broker.pretraziKurs(kurs);
+                BindingList<StavkaEvidencijeNastave> res = broker.VratiListuStavkiEvidencijeNastave(evidencija, ucenik);
+                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+            catch (Exception ex)
+            {
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+
+        }
+        private void HandlePromeniEvidencijuNastave(Zahtev zahtev)
+        {
+            EvidencijaNastave evidencija = new EvidencijaNastave();
+            evidencija = JsonSerializer.Deserialize<EvidencijaNastave>(zahtev.Objekat.ToString());
+            try
+            {
+                broker.PromeniEvidencijuNastave(evidencija);
+                Odgovor odg = new Odgovor() { Uspesno = true };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+            catch (Exception ex)
+            {
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+        }
+        private void HandleKreirajStavkuEvidencijeNastave(Zahtev zahtev)
+        {
+            try
+            {
+                StavkaEvidencijeNastave stavka = JsonSerializer.Deserialize<StavkaEvidencijeNastave>(zahtev.Objekat.ToString());
+                broker.KreirajStavkuEvidencijeNastave(stavka);
+                Odgovor odg = new Odgovor() { Uspesno = true };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+
+            }
+            catch (Exception ex)
+            {
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+
+            }
+        }
+        private void HandlePromeniStavkuEvidencijeNastave(Zahtev zahtev)
+        {
+            try
+            {
+                StavkaEvidencijeNastave stavka = JsonSerializer.Deserialize<StavkaEvidencijeNastave>(zahtev.Objekat.ToString());
+                broker.PromeniStavkuEvidencijeNastave(stavka);
+                Odgovor odg = new Odgovor() { Uspesno = true };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+
+            }
+            catch (Exception ex)
+            {
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+
+            }
+        }
+
+        //SERTIFIKAT
+
+        private void HandleVratiListuSviSertifikati(Zahtev zahtev)
+        {
+            try
+            {
+                BindingList<Sertifikat> res = broker.VratiListuSviSertifikati();
+                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+            catch (Exception ex)
+            {
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+        }
+        private void HandleUbaciSertifikat(Zahtev zahtev)
+        {
+            try
+            {
+                Sertifikat sertifikat = JsonSerializer.Deserialize<Sertifikat>(zahtev.Objekat.ToString());
+                broker.UbaciSertifikat(sertifikat);
+                Odgovor odg = new Odgovor() { Uspesno = true };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+            catch (Exception ex)
+            {
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+        }
+        private void HandlePromeniSertifikat(Zahtev zahtev)
+        {
+            try
+            {
+                Sertifikat sertifikat = JsonSerializer.Deserialize<Sertifikat>(zahtev.Objekat.ToString());
+                broker.PromeniSertifikat(sertifikat);
+                Odgovor odg = new Odgovor() { Uspesno = true };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+            catch (Exception ex)
+            {
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+        }
+        private void HandleObrisiSertifikat(Zahtev zahtev)
+        {
+            try
+            {
+                Sertifikat sertifikat = JsonSerializer.Deserialize<Sertifikat>(zahtev.Objekat.ToString());
+                broker.ObrisiSertikat(sertifikat);
+                Odgovor odg = new Odgovor() { Uspesno = true };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+            catch (Exception ex)
+            {
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+        }
+        private void HandleVratiListuSertifikata(Zahtev zahtev)
+        {
+
+            List<object> paket = JsonSerializer.Deserialize<List<object>>(zahtev.Objekat.ToString());
+            Ucitelj ucitelj = null;
+            Sertifikat sertifikat = null;
+            if (paket[0] != null)
+            {
+                ucitelj = JsonSerializer.Deserialize<Ucitelj>(paket[0].ToString());
+            }
+            if (paket[1] != null)
+            {
+                sertifikat = JsonSerializer.Deserialize<Sertifikat>(paket[1].ToString());
+            }
+
+            try
+            {
+                BindingList<Sertifikat> res = broker.VratiListuSertifikata(ucitelj, sertifikat);
+                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(">>>>>>>>" + ex.Message);
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+        }
+
+        //LICENCA
+        private void HandleKreirajLicencu(Zahtev zahtev)
+        {
+            Licenca licenca = JsonSerializer.Deserialize<Licenca>(zahtev.Objekat.ToString());
+            try
+            {
+                broker.KreirajLicencu(licenca);
+                Odgovor odg = new Odgovor() { Uspesno = true };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+            catch (Exception ex)
+            {
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+        }
+        private void HandlePromeniLicencu(Zahtev zahtev)
+        {
+            Licenca licenca = JsonSerializer.Deserialize<Licenca>(zahtev.Objekat.ToString());
+            try
+            {
+                broker.PromeniLicencu(licenca);
+                Odgovor odg = new Odgovor() { Uspesno = true };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+            catch (Exception ex)
+            {
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+        }
+        private void HandleVratiListuSveLicence(Zahtev zahtev)
+        {
+            try
+            {
+                BindingList<Licenca> res = broker.VratiListuSveLicence();
+                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+            catch (Exception ex)
+            {
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+
+        }
+        private void HandleVratiListuLicenca(Zahtev zahtev)
+        {
+            List<object> paket = JsonSerializer.Deserialize<List<object>>(zahtev.Objekat.ToString());
+            Sertifikat sertifikat = null;
+            Ucitelj ucitelj = null;
+            if (paket[0] != null)
+            {
+                ucitelj = JsonSerializer.Deserialize<Ucitelj>(paket[0].ToString());
+            }
+            if (paket[1] != null)
+            {
+                sertifikat = JsonSerializer.Deserialize<Sertifikat>(paket[1].ToString());
+            }
+
+            try
+            {
+
+                BindingList<Licenca> res = broker.VratiListuLicence(ucitelj, sertifikat);
+                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+            catch (Exception ex)
+            {
+
+                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+                writer.WriteLine(JsonSerializer.Serialize(odg));
+            }
+
+        }
+
+
+        //KURS
+        private void HandlePretraziKurs(Zahtev zahtev)
+        {
+            Kurs kurs = JsonSerializer.Deserialize<Kurs>(zahtev.Objekat.ToString());
+            try
+            {
+                Kurs res = broker.PretraziKurs(kurs);
                 if (res != null)
                 {
                     Odgovor odg = new Odgovor { Uspesno = true, Objekat = res };
@@ -695,255 +954,11 @@ namespace Server
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
         }
-
-        private void HandleVratiListuSveGrupeUcenika(Zahtev zahtev)
-        {
-            try
-            {
-                BindingList<GrupaUcenika> res = broker.vratiListuSveGrupeUcenika();
-                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-
-        }
-
-        private void HandleVratiListuSviUcenici(Zahtev zahtev)
-        {
-            try
-            {
-                BindingList<Ucenik> res = broker.vratiListuSviUcenici();
-                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-
-        }
-
-        private void HandleVratiListuSveEvidencijeNastave(Zahtev zahtev)
-        {
-            try
-            {
-                BindingList<EvidencijaNastave> res = broker.vratiListuSveEvidencijaNastave();
-                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-
-        }
-
-        private void HandleVratiListuEvidencijaNastave(Zahtev zahtev)
-        {
-            GrupaUcenika grupaUcenika = null;
-            Ucitelj ucitelj = null;
-            Ucenik ucenik = null;
-
-            if (zahtev.Objekat1 != null)
-                grupaUcenika = JsonSerializer.Deserialize<GrupaUcenika>(zahtev.Objekat1.ToString());
-            if (zahtev.Objekat2 != null)
-                ucitelj = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat2.ToString());
-            if(zahtev.Objekat3 != null)
-                ucenik = JsonSerializer.Deserialize<Ucenik>(zahtev.Objekat3.ToString());
-
-            
-            
-            try
-            {
-                List<EvidencijaNastave> res = broker.vratiListuEvidencijaNastave(grupaUcenika, ucitelj, ucenik, null);
-                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-
-        }
-
-        private void HandleVratiListuStavkiEvidencijeNastave(Zahtev zahtev)
-        {
-            EvidencijaNastave evidencija = JsonSerializer.Deserialize<EvidencijaNastave>(zahtev.Objekat1.ToString());
-            try
-            {
-                BindingList<StavkaEvidencijeNastave> res = broker.vratiListuStavkiEvidencijeNastave(evidencija);
-                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-
-        }
-
-        private void HandleVratiListuStavkiEvidencijeNastavePoUceniku(Zahtev zahtev)
-        {
-            EvidencijaNastave evidencija = JsonSerializer.Deserialize<EvidencijaNastave>(zahtev.Objekat1.ToString());
-            Ucenik ucenik = JsonSerializer.Deserialize<Ucenik>(zahtev.Objekat2.ToString());
-            try
-            {
-                List<StavkaEvidencijeNastave> res = broker.vratiListuStavkiEvidencijeNastave(evidencija, ucenik);
-                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-
-        }
-
-        private void HandlePromeniEvidencijuNastave(Zahtev zahtev)
-        {
-            EvidencijaNastave evidencija = new EvidencijaNastave();
-            evidencija = JsonSerializer.Deserialize<EvidencijaNastave>(zahtev.Objekat1.ToString());
-            try
-            {
-                broker.PromeniEvidencijuNastave(evidencija);
-                Odgovor odg = new Odgovor() { Uspesno = true };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-        }
-
-        private void HandleKreirajStavkuEvidencijeNastave(Zahtev zahtev)
-        {
-            try
-            {
-                StavkaEvidencijeNastave stavka = JsonSerializer.Deserialize<StavkaEvidencijeNastave>(zahtev.Objekat1.ToString());
-                broker.kreirajStavkuEvidencijeNastave(stavka);
-                Odgovor odg = new Odgovor() { Uspesno = true };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-
-            }
-        }
-
-        private void HandlePromeniStavkuEvidencijeNastave(Zahtev zahtev)
-        {
-            try
-            {
-                StavkaEvidencijeNastave stavka = JsonSerializer.Deserialize<StavkaEvidencijeNastave>(zahtev.Objekat1.ToString());
-                broker.promeniStavkuEvidencijeNastave(stavka);
-                Odgovor odg = new Odgovor() { Uspesno = true };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-
-            }
-        }
-
-        private void HandleKreirajUcenika(Zahtev zahtev)
-        {
-            try
-            {
-                Ucenik ucenik = JsonSerializer.Deserialize<Ucenik>(zahtev.Objekat1.ToString());
-                broker.kreirajUcenika(ucenik);
-                Odgovor odg = new Odgovor() { Uspesno = true };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-        }
-
-        private void HandlePromeniUcenika(Zahtev zahtev)
-        {
-            try
-            {
-                Ucenik ucenik = JsonSerializer.Deserialize<Ucenik>(zahtev.Objekat1.ToString());
-                broker.PromeniUcenika(ucenik);
-                Odgovor odg = new Odgovor() { Uspesno = true };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-        }
-
-        private void HandleObrisiUcenika(Zahtev zahtev)
-        {
-            try
-            {
-                Ucenik ucenik = JsonSerializer.Deserialize<Ucenik>(zahtev.Objekat1.ToString());
-                broker.obrisiUcenika(ucenik);
-                Odgovor odg = new Odgovor() { Uspesno = true };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-        }
-
-        private void HandlePretraziUcenikaPoImenu(Zahtev zahtev)
-        {
-            try
-            {
-                Ucenik ucenik = JsonSerializer.Deserialize<Ucenik>(zahtev.Objekat1.ToString());
-                BindingList<Ucenik> res = broker.pretraziUcenikaPoImenu(ucenik);
-                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }catch(Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-        }
-
-        private void HandleVratiZauzeteTermine(Zahtev zahtev)
-        {
-            try
-            { 
-                List<string> res = broker.vratiZauzeteTermine();
-                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-        }
-
         private void HandleVratiListuSviKursevi(Zahtev zahtev)
         {
             try
             {
-                BindingList<Kurs> res = broker.vratiListuSviKursevi();
+                BindingList<Kurs> res = broker.VratiListuSviKursevi();
                 Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
@@ -954,76 +969,12 @@ namespace Server
             }
 
         }
-
-        private void HandleKreirajGrupuUcenika(Zahtev zahtev)
-        {
-            try
-            {
-                GrupaUcenika grupa = JsonSerializer.Deserialize<GrupaUcenika>(zahtev.Objekat1.ToString());
-                broker.KreirajGrupuUcenika(grupa);
-                Odgovor odg = new Odgovor() { Uspesno = true };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-        }
-
-        private void HandlePromeniGrupuUcenika(Zahtev zahtev)
-        {
-            try
-            {
-                GrupaUcenika grupa = JsonSerializer.Deserialize<GrupaUcenika>(zahtev.Objekat1.ToString());
-                broker.PromeniGrupuUcenika(grupa);
-                Odgovor odg = new Odgovor() { Uspesno = true };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-        }
-
-        private void HandleObrisiGrupuUcenika(Zahtev zahtev)
-        {
-            try
-            {
-                GrupaUcenika grupa = JsonSerializer.Deserialize<GrupaUcenika>(zahtev.Objekat1.ToString());
-                broker.ObrisiGrupuUcenika(grupa);
-                Odgovor odg = new Odgovor() { Uspesno = true };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-        }
-
-        private void HandleVratiListuEvidencijeNastavePoKursu(Zahtev zahtev)
-        {
-            try
-            {
-                Kurs k = JsonSerializer.Deserialize<Kurs>(zahtev.Objekat1.ToString());
-                List<EvidencijaNastave> res = broker.vratiListuEvidencijaNastave(null, null, null, null,k);
-                Odgovor odg = new Odgovor() { Uspesno = true,  Objekat = res};
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }catch(Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-        }
-
         private void HandleKreirajKurs(Zahtev zahtev)
         {
             try
             {
-                Kurs kurs = JsonSerializer.Deserialize<Kurs>(zahtev.Objekat1.ToString());
-                broker.kreirajKurs(kurs);
+                Kurs kurs = JsonSerializer.Deserialize<Kurs>(zahtev.Objekat.ToString());
+                broker.KreirajKurs(kurs);
                 Odgovor odg = new Odgovor() { Uspesno = true };
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
@@ -1033,13 +984,12 @@ namespace Server
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
         }
-
         private void HandlePromeniKurs(Zahtev zahtev)
         {
             try
             {
-                Kurs kurs = JsonSerializer.Deserialize<Kurs>(zahtev.Objekat1.ToString());
-                broker.promeniKurs(kurs);
+                Kurs kurs = JsonSerializer.Deserialize<Kurs>(zahtev.Objekat.ToString());
+                broker.PromeniKurs(kurs);
                 Odgovor odg = new Odgovor() { Uspesno = true };
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
@@ -1049,79 +999,13 @@ namespace Server
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
         }
-
-        private void HandleVratiListuKursevaPoImenu(Zahtev zahtev)
+        private void HandleVratiListuKurseva(Zahtev zahtev)
         {
             try
             {
 
-                Kurs kurs = JsonSerializer.Deserialize<Kurs>(zahtev.Objekat1.ToString());
-                BindingList<Kurs> res = broker.vratiListuKurseva(kurs);
-                Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-
-            }catch(Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-        }
-
-        private void HandleUbaciSertifikat(Zahtev zahtev)
-        {
-            try
-            {
-                Sertifikat sertifikat = JsonSerializer.Deserialize<Sertifikat>(zahtev.Objekat1.ToString());
-                broker.ubaciSertifikat(sertifikat);
-                Odgovor odg = new Odgovor() { Uspesno = true };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-        }
-
-        private void HandlePromeniSertifikat(Zahtev zahtev)
-        {
-            try
-            {
-                Sertifikat sertifikat = JsonSerializer.Deserialize<Sertifikat>(zahtev.Objekat1.ToString());
-                broker.promeniSertifikat(sertifikat);
-                Odgovor odg = new Odgovor() { Uspesno = true };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-        }
-
-        private void HandleObrisiSertifikat(Zahtev zahtev)
-        {
-            try
-            {
-                Sertifikat sertifikat = JsonSerializer.Deserialize<Sertifikat>(zahtev.Objekat1.ToString());
-                broker.obrisiSertikat(sertifikat);
-                Odgovor odg = new Odgovor() { Uspesno = true };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-            catch (Exception ex)
-            {
-                Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
-                writer.WriteLine(JsonSerializer.Serialize(odg));
-            }
-        }
-
-        private void HandleVratiListuSertifikataPoImenu(Zahtev zahtev)
-        {
-            try
-            {
-
-                Sertifikat sertifikat = JsonSerializer.Deserialize<Sertifikat>(zahtev.Objekat1.ToString());
-                BindingList<Sertifikat> res = broker.vratiListuSertifikata(sertifikat);
+                Kurs kurs = JsonSerializer.Deserialize<Kurs>(zahtev.Objekat.ToString());
+                BindingList<Kurs> res = broker.VratiListuKurseva(kurs);
                 Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
                 writer.WriteLine(JsonSerializer.Serialize(odg));
 
@@ -1133,21 +1017,303 @@ namespace Server
             }
         }
 
+        //UCENIKGRUPA
         private void HandleKreirajUcenikGrupa(Zahtev zahtev)
         {
             try
             {
-                GrupaUcenika grupa = JsonSerializer.Deserialize<GrupaUcenika>(zahtev.Objekat1.ToString());
-                Ucenik ucenik = JsonSerializer.Deserialize<Ucenik>(zahtev.Objekat2.ToString());
-                broker.kreirajUcenikGrupa(ucenik, grupa);
+                List<object> paket = JsonSerializer.Deserialize<List<object>>(zahtev.Objekat.ToString());
+                GrupaUcenika grupa = JsonSerializer.Deserialize<GrupaUcenika>(paket[1].ToString());
+                Ucenik ucenik = JsonSerializer.Deserialize<Ucenik>(paket[0].ToString());
+                broker.KreirajUcenikGrupa(ucenik, grupa);
                 Odgovor odg = new Odgovor() { Uspesno = true };
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
             catch (Exception ex)
             {
+                Debug.WriteLine(">>>>>>>>" + ex.Message);
                 Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
                 writer.WriteLine(JsonSerializer.Serialize(odg));
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //private void HandleVratiListuStavkiEvidencijeNastave(Zahtev zahtev)
+        //{
+        //    EvidencijaNastave evidencija = JsonSerializer.Deserialize<EvidencijaNastave>(zahtev.Objekat.ToString());
+        //    try
+        //    {
+        //        BindingList<StavkaEvidencijeNastave> res = broker.vratiListuStavkiEvidencijeNastave(evidencija);
+        //        Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+
+        //}
+
+
+
+
+
+
+
+
+
+
+        //private void HandlePretraziUcenikaPoImenu(Zahtev zahtev)
+        //{
+        //    try
+        //    {
+        //        Ucenik ucenik = JsonSerializer.Deserialize<Ucenik>(zahtev.Objekat.ToString());
+        //        BindingList<Ucenik> res = broker.pretraziUcenikaPoImenu(ucenik);
+        //        Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }catch(Exception ex)
+        //    {
+        //        Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+        //}
+
+
+
+
+
+
+        //private void HandleVratiListuEvidencijeNastavePoKursu(Zahtev zahtev)
+        //{
+        //    try
+        //    {
+        //        Kurs k = JsonSerializer.Deserialize<Kurs>(zahtev.Objekat.ToString());
+        //        List<EvidencijaNastave> res = broker.vratiListuEvidencijaNastave(null, null, null, null,k);
+        //        Odgovor odg = new Odgovor() { Uspesno = true,  Objekat = res};
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }catch(Exception ex)
+        //    {
+        //        Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+        //}
+
+
+
+       
+
+
+
+        //private void HandleVratiListuSertifikataPoImenu(Zahtev zahtev)
+        //{
+        //    try
+        //    {
+
+        //        Sertifikat sertifikat = JsonSerializer.Deserialize<Sertifikat>(zahtev.Objekat.ToString());
+        //        BindingList<Sertifikat> res = broker.VratiListuSertifikata(sertifikat);
+        //        Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+        //}
+
+
+
+
+
+        //private void HandleVratiListuSertifikataPoUcitelju(Zahtev zahtev)
+        //{
+        //    Ucitelj u = new Ucitelj();
+        //    u = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat.ToString());
+        //    try
+        //    {
+
+        //        BindingList<Sertifikat> res = broker.vratiListuSertifikata(u);
+        //        Odgovor odg = new Odgovor { Uspesno = true, Objekat = res };
+        //        Debug.WriteLine(JsonSerializer.Serialize(res));
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Odgovor odg = new Odgovor
+        //        {
+        //            Uspesno = false,
+        //            Greska = ex.Message
+        //        };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+        //}
+
+        //private void HandleVratiListuGrupaUcenikaPoUceitelju(Zahtev zahtev)
+        //{
+        //    Ucitelj u = new Ucitelj();
+        //    u = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat.ToString());
+        //    try
+        //    {
+
+        //        BindingList<GrupaUcenika> res = broker.VratiListuGrupaUcenika(u);
+        //        Odgovor odg = new Odgovor { Uspesno = true, Objekat = res };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Odgovor odg = new Odgovor
+        //        {
+        //            Uspesno = false,
+        //            Greska = ex.Message
+        //        };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+        //}
+
+        //private void HandleVratiListuGrupaUcenikaPoKursu(Zahtev zahtev)
+        //{
+
+        //    Kurs kurs = JsonSerializer.Deserialize<Kurs>(zahtev.Objekat.ToString());
+        //    try
+        //    {
+
+        //        BindingList<GrupaUcenika> res = broker.VratiListuGrupaUcenika(kurs);
+        //        Odgovor odg = new Odgovor { Uspesno = true, Objekat = res };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Odgovor odg = new Odgovor
+        //        {
+        //            Uspesno = false,
+        //            Greska = ex.Message
+        //        };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+        //}
+
+        //private void HandleVratiGrupuUcenikaPoUceniku(Zahtev zahtev)
+        //{
+        //    Ucenik u = new Ucenik();
+        //    u = JsonSerializer.Deserialize<Ucenik>(zahtev.Objekat.ToString());
+        //    try
+        //    {
+
+        //        BindingList<GrupaUcenika> res = broker.VratiListuGrupaUcenika(u);
+        //        Odgovor odg = new Odgovor { Uspesno = true, Objekat = res };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Odgovor odg = new Odgovor
+        //        {
+        //            Uspesno = false,
+        //            Greska = ex.Message
+        //        };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+        //}
+
+
+
+
+
+        //private void HandleVratiListuUciteljaPoSertifikatu(Zahtev zahtev)
+        //{
+        //    Sertifikat s = JsonSerializer.Deserialize<Sertifikat>(zahtev.Objekat.ToString());
+        //    try
+        //    {
+        //        BindingList<Ucitelj> res = broker.vratiListuUcitelja(s);
+        //        Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+
+        //}
+
+        //private void HandleVratiListuUciteljaPoUcitelju(Zahtev zahtev)
+        //{
+        //    Ucitelj ucitelj = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat.ToString());
+        //    try
+        //    {
+        //        BindingList<Ucitelj> res = broker.vratiListuUcitelja(ucitelj);
+        //        Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+
+        //}
+
+
+
+        //private void HandleVratiListuLicencaPoUcitelju(Zahtev zahtev)
+        //{
+        //    Ucitelj ucitelj = JsonSerializer.Deserialize<Ucitelj>(zahtev.Objekat.ToString());
+        //    try
+        //    {
+        //        BindingList<Licenca> res = broker.vratiListuLicence(ucitelj);
+        //        Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+
+        //}
+
+        //private void HandleVratiListuLicencaPoSertifikatu(Zahtev zahtev)
+        //{
+        //    Sertifikat sertifikat = JsonSerializer.Deserialize<Sertifikat>(zahtev.Objekat.ToString());
+        //    try
+        //    {
+        //        BindingList<Licenca> res = broker.vratiListuLicence(sertifikat);
+        //        Odgovor odg = new Odgovor() { Uspesno = true, Objekat = res };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Odgovor odg = new Odgovor() { Uspesno = false, Greska = ex.Message };
+        //        writer.WriteLine(JsonSerializer.Serialize(odg));
+        //    }
+
+        //}
+
+
     }
 }
+
+
+
+
+
+

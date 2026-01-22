@@ -25,7 +25,7 @@ namespace Forme.User_controlers
             globalnaEvidencija = evidencija;
             txtEvidencija.Text = evidencija.ToString();
             txtEvidencija.Enabled = false;
-            cbUcenik.DataSource = Komunikacija.Instance.VratiListuUcenika(evidencija.Grupa);
+            cbUcenik.DataSource = Komunikacija.Instance.VratiListuUcenika(evidencija.Grupa, null);
             Kurs k = Komunikacija.Instance.PretraziKurs(new Kurs() { IdKursa = evidencija.Grupa.Kurs.IdKursa });
             cbRedniBrojCasa.DataSource = Enumerable.Range(1, Komunikacija.Instance.PretraziKurs(k).TrajanjeKursa).ToList();
             dateDatum.MaxDate = DateTime.Today;
@@ -39,7 +39,7 @@ namespace Forme.User_controlers
             txtEvidencija.Text = stavka.Evidencija.ToString();
             btnOmoguciIzmenu.Visible = true;
             txtKomentar.Text = stavka.Komentar;
-            cbUcenik.DataSource = Komunikacija.Instance.VratiListuUcenika(stavka.Evidencija.Grupa);
+            cbUcenik.DataSource = Komunikacija.Instance.VratiListuUcenika(stavka.Evidencija.Grupa, null);
             cbUcenik.SelectedItem = stavka.Ucenik;
             Kurs k = Komunikacija.Instance.PretraziKurs(new Kurs() { IdKursa = stavka.Evidencija.Grupa.Kurs.IdKursa });
             cbRedniBrojCasa.DataSource = Enumerable.Range(1, Komunikacija.Instance.PretraziKurs(k).TrajanjeKursa).ToList();

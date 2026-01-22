@@ -38,7 +38,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(60, 66);
+            label1.Location = new Point(70, 76);
             label1.Name = "label1";
             label1.Size = new Size(88, 15);
             label1.TabIndex = 0;
@@ -47,7 +47,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(95, 99);
+            label2.Location = new Point(105, 109);
             label2.Name = "label2";
             label2.Size = new Size(53, 15);
             label2.TabIndex = 1;
@@ -55,7 +55,7 @@
             // 
             // txtKorisnickoIme
             // 
-            txtKorisnickoIme.Location = new Point(172, 63);
+            txtKorisnickoIme.Location = new Point(175, 73);
             txtKorisnickoIme.Name = "txtKorisnickoIme";
             txtKorisnickoIme.Size = new Size(183, 23);
             txtKorisnickoIme.TabIndex = 2;
@@ -63,7 +63,7 @@
             // 
             // txtLozinka
             // 
-            txtLozinka.Location = new Point(172, 96);
+            txtLozinka.Location = new Point(175, 106);
             txtLozinka.Name = "txtLozinka";
             txtLozinka.PasswordChar = '*';
             txtLozinka.Size = new Size(183, 23);
@@ -72,7 +72,7 @@
             // 
             // btnPrijava
             // 
-            btnPrijava.Location = new Point(120, 146);
+            btnPrijava.Location = new Point(144, 153);
             btnPrijava.Name = "btnPrijava";
             btnPrijava.Size = new Size(130, 57);
             btnPrijava.TabIndex = 4;
@@ -83,8 +83,10 @@
             // LogIn
             // 
             AutoScaleMode = AutoScaleMode.None;
+            AutoSize = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = SystemColors.Control;
-            ClientSize = new Size(385, 252);
+            ClientSize = new Size(416, 277);
             Controls.Add(btnPrijava);
             Controls.Add(txtLozinka);
             Controls.Add(txtKorisnickoIme);

@@ -31,6 +31,11 @@ namespace Domeni
             return obj is Ucenik ucenik && ucenik.IdUcenika == IdUcenika && ucenik.ImeUcenika == ImeUcenika && ucenik.PrezimeUcenika == PrezimeUcenika;
         }
 
+        public override int GetHashCode()
+        {
+            return IdUcenika.GetHashCode();
+        }
+
         public BindingList<Ucenik> popuniListu(SqlDataReader reader)
         {
             BindingList<Ucenik> result = new BindingList<Ucenik>();

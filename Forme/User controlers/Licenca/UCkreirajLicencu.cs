@@ -22,7 +22,7 @@ namespace Forme.User_controlers
             txtUcitelj.Enabled = false;
             txtUcitelj.Text = ucitelj.ToString();
             BindingList<Sertifikat> sviSertifikati = Komunikacija.Instance.VratiListuSviSertifikati();
-            BindingList<Sertifikat> uciteljeviSertifikati = Komunikacija.Instance.vratiListuSertifikata(ucitelj);
+            BindingList<Sertifikat> uciteljeviSertifikati = Komunikacija.Instance.VratiListuSertifikata(ucitelj:ucitelj, sertifikat: null);
             cbSertifikati.DataSource = sviSertifikati.Except(uciteljeviSertifikati).ToList();
             globUcitelj = ucitelj;
         }

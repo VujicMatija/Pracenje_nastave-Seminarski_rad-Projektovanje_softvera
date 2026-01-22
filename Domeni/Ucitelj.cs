@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.ComponentModel;
 using System.Data.SqlTypes;
+using System.Diagnostics;
 using System.Reflection.PortableExecutable;
 using System.Security.Cryptography.X509Certificates;
 
@@ -57,7 +58,7 @@ namespace Domeni
                     Lozinka = (string)reader["lozinka"]
 
                 };
-
+                Debug.WriteLine(ucitelj.ToString());
                 res.Add(ucitelj);
 
             }

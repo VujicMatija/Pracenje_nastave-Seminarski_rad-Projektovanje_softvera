@@ -13,12 +13,10 @@ namespace Zajednicki
         KreirajEvidencujuNastave,
         VratiListuSveEvidencijeNastave,
         VratiListuEvidencijaNastave,
-        VratiListuEvidencijeNastavePoKursu,
         PromeniEvidencijuNastave,
 
         //Stavke evidencije nastave
         VratiListuStavkiEvidencijeNastave,
-        VratiListuStavkiEvidencijeNastavePoUceniku,
         KreirajStavkuEvidencijeNastave,
         PromeniStavkuEvidencijeNastave,
 
@@ -29,8 +27,6 @@ namespace Zajednicki
         ObrisiUcitelja,
         KreirajUcitelja,
         VratiListuSviUcitelji,
-        VratiListuUciteljaPoSertifikatu,
-        VratiListuUciteljaPoUcitelju,
         VratiListuUcitelji,
 
         //Ucenici
@@ -39,47 +35,54 @@ namespace Zajednicki
         ObrisiUcenika,
         VratiListuUcenika,
         VratiListuSviUcenici,
-        PretraziUcenikaPoImenu,
+
 
        //GrupeUcenika
         KreirajGrupuUcenika,
         PromeniGrupuUcenika,
         ObrisiGrupuUcenika,
-        vratiListuGrupeUcenikaPoUcitelju,
-        VratiListuGrupeUcenikaPoUceniku,
-        VratiListuGrupeUcenikaPoKursu,
         VratiListuSlobodneGrupe,
         VratiListuSveGrupeUcenika,
         VratiZauzeteTermine,
+        VratiListuGrupeUcenika,
 
         //Kurs
         KreirajKurs,
         PromeniKurs,
         PretraziKurs,
         VratiListuSviKursevi,
-        VratiListuKursevaPoImenu,
+        VratiListuKurseva,
 
         //Sertifikati
-        VratiListuSertifikataPoUcitelju,
+        
         VratiListuSviSertifikati,
         UbaciSertifikat,
         PromeniSertifikat,
         ObrisiSertifikat,
-        VratiListuSertifikataPoNazivu,
+        VratiListuSertifikata,
 
         //LICENECE
         KreirajLicencu,
         PromeniLicencu,
         VratiListuSveLicence,
-        VratiListuLicencePoSertifikatu,
-        VratiListuLicencePoUcitelju,
         VratiListuLicence,
 
         //UCENIK GRUPA
         KreirajUcenikGrupa
 
-           
 
+        //VratiListuEvidencijeNastavePoKursu,
+        //VratiListuLicencePoSertifikatu,
+        //VratiListuLicencePoUcitelju,
+        //VratiListuSertifikataPoNazivu,
+        //VratiListuSertifikataPoUcitelju,
+        //vratiListuGrupeUcenikaPoUcitelju,
+        // VratiListuGrupeUcenikaPoUceniku,
+        //VratiListuGrupeUcenikaPoKursu,
+        // PretraziUcenikaPoImenu,
+        //VratiListuUciteljaPoSertifikatu,
+        //VratiListuUciteljaPoUcitelju,
+        // VratiListuStavkiEvidencijeNastavePoUceniku,
 
 
     }

@@ -1,7 +1,9 @@
 ﻿using Domeni;
 using Microsoft.Data.SqlClient;
 using Microsoft.Identity.Client;
+using System.ClientModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Transactions;
@@ -55,7 +57,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public Ucitelj pretraziUcitelja(Ucitelj u)
+        public Ucitelj PretraziUcitelja(Ucitelj u)
         {
             Ucitelj ucitelj = new Ucitelj();
 
@@ -96,13 +98,18 @@ namespace BrokerBazePodataka
 
         }
 
-        public BindingList<Ucitelj> vratiListuUcitelja(Ucitelj u)
+        public BindingList<Ucitelj> VratiListuUcitelja(Ucitelj u)
         {
             Ucitelj ucitelj = new Ucitelj();
             BindingList<Ucitelj> res = new BindingList<Ucitelj>();
+            if(u == null)
+            {
+                return VratiListuSviUcitelji();
+            }
 
             try
             {
+                
                 connection.Open();
 
                 string query = "Select * from Ucitelj where imeUcitelja like @Ime and prezimeUcitelja like @Prezime";
@@ -110,6 +117,7 @@ namespace BrokerBazePodataka
                 command.Parameters.AddWithValue("@Ime", '%' + u.ImeUcitelja + '%');
                 command.Parameters.AddWithValue("@Prezime", '%' + u.PrezimeUcitelja + '%');
                 SqlDataReader reader = command.ExecuteReader();
+                Debug.WriteLine("evo sad ucitelji po ucitelju");
                 res = ucitelj.popuniListu(reader);
 
                 return res;
@@ -125,10 +133,14 @@ namespace BrokerBazePodataka
 
         }
 
-        public BindingList<Ucitelj> vratiListuUcitelja(Sertifikat s)
+        public BindingList<Ucitelj> VratiListuUcitelja(Sertifikat s)
         {
             Ucitelj ucitelj = new Ucitelj();
             BindingList<Ucitelj> res = new BindingList<Ucitelj>();
+            if(s == null)
+            {
+                return VratiListuSviUcitelji();
+            }
 
             try
             {
@@ -152,14 +164,29 @@ namespace BrokerBazePodataka
 
         }
 
-        public BindingList<Ucitelj> vratiListuUcitelja(Ucitelj u, Sertifikat s)
+        public BindingList<Ucitelj> VratiListuUcitelja(Ucitelj ucitelj, Sertifikat sertifikat)
         {
-            List<Ucitelj> lista =vratiListuSviUcitelji().Intersect(vratiListuUcitelja(s).Intersect(vratiListuUcitelja(u))).ToList();
+            BindingList<Ucitelj> poSertifikatu = VratiListuUcitelja(sertifikat);
+            BindingList<Ucitelj> poUcitelju = VratiListuUcitelja(ucitelj);
+            BindingList<Ucitelj> svi = VratiListuSviUcitelji();
+            if(ucitelj == null)
+            {
+                return poSertifikatu;
+            }
+            if(sertifikat == null)
+            {
+                return poUcitelju;
+            }
+            List<Ucitelj> lista = svi.Intersect(poUcitelju).Intersect(poSertifikatu).ToList();
             BindingList<Ucitelj> res = new BindingList<Ucitelj>(lista);
+            foreach(Ucitelj uc in lista)
+            {
+                Debug.WriteLine("RES " + uc.ToString());
+            }
             return res;
         }
 
-        public BindingList<Ucitelj> vratiListuSviUcitelji()
+        public BindingList<Ucitelj> VratiListuSviUcitelji()
         {
             BindingList<Ucitelj> result = new BindingList<Ucitelj>();
 
@@ -186,7 +213,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public void kreirajUcitelja(Ucitelj u)
+        public void KreirajUcitelja(Ucitelj u)
         {
             try
             {
@@ -213,7 +240,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public void promeniUcitelja(Ucitelj ucitelj)
+        public void PromeniUcitelja(Ucitelj ucitelj)
         {
             try
             {
@@ -239,7 +266,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public void obrisiUcitelja(Ucitelj u)
+        public void ObrisiUcitelja(Ucitelj u)
         {
             try
             {
@@ -262,7 +289,7 @@ namespace BrokerBazePodataka
 
         //UCENIK
 
-        public BindingList<Ucenik> vratiListuSviUcenici()
+        public BindingList<Ucenik> VratiListuSviUcenici()
         {
             BindingList<Ucenik> result = new BindingList<Ucenik>();
             Ucenik u = new Ucenik();
@@ -287,7 +314,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<Ucenik> vratiListuUcenika(GrupaUcenika gu)
+        public BindingList<Ucenik> VratiListuUcenika(GrupaUcenika gu)
         {
 
             BindingList<Ucenik> result = new BindingList<Ucenik>();
@@ -306,6 +333,11 @@ namespace BrokerBazePodataka
                 command.Parameters.AddWithValue("@IdGrupe", gu.IdGrupe);
                 SqlDataReader reader = command.ExecuteReader();
                 result = u.popuniListu(reader);
+                foreach (Ucenik uc in result)
+                {
+                    Debug.WriteLine("po grupi " + uc.ToString());
+                }
+
                 return result;
             }
             catch (Exception ex)
@@ -318,7 +350,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public Ucenik pretraziUcenika(Ucenik ucenik)
+        public Ucenik PretraziUcenika(Ucenik ucenik)
         {
             Ucenik u = new Ucenik();
             try
@@ -343,7 +375,7 @@ namespace BrokerBazePodataka
 
         }
 
-        public void kreirajUcenika(Ucenik ucenik)
+        public void KreirajUcenika(Ucenik ucenik)
         {
             try
             {
@@ -371,11 +403,14 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<Ucenik> pretraziUcenikaPoImenu(Ucenik ucenik)
+        public BindingList<Ucenik> VratiListuUcenika(Ucenik ucenik)
         {
 
             BindingList<Ucenik> res = new BindingList<Ucenik>();
-
+            if(ucenik == null)
+            {
+                return VratiListuSviUcenici();
+            }
             try
             {
                 connection.Open();
@@ -386,8 +421,12 @@ namespace BrokerBazePodataka
                 command.Parameters.AddWithValue("@Prezime", '%' + ucenik.PrezimeUcenika + '%');
                 SqlDataReader reader = command.ExecuteReader();
                 res = ucenik.popuniListu(reader);
-
+                foreach (Ucenik uc in res)
+                {
+                    Debug.WriteLine("IME " + uc.ToString());
+                }
                 return res;
+                
             }
             catch
             {
@@ -397,6 +436,30 @@ namespace BrokerBazePodataka
             {
                 connection.Close();
             }
+        }
+
+        public BindingList<Ucenik> VratiListuUcenika(GrupaUcenika grupaUcenika = null, Ucenik ucenik = null)
+        {
+            BindingList<Ucenik> poGrupi = VratiListuUcenika(grupaUcenika);
+            BindingList<Ucenik> poUceniku = VratiListuUcenika(ucenik);
+            BindingList<Ucenik> svi = VratiListuSviUcenici();
+            if(grupaUcenika == null)
+            {
+                return poUceniku;
+            }
+            if(ucenik == null)
+            {
+                return poGrupi;
+            }
+            List<Ucenik> presek = svi.Intersect(poGrupi).Intersect(poUceniku).ToList();
+            BindingList<Ucenik> res = new BindingList<Ucenik>(presek);
+            foreach(Ucenik uc in res)
+            {
+                Debug.WriteLine("KONACNA " + uc.ToString());
+            }
+            return res;
+
+
         }
 
         public void PromeniUcenika(Ucenik ucenik)
@@ -432,7 +495,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public void obrisiUcenika(Ucenik ucenik)
+        public void ObrisiUcenika(Ucenik ucenik)
         {
             try
             {
@@ -456,9 +519,13 @@ namespace BrokerBazePodataka
 
         //GRUPA UCENIKA
 
-        public BindingList<GrupaUcenika> vratiListuGrupaUcenika(Ucitelj u)
+        public BindingList<GrupaUcenika> VratiListuGrupaUcenika(Ucitelj u)
         {
             BindingList<GrupaUcenika> result = new BindingList<GrupaUcenika>();
+            if(u == null)
+            {
+                return VratiListuSveGrupeUcenika();
+            }
             try
             {
                 connection.Open();
@@ -482,7 +549,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<GrupaUcenika> vratiListuSveGrupeUcenika()
+        public BindingList<GrupaUcenika> VratiListuSveGrupeUcenika()
         {
             BindingList<GrupaUcenika> result = new BindingList<GrupaUcenika>();
             GrupaUcenika gu = new GrupaUcenika();
@@ -533,9 +600,13 @@ namespace BrokerBazePodataka
         }
 
 
-        public BindingList<GrupaUcenika> vratiListuGrupaUcenika(Kurs k)
+        public BindingList<GrupaUcenika> VratiListuGrupaUcenika(Kurs k)
         {
             BindingList<GrupaUcenika> result = new BindingList<GrupaUcenika>();
+            if(k == null)
+            {
+                return VratiListuSveGrupeUcenika();
+            }
             try
             {
                 connection.Open();
@@ -604,7 +675,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public List<string> vratiZauzeteTermine()
+        public List<string> VratiZauzeteTermine()
         {
             List<string> res = new List<string>();
             try
@@ -630,7 +701,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<GrupaUcenika> vratiListuSlobodneGrupe()
+        public BindingList<GrupaUcenika> VratiListuSlobodneGrupe()
         {
             BindingList<GrupaUcenika> res = new BindingList<GrupaUcenika>();
 
@@ -654,9 +725,26 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<GrupaUcenika> vratiListuGrupaUcenika(Ucenik u)
+        public BindingList<GrupaUcenika> VratiListuGrupaUcenika(Ucitelj ucitelj, Ucenik ucenik, Kurs kurs) 
+        {
+            BindingList<GrupaUcenika> poUcitelju = VratiListuGrupaUcenika(ucitelj);
+            BindingList<GrupaUcenika> poUceniku = VratiListuGrupaUcenika(ucenik);
+            BindingList<GrupaUcenika> poKursu = VratiListuGrupaUcenika(kurs);
+            BindingList<GrupaUcenika> sve = VratiListuSveGrupeUcenika();
+            List<GrupaUcenika> lista = sve.Intersect(poKursu).Intersect(poUceniku).Intersect(poUcitelju).ToList();
+            BindingList<GrupaUcenika> res = new BindingList<GrupaUcenika>(lista);
+            return res;
+
+
+        }
+
+        public BindingList<GrupaUcenika> VratiListuGrupaUcenika(Ucenik u)
         {
             BindingList<GrupaUcenika> result = new BindingList<GrupaUcenika>();
+            if(u == null)
+            {
+                return VratiListuSveGrupeUcenika();
+            }
             try
             {
                 connection.Open();
@@ -681,7 +769,7 @@ namespace BrokerBazePodataka
 
         //UCENIK GRUPA
 
-        public void kreirajUcenikGrupa(Ucenik ucenik, GrupaUcenika grupa)
+        public void KreirajUcenikGrupa(Ucenik ucenik, GrupaUcenika grupa)
         {
             try
             {
@@ -705,7 +793,7 @@ namespace BrokerBazePodataka
 
         //KURS
 
-        public void kreirajKurs(Kurs k)
+        public void KreirajKurs(Kurs k)
         {
             try
             {
@@ -729,7 +817,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<Kurs> vratiListuKurseva(Kurs zaPretragu)
+        public BindingList<Kurs> VratiListuKurseva(Kurs zaPretragu)
         {
             BindingList<Kurs> result = new BindingList<Kurs>();
             try
@@ -752,7 +840,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public void promeniKurs(Kurs kurs)
+        public void PromeniKurs(Kurs kurs)
         {
             try
             {
@@ -776,7 +864,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public Kurs pretraziKurs(Kurs kurs)
+        public Kurs PretraziKurs(Kurs kurs)
         {
             try
             {
@@ -797,7 +885,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<Kurs> vratiListuSviKursevi()
+        public BindingList<Kurs> VratiListuSviKursevi()
         {
             BindingList<Kurs> result = new BindingList<Kurs>();
 
@@ -824,9 +912,13 @@ namespace BrokerBazePodataka
 
         //SERTIFIKATI
 
-        public BindingList<Sertifikat> vratiListuSertifikata(Ucitelj u)
+        public BindingList<Sertifikat> VratiListuSertifikata(Ucitelj u)
         {
             BindingList<Sertifikat> result = new BindingList<Sertifikat>();
+            if(u == null)
+            {
+                return VratiListuSviSertifikati();
+            }
 
             try
             {
@@ -854,7 +946,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public void ubaciSertifikat(Sertifikat sertifikat)
+        public void UbaciSertifikat(Sertifikat sertifikat)
         {
             try
             {
@@ -875,7 +967,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public void promeniSertifikat(Sertifikat sertifikat)
+        public void PromeniSertifikat(Sertifikat sertifikat)
         {
             try
             {
@@ -896,7 +988,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public void obrisiSertikat(Sertifikat sertifikat)
+        public void ObrisiSertikat(Sertifikat sertifikat)
         {
             try
             {
@@ -916,9 +1008,13 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<Sertifikat> vratiListuSertifikata(Sertifikat sertifikat)
+        public BindingList<Sertifikat> VratiListuSertifikata(Sertifikat sertifikat)
         {
             BindingList<Sertifikat> result = new BindingList<Sertifikat>();
+            if(sertifikat == null)
+            {
+                return VratiListuSviSertifikati();
+            }
             try
             {
 
@@ -941,7 +1037,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<Sertifikat> vratiListuSviSertifikati()
+        public BindingList<Sertifikat> VratiListuSviSertifikati()
         {
             BindingList<Sertifikat> result = new BindingList<Sertifikat>();
 
@@ -968,9 +1064,25 @@ namespace BrokerBazePodataka
             }
         }
 
+        public BindingList<Sertifikat> VratiListuSertifikata(Ucitelj ucitelj, Sertifikat sertifikat)
+        {
+            BindingList<Sertifikat> poSertifikatu = VratiListuSertifikata(sertifikat);
+            BindingList <Sertifikat> poUcitelju = VratiListuSertifikata(ucitelj);
+            if(sertifikat == null)
+            {
+                return poUcitelju;
+            }
+            else 
+            {
+                return poSertifikatu;
+            }
+            
+
+        }
+
         //LICENCE
 
-        public void kreirajLicencu(Licenca licenca)
+        public void KreirajLicencu(Licenca licenca)
         {
             try
             {
@@ -993,7 +1105,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<Licenca> vratiListuSveLicence()
+        public BindingList<Licenca> VratiListuSveLicence()
         {
             BindingList<Licenca> result = new BindingList<Licenca>();
 
@@ -1018,9 +1130,13 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<Licenca> vratiListuLicence(Ucitelj ucitelj)
+        public BindingList<Licenca> VratiListuLicence(Ucitelj ucitelj)
         {
             BindingList<Licenca> result = new BindingList<Licenca>();
+            if (ucitelj == null)
+            {
+                return VratiListuSveLicence();
+            }
 
             try
             {
@@ -1044,9 +1160,13 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<Licenca> vratiListuLicence(Sertifikat sertifikat)
+        public BindingList<Licenca> VratiListuLicence(Sertifikat sertifikat)
         {
             BindingList<Licenca> result = new BindingList<Licenca>();
+            if(sertifikat == null)
+            {
+                return VratiListuSveLicence();
+            }
 
             try
             {
@@ -1071,12 +1191,14 @@ namespace BrokerBazePodataka
         }
 
 
-        public List<Licenca> vratiListuLicence(Ucitelj ucitelj, Sertifikat sertifikat)
+        public BindingList<Licenca> VratiListuLicence(Ucitelj ucitelj, Sertifikat sertifikat)
         {
-            return vratiListuLicence(ucitelj).Intersect(vratiListuLicence(sertifikat)).ToList();
+            List<Licenca> lista =  VratiListuLicence(ucitelj).Intersect(VratiListuLicence(sertifikat)).ToList();
+            BindingList<Licenca> res = new BindingList<Licenca>(lista);
+            return res;
         }
 
-        public void promeniLicencu(Licenca licenca)
+        public void PromeniLicencu(Licenca licenca)
         {
             try
             {
@@ -1145,13 +1267,13 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<EvidencijaNastave> vratiListuEvidencijaNastave(GrupaUcenika grupaUcenika)
+        public BindingList<EvidencijaNastave> VratiListuEvidencijaNastave(GrupaUcenika grupaUcenika)
         {
             BindingList<EvidencijaNastave> result = new BindingList<EvidencijaNastave>();
 
             if (grupaUcenika == null)
             {
-                return vratiListuSveEvidencijaNastave();
+                return VratiListuSveEvidencijaNastave();
             }
 
             try
@@ -1178,13 +1300,13 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<EvidencijaNastave> vratiListuEvidencijaNastave(Kurs kurs)
+        public BindingList<EvidencijaNastave> VratiListuEvidencijaNastave(Kurs kurs)
         {
             BindingList<EvidencijaNastave> result = new BindingList<EvidencijaNastave>();
 
             if (kurs == null)
             {
-                return vratiListuSveEvidencijaNastave();
+                return VratiListuSveEvidencijaNastave();
             }
 
             try
@@ -1211,7 +1333,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<EvidencijaNastave> vratiListuSveEvidencijaNastave()
+        public BindingList<EvidencijaNastave> VratiListuSveEvidencijaNastave()
         {
             BindingList<EvidencijaNastave> result = new BindingList<EvidencijaNastave>();
 
@@ -1239,12 +1361,12 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<EvidencijaNastave> vratiListuEvidencijaNastave(Ucitelj ucitelj)
+        public BindingList<EvidencijaNastave> VratiListuEvidencijaNastave(Ucitelj ucitelj)
         {
             BindingList<EvidencijaNastave> result = new BindingList<EvidencijaNastave>();
             if (ucitelj == null)
             {
-                return vratiListuSveEvidencijaNastave();
+                return VratiListuSveEvidencijaNastave();
             }
             try
             {
@@ -1270,12 +1392,12 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<EvidencijaNastave> vratiListuEvidencijaNastave(EvidencijaNastave evd)
+        public BindingList<EvidencijaNastave> VratiListuEvidencijaNastave(EvidencijaNastave evd)
         {
             BindingList<EvidencijaNastave> result = new BindingList<EvidencijaNastave>();
             if (evd == null)
             {
-                return vratiListuSveEvidencijaNastave();
+                return VratiListuSveEvidencijaNastave();
             }
             try
             {
@@ -1301,12 +1423,12 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<EvidencijaNastave> vratiListuEvidencijaNastave(Ucenik ucenik)
+        public BindingList<EvidencijaNastave> VratiListuEvidencijaNastave(Ucenik ucenik)
         {
             BindingList<EvidencijaNastave> result = new BindingList<EvidencijaNastave>();
             if (ucenik == null)
             {
-                return vratiListuSveEvidencijaNastave();
+                return VratiListuSveEvidencijaNastave();
             }
             try
             {
@@ -1337,15 +1459,15 @@ namespace BrokerBazePodataka
             }
         }
 
-        public List<EvidencijaNastave> vratiListuEvidencijaNastave(GrupaUcenika gu, Ucitelj u, Ucenik ucenik, EvidencijaNastave ev = null)
-        {
-            List<EvidencijaNastave> res = vratiListuEvidencijaNastave(gu).Intersect(vratiListuEvidencijaNastave(u)).Intersect(vratiListuEvidencijaNastave(ucenik)).ToList();
-            return res;
-        }
+        //public List<EvidencijaNastave> VratiListuEvidencijaNastave(GrupaUcenika gu, Ucitelj u, Ucenik ucenik, EvidencijaNastave ev = null)
+        //{
+        //    List<EvidencijaNastave> res = VratiListuEvidencijaNastave(gu).Intersect(VratiListuEvidencijaNastave(u)).Intersect(VratiListuEvidencijaNastave(ucenik)).ToList();
+        //    return res;
+        //}
 
-        public List<EvidencijaNastave> vratiListuEvidencijaNastave(GrupaUcenika gu, Ucitelj u, Ucenik ucenik, EvidencijaNastave ev, Kurs k)
+        public List<EvidencijaNastave> VratiListuEvidencijaNastave(GrupaUcenika grupaUcenika = null, Ucitelj ucitelj = null, Ucenik ucenik = null, EvidencijaNastave evidencijaNastave = null, Kurs kurs = null)
         {
-            List<EvidencijaNastave> res = vratiListuEvidencijaNastave(gu).Intersect(vratiListuEvidencijaNastave(u)).Intersect(vratiListuEvidencijaNastave(ucenik).Intersect(vratiListuEvidencijaNastave(k))).ToList();
+            List<EvidencijaNastave> res = VratiListuEvidencijaNastave(grupaUcenika).Intersect(VratiListuEvidencijaNastave(ucitelj)).Intersect(VratiListuEvidencijaNastave(ucenik).Intersect(VratiListuEvidencijaNastave(kurs))).ToList();
             return res;
         }
 
@@ -1375,7 +1497,7 @@ namespace BrokerBazePodataka
 
         //STAVKA EVIDENCIJE NASTAVE
 
-        public void kreirajStavkuEvidencijeNastave(StavkaEvidencijeNastave stavka)
+        public void KreirajStavkuEvidencijeNastave(StavkaEvidencijeNastave stavka)
         {
             try
             {
@@ -1401,7 +1523,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<StavkaEvidencijeNastave> vratiListuSveStavkeEvidencijeNastave()
+        public BindingList<StavkaEvidencijeNastave> VratiListuSveStavkeEvidencijeNastave()
         {
             BindingList<StavkaEvidencijeNastave> result = new BindingList<StavkaEvidencijeNastave>();
             try
@@ -1429,7 +1551,7 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<StavkaEvidencijeNastave> vratiListuStavkiEvidencijeNastave(EvidencijaNastave evidencija)
+        public BindingList<StavkaEvidencijeNastave> VratiListuStavkiEvidencijeNastave(EvidencijaNastave evidencija)
         {
             BindingList<StavkaEvidencijeNastave> result = new BindingList<StavkaEvidencijeNastave>();
 
@@ -1459,10 +1581,13 @@ namespace BrokerBazePodataka
             }
         }
 
-        public BindingList<StavkaEvidencijeNastave> vratiListuStavkiEvidencijeNastave(Ucenik ucenik)
+        public BindingList<StavkaEvidencijeNastave> VratiListuStavkiEvidencijeNastave(Ucenik ucenik)
         {
             BindingList<StavkaEvidencijeNastave> result = new BindingList<StavkaEvidencijeNastave>();
-
+            if(ucenik == null)
+            {
+                return VratiListuSveStavkeEvidencijeNastave();
+            }
             try
             {
                 connection.Open();
@@ -1487,13 +1612,13 @@ namespace BrokerBazePodataka
             }
         }
 
-        public List<StavkaEvidencijeNastave> vratiListuStavkiEvidencijeNastave(EvidencijaNastave en, Ucenik ucenik)
+        public BindingList<StavkaEvidencijeNastave> VratiListuStavkiEvidencijeNastave(EvidencijaNastave evidencija, Ucenik ucenik)
         {
-            return vratiListuStavkiEvidencijeNastave(en).Intersect(vratiListuStavkiEvidencijeNastave(ucenik)).ToList();
+            return new BindingList<StavkaEvidencijeNastave>(VratiListuStavkiEvidencijeNastave(evidencija).Intersect(VratiListuStavkiEvidencijeNastave(ucenik)).ToList());
         }
 
 
-        public void promeniStavkuEvidencijeNastave(StavkaEvidencijeNastave stavka)
+        public void PromeniStavkuEvidencijeNastave(StavkaEvidencijeNastave stavka)
         {
             try
             {

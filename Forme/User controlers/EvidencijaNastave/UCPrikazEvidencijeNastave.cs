@@ -27,8 +27,8 @@ namespace Forme.User_controlers
             cbUcitelj.DataSource = Komunikacija.Instance.VratiListuSviUcitelji();
             cbUcitelj.SelectedItem = evidencija.Ucitelj;
 
-            dgvUcenici.DataSource = Komunikacija.Instance.VratiListuUcenika(evidencija.Grupa);
-            cbUcenici.DataSource = Komunikacija.Instance.VratiListuUcenika(evidencija.Grupa);
+            dgvUcenici.DataSource = Komunikacija.Instance.VratiListuUcenika(evidencija.Grupa, null);
+            cbUcenici.DataSource = Komunikacija.Instance.VratiListuUcenika(evidencija.Grupa, null);
             cbUcenici.SelectedItem = null;
 
             foreach (DataGridViewColumn col in dgvUcenici.Columns)
@@ -41,7 +41,7 @@ namespace Forme.User_controlers
             dgvUcenici.Columns[2].HeaderText = "Prezime";
             dgvUcenici.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            dgvStavke.DataSource = Komunikacija.Instance.VratiListuStavkiEvidencijeNastave(evidencija);
+            dgvStavke.DataSource = Komunikacija.Instance.VratiListuStavkiEvidencijeNastave(evidencija,null);
             dgvStavke.Columns[0].Visible = false;
             dgvStavke.Columns[dgvStavke.Columns.Count - 1].Visible = false;
 
@@ -104,7 +104,7 @@ namespace Forme.User_controlers
         {
             if (cbUcenici.SelectedItem == null)
             {
-                dgvStavke.DataSource = Komunikacija.instance.VratiListuStavkiEvidencijeNastave(globalna);
+                dgvStavke.DataSource = Komunikacija.instance.VratiListuStavkiEvidencijeNastave(globalna, null);
             }
             else
             {

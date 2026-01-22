@@ -17,7 +17,7 @@ namespace Forme.User_controlers
 
             try
             {
-                dgvLicence.DataSource = Komunikacija.Instance.vratiListuSertifikata(ucitelj);
+                dgvLicence.DataSource = Komunikacija.Instance.VratiListuSertifikata(ucitelj: ucitelj, sertifikat:null);
             }
             catch(Exception ex)
             {
@@ -27,7 +27,7 @@ namespace Forme.User_controlers
             dgvLicence.Columns[0].Visible = false;
             dgvLicence.RowHeadersVisible = false;
 
-            dgvGrupe.DataSource = Komunikacija.Instance.vratiListuGrupaUcenika(ucitelj);
+            dgvGrupe.DataSource = Komunikacija.Instance.vratiListuGrupaUcenika(ucitelj, ucenik: null, kurs: null);
             foreach (DataGridViewColumn col in dgvGrupe.Columns)
             {
                 col.Visible = false;
@@ -103,7 +103,7 @@ namespace Forme.User_controlers
         {
             DodajLicencuForma dodajLicencuForma = new DodajLicencuForma(ucitelj);
             dodajLicencuForma.ShowDialog();
-            dgvLicence.DataSource = Komunikacija.Instance.vratiListuSertifikata(ucitelj);
+            dgvLicence.DataSource = Komunikacija.Instance.VratiListuSertifikata(ucitelj:ucitelj, sertifikat: null);
             dgvLicence.Columns[0].Visible = false;
             dgvLicence.RowHeadersVisible = false;
             dgvLicence.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;

@@ -68,7 +68,7 @@ namespace Forme.User_controlers
             }
             else
             {
-                dgvUcenici.DataSource = Komunikacija.Instance.PretraziUcenikaPoImenu(ucenik);
+                dgvUcenici.DataSource = Komunikacija.Instance.VratiListuUcenika(ucenik:ucenik, grupa:null);
                 foreach(DataGridViewColumn col in dgvUcenici.Columns)
                 {
                     col.Visible = false;
